@@ -1,9 +1,17 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project>
+
+  <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props" />
 
   <PropertyGroup>
     <TargetFramework>netcoreapp1.1</TargetFramework>
-    <PostBuildEvent></PostBuildEvent>
-    <RunPostBuildEvent></RunPostBuildEvent>
+  </PropertyGroup>
+  
+  <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.targets" />
+  
+  <PropertyGroup>
+    <PostBuildEvent>mkdir "$(SolutionDir)tests\coreDox.Core.Tests\$(OutDir)\Exporter"
+mkdir "$(SolutionDir)tests\coreDox.Core.Tests\$(OutDir)\Exporter\HTML"
+xcopy "$(TargetDir)*.*" "$(SolutionDir)tests\coreDox.Core.Tests\$(OutDir)\Exporter\HTML" /Y</PostBuildEvent>
   </PropertyGroup>
 
   <ItemGroup>

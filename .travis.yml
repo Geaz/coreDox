@@ -10,5 +10,7 @@ before_script:
 script:
   - dotnet restore src/coreDox/coreDox.csproj
   - dotnet restore tests/coreDox.Tests/coreDox.Tests.csproj
+  - dotnet restore tests/coreDox.Core.Tests/coreDox.Core.Tests.csproj
   - dotnet test tests/coreDox.Tests/coreDox.Tests.csproj
+  - dotnet test tests/coreDox.Core.Tests/coreDox.Core.Tests.csproj
   - dotnet build src/coreDox/coreDox.csproj

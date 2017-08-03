@@ -4,6 +4,6 @@
     {
         public string TargetFramework { get; set; }
 
-        public string Location { get; set; }
+        public string AssemblyLocation { get; set; }
     }
 }
