@@ -15,9 +15,8 @@ script:
   - dotnet build src/coreDox/coreDox.csproj
   - dotnet build src/[Exporter]/coreDox.Exporter.Html/coreDox.Exporter.Html.csproj
   - dotnet test tests/coreDox.Tests/coreDox.Tests.csproj
-  - mkdir tests/coreDox.Core.Tests/bin/Debug/netcoreapp1.1/Exporter
-  - mkdir tests/coreDox.Core.Tests/bin/Debug/netcoreapp1.1/Exporter/Html
-  - mkdir tests/coreDox.Core.Tests/bin/Debug/netcoreapp1.1/[TestAssemblies]
+  - mkdir -p tests/coreDox.Core.Tests/bin/Debug/netcoreapp1.1/Exporter/Html
+  - mkdir -p tests/coreDox.Core.Tests/bin/Debug/netcoreapp1.1/[TestAssemblies]
   - cp tests/coreDox.Core.Tests/[TestAssemblies]/* tests/coreDox.Core.Tests/bin/Debug/netcoreapp1.1/[TestAssemblies]
   - cp tests/coreDox.Core.Tests/Exporter/Html/* tests/coreDox.Core.Tests/bin/Debug/netcoreapp1.1/Exporter/Html
   - dotnet test tests/coreDox.Core.Tests/coreDox.Core.Tests.csproj
