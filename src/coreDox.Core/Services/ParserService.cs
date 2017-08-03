@@ -1,13 +1,14 @@
-﻿using coreDox.Core.Model.Project;
+﻿using coreDox.Core.Model.Code;
+using coreDox.Core.Model.Project;
+using System;
 
 namespace coreDox.Core.Services
 {
     public class ParserService
     {
-        public DoxRepository ParseProject(DoxProject doxProject)
+        public DoxAssembly ParseProject(DoxProject doxProject)
         {
-            var doxRepo = new DoxRepository();
-            return doxRepo;
+            throw new NotImplementedException();
         }
     }
 }
