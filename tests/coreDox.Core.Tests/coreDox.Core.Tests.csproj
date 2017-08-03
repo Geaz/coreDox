@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Exporter\Html\coreDox.Exporter.Html.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="[TestAssemblies]\SharpDox.Model.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
