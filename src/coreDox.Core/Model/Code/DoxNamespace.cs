@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using coreDox.Core.Model.Code.Base;
 
 namespace coreDox.Core.Model.Code
 {
-    public class DoxNamespace
+    public class DoxNamespace : DoxCodeModel
     {
+        public DoxNamespace(string fullname)
+        {
+            Name = FullName = fullname;
+        }
     }
 }

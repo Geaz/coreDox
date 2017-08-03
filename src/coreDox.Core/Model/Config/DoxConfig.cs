@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace coreDox.Core.Model.Project
+namespace coreDox.Core.Model.Config
 {
     public class DoxConfig
     {
@@ -8,6 +8,6 @@ namespace coreDox.Core.Model.Project
 
         public string OutputFolder { get; set; }
 
-        public List<string> DllFolders { get; set; }
+        public List<DoxConfigAssemblyInfo> Assemblies { get; set; }
     }
 }
