@@ -1,5 +1,6 @@
 ﻿using coreDox.Core.Exceptions;
 using coreDox.Core.Model.Code;
+using coreDox.Core.Model.Config;
 using coreDox.Core.Services;
 using System.Collections.Generic;
 using System.IO;
