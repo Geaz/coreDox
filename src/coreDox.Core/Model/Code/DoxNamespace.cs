@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace coreDox.Core.Model.Project
+namespace coreDox.Core.Model.Code
 {
-    public class DoxRepository
+    public class DoxNamespace
     {
     }
 }

@@ -8,9 +8,6 @@ namespace coreDox
     {
         [Option("doc", Required = true, HelpText = "The target folder of the documentation project.")]
         public string DocFolder { get; set; }
-
-        [Option("exporter", HelpText = "Adds the given exporter to the fiven documentation project.")]
-        public string Exporter { get; set; }
     }
 
     [Verb("build", HelpText = "Build the coreDox project in the current or given directory.")]

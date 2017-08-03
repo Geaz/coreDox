@@ -12,18 +12,33 @@ namespace coreDox.Core.Services
         public ExporterService()
         {
             _pluginDiscoveryService = ServiceLocator.GetService<PluginDiscoveryService>();
-            RegisteredExporterTypes = _pluginDiscoveryService.GetAllExporterPlugins();
+            GetExporters();
+            CreateExporterInstances();
         }
 
         public void ExportDocumentation(DoxProject doxProject)
         {
-            foreach(var exporterType in RegisteredExporterTypes)
+            foreach(var exporter in ExporterInstances)
             {
-                var exporter = (IExporter) Activator.CreateInstance(exporterType);
                 exporter.Export(doxProject.Config.OutputFolder);
             }
         }
+
+        private void GetExporters()
+        {
+            RegisteredExporterTypes = _pluginDiscoveryService.GetAllExporterPlugins();
+        }
+
+        private void CreateExporterInstances()
+        {
+            foreach (var exporterType in RegisteredExporterTypes)
+            {
+                ExporterInstances.Add((IExporter)Activator.CreateInstance(exporterType));
+            }
+        }
         
-        public List<Type> RegisteredExporterTypes { get; }
+        public List<Type> RegisteredExporterTypes { get; private set; }
+
+        public List<IExporter> ExporterInstances { get; } = new List<IExporter>();
     }
 }

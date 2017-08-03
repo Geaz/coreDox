@@ -24,6 +24,7 @@ namespace coreDox.Core.Model.Project
         {
             DocFolder = docFolder;
             CheckFiles();
+            LoadConfig();
         }
 
         /// <summary>
@@ -33,7 +34,14 @@ namespace coreDox.Core.Model.Project
         /// <returns>The created <c>DocProject</c>.</returns>
         public static DoxProject New(string docFolder)
         {
-            //TODO CREATE DOC FOLDER
+            if(!Directory.Exists(docFolder))
+            {
+                throw new CoreDoxException($"Folder '{docFolder}' not found!");
+            }
+            Directory.CreateDirectory(Path.Combine(docFolder, AssetFolderName));
+            Directory.CreateDirectory(Path.Combine(docFolder, PagesFolderName));
+            Directory.CreateDirectory(Path.Combine(docFolder, LayoutFolderName));
+
             return new DoxProject(docFolder);
         }
 
@@ -48,6 +56,11 @@ namespace coreDox.Core.Model.Project
             {
                 throw new CoreDoxException($"Config file or TOC is missing in documentation folder! ({DocFolder})");
             }
+        }
+
+        private void LoadConfig()
+        {
+            _configService.LoadConfig(ConfigFilePath);
         }
 
         /// <summary>
@@ -69,7 +82,7 @@ namespace coreDox.Core.Model.Project
         /// The documentation config.
         /// </summary>
         private DoxConfig _config;
-        public DoxConfig Config => _config ?? (_config = _configService.GetConfig<DoxConfig>(ConfigFilePath));
+        public DoxConfig Config => _config ?? (_config = _configService.GetConfig<DoxConfig>());
 
         /// <summary>
         /// The table of contents of the documentation.
@@ -82,5 +95,10 @@ namespace coreDox.Core.Model.Project
         /// </summary>
         private List<DoxPage> _docPages;
         public List<DoxPage> DocPages => _docPages ?? (_docPages = _contentService.LoadPages(Path.Combine(DocFolder, PagesFolderName)));
+
+        /// <summary>
+        /// Contains all parsed code information.
+        /// </summary>
+        public Dictionary<string, DoxAssembly> Assemblies { get; } = new Dictionary<string, DoxAssembly>();
     }
 }

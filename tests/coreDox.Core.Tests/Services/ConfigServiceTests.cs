@@ -36,9 +36,10 @@ namespace coreDox.Core.Tests
         {
             //Arrange     
             var configService = ServiceLocator.GetService<ConfigService>();
+            configService.LoadConfig(_tmpFile);
 
             //Act
-            var doxConfig = configService.GetConfig<DoxConfig>(_tmpFile);
+            var doxConfig = configService.GetConfig<DoxConfig>();
 
             //Assert
             Assert.IsNotNull(doxConfig);

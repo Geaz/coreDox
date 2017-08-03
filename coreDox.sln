@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0598864B-9CE0-45F8-852C-FDB848222F6F}"
 EndProject
@@ -9,17 +9,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6970E3FD-4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[Exporter]", "[Exporter]", "{B3E4205A-3DB7-4AD6-9DD9-6E72F57E7B0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coreDox.Core", "src\coreDox.Core\coreDox.Core.csproj", "{3B52638A-5E87-4803-8EA9-7A3B48E977D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coreDox.Core", "src\coreDox.Core\coreDox.Core.csproj", "{3B52638A-5E87-4803-8EA9-7A3B48E977D0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coreDox", "src\coreDox\coreDox.csproj", "{6652D595-1A83-432E-A665-DCB9312C7C21}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coreDox", "src\coreDox\coreDox.csproj", "{6652D595-1A83-432E-A665-DCB9312C7C21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coreDox.Tests", "tests\coreDox.Tests\coreDox.Tests.csproj", "{DCF720C4-A37C-4DB8-A15D-44470C50A726}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coreDox.Tests", "tests\coreDox.Tests\coreDox.Tests.csproj", "{DCF720C4-A37C-4DB8-A15D-44470C50A726}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coreDox.Exporter.Html", "src\[Exporter]\coreDox.Exporter.Html\coreDox.Exporter.Html.csproj", "{941F153D-DA9F-45E4-9DF0-A22075AB2B49}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coreDox.Exporter.Html", "src\[Exporter]\coreDox.Exporter.Html\coreDox.Exporter.Html.csproj", "{941F153D-DA9F-45E4-9DF0-A22075AB2B49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coreDox.Core.Tests", "tests\coreDox.Core.Tests\coreDox.Core.Tests.csproj", "{20F06044-A57C-4751-9581-5D92CA3A0A8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coreDox.Core.Tests", "tests\coreDox.Core.Tests\coreDox.Core.Tests.csproj", "{20F06044-A57C-4751-9581-5D92CA3A0A8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coreDox.Parser", "src\coreDox.Parser\coreDox.Parser.csproj", "{36CA990E-2775-4EC5-ACAF-13E5218FEB46}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[ModelProvider]", "[ModelProvider]", "{6EEF8C55-5226-4677-8082-47E3C35F0B6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coreDox.ModelProvider.Syntax", "src\[ModelProvider]\coreDox.ModelProvider.Syntax\coreDox.ModelProvider.Syntax.csproj", "{BFADD1E2-1381-44C7-9CCF-868D7F9B3BEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,18 +93,18 @@ Global
 		{20F06044-A57C-4751-9581-5D92CA3A0A8C}.Release|x64.Build.0 = Release|Any CPU
 		{20F06044-A57C-4751-9581-5D92CA3A0A8C}.Release|x86.ActiveCfg = Release|Any CPU
 		{20F06044-A57C-4751-9581-5D92CA3A0A8C}.Release|x86.Build.0 = Release|Any CPU
-		{36CA990E-2775-4EC5-ACAF-13E5218FEB46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36CA990E-2775-4EC5-ACAF-13E5218FEB46}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{36CA990E-2775-4EC5-ACAF-13E5218FEB46}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{36CA990E-2775-4EC5-ACAF-13E5218FEB46}.Debug|x64.Build.0 = Debug|Any CPU
-		{36CA990E-2775-4EC5-ACAF-13E5218FEB46}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{36CA990E-2775-4EC5-ACAF-13E5218FEB46}.Debug|x86.Build.0 = Debug|Any CPU
-		{36CA990E-2775-4EC5-ACAF-13E5218FEB46}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36CA990E-2775-4EC5-ACAF-13E5218FEB46}.Release|Any CPU.Build.0 = Release|Any CPU
-		{36CA990E-2775-4EC5-ACAF-13E5218FEB46}.Release|x64.ActiveCfg = Release|Any CPU
-		{36CA990E-2775-4EC5-ACAF-13E5218FEB46}.Release|x64.Build.0 = Release|Any CPU
-		{36CA990E-2775-4EC5-ACAF-13E5218FEB46}.Release|x86.ActiveCfg = Release|Any CPU
-		{36CA990E-2775-4EC5-ACAF-13E5218FEB46}.Release|x86.Build.0 = Release|Any CPU
+		{BFADD1E2-1381-44C7-9CCF-868D7F9B3BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFADD1E2-1381-44C7-9CCF-868D7F9B3BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFADD1E2-1381-44C7-9CCF-868D7F9B3BEE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BFADD1E2-1381-44C7-9CCF-868D7F9B3BEE}.Debug|x64.Build.0 = Debug|Any CPU
+		{BFADD1E2-1381-44C7-9CCF-868D7F9B3BEE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BFADD1E2-1381-44C7-9CCF-868D7F9B3BEE}.Debug|x86.Build.0 = Debug|Any CPU
+		{BFADD1E2-1381-44C7-9CCF-868D7F9B3BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFADD1E2-1381-44C7-9CCF-868D7F9B3BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFADD1E2-1381-44C7-9CCF-868D7F9B3BEE}.Release|x64.ActiveCfg = Release|Any CPU
+		{BFADD1E2-1381-44C7-9CCF-868D7F9B3BEE}.Release|x64.Build.0 = Release|Any CPU
+		{BFADD1E2-1381-44C7-9CCF-868D7F9B3BEE}.Release|x86.ActiveCfg = Release|Any CPU
+		{BFADD1E2-1381-44C7-9CCF-868D7F9B3BEE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,6 +116,7 @@ Global
 		{DCF720C4-A37C-4DB8-A15D-44470C50A726} = {6970E3FD-4709-4B1E-ACB3-7B67FA11E4A7}
 		{941F153D-DA9F-45E4-9DF0-A22075AB2B49} = {B3E4205A-3DB7-4AD6-9DD9-6E72F57E7B0C}
 		{20F06044-A57C-4751-9581-5D92CA3A0A8C} = {6970E3FD-4709-4B1E-ACB3-7B67FA11E4A7}
-		{36CA990E-2775-4EC5-ACAF-13E5218FEB46} = {0598864B-9CE0-45F8-852C-FDB848222F6F}
+		{6EEF8C55-5226-4677-8082-47E3C35F0B6D} = {0598864B-9CE0-45F8-852C-FDB848222F6F}
+		{BFADD1E2-1381-44C7-9CCF-868D7F9B3BEE} = {6EEF8C55-5226-4677-8082-47E3C35F0B6D}
 	EndGlobalSection
 EndGlobal

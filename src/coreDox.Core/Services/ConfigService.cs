@@ -1,4 +1,5 @@
-﻿using coreDox.Core.Model.Project;
+﻿using coreDox.Core.Exceptions;
+using coreDox.Core.Model.Project;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
@@ -16,6 +17,7 @@ namespace coreDox.Core.Services
     public class ConfigService
     {
         private List<Type> _configTypes = new List<Type>();
+        private List<object> _loadedConfigSections = new List<object>();
 
         private readonly ExporterService _exporterService;
 
@@ -34,10 +36,10 @@ namespace coreDox.Core.Services
         /// <typeparam name="T">The type of the config section</typeparam>
         /// <returns>A instance of the config type with the loaded config values</returns>
         /// <remarks><see cref="LoadConfig(string)"/> has to be executed in advance!</remarks>
-        public T GetConfig<T>(string configPath)
+        public T GetConfig<T>()
         {
-            var configSections = LoadConfig(configPath);
-            return (T)configSections.Single(l => l.GetType() == typeof(T));
+            if (_loadedConfigSections == null) throw new CoreDoxException("No config loaded!");
+            return (T)_loadedConfigSections.Single(l => l.GetType() == typeof(T));
         }
 
         /// <summary>
@@ -46,9 +48,9 @@ namespace coreDox.Core.Services
         /// The name of the config type is the key of the section in the config file.
         /// </summary>
         /// <param name="configPath">The config file to load</param>
-        private List<object> LoadConfig(string configPath)
+        public void LoadConfig(string configPath)
         {
-            var configSections = new List<object>();
+            _loadedConfigSections = new List<object>();
 
             var converter = new ExpandoObjectConverter();
             var jsonConfig = JsonConvert.DeserializeObject<ExpandoObject>(File.ReadAllText(configPath), converter);
@@ -58,10 +60,10 @@ namespace coreDox.Core.Services
                 if (configType != null)
                 {
                     var serializedSubConfig = JsonConvert.SerializeObject(config.Value);
-                    configSections.Add(JsonConvert.DeserializeObject(serializedSubConfig, configType));
+                    _loadedConfigSections.Add(JsonConvert.DeserializeObject(serializedSubConfig, configType));
                 }
             }
-            return configSections;
+            LoadedConfig = configPath;
         }
 
         private void FindConfigTypes()
@@ -77,5 +79,7 @@ namespace coreDox.Core.Services
                 }
             }
         }
+
+        public string LoadedConfig { get; private set; }
     }
 }

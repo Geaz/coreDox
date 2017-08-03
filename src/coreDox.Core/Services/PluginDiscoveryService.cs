@@ -1,4 +1,5 @@
 ﻿using coreDox.Core.Contracts;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +14,7 @@ namespace coreDox.Core.Services
     /// </summary>
     public class PluginDiscoveryService
     {
+        private readonly ILogger _logger = LogManager.GetLogger("PluginDiscoveryService");
         private readonly string[] _possibleExporterDllFiles;
         private readonly string _exporterFolder = Path.Combine(Path.GetDirectoryName(typeof(ExporterService).GetTypeInfo().Assembly.Location), "Exporter");
         
@@ -31,8 +33,15 @@ namespace coreDox.Core.Services
             
             foreach (var possibleExporterDllFile in _possibleExporterDllFiles)
             {
-                var possibleExporterAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(possibleExporterDllFile);
-                exporter.AddRange(GetTypesWithInterface<IExporter>(possibleExporterAssembly));
+                try
+                {
+                    var possibleExporterAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(possibleExporterDllFile);
+                    exporter.AddRange(GetTypesWithInterface<IExporter>(possibleExporterAssembly));
+                }
+                catch(Exception)
+                {
+                    _logger.Warn($"Couldn't load assemby: {possibleExporterDllFile}");
+                }
             }
 
             return exporter;

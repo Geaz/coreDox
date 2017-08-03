@@ -47,14 +47,29 @@ The functionality is structured into different services:
 - **PluginDiscoveryService** *This service is responsible for the discovery of all **coreDox** plugins*
 - **ServiceLocator** *Used to get an instance of a service*
 
-**coreDox.Parser**
-
-This projects contains the XML Documentation Parser and IL Code parser (using Cecil).
-Used by the *ParserService* in *coreDox.Core*.
-
 **coreDox.Exporter.Html**
 
 The default exporter for coreDox. Exports the parsed project to a html page.
+
+Modular Models, Templates and Exporters (IDEA!?)
+---
+In **sharpDox** the whole documentation model was defined in one big model. **coreDox** goes another way in defining the model.
+The core of **coreDox** will just provide a rough structure of the model. Containing the top most entities (including an ID) in a code project.
+These entities are:
+
+- Namespaces
+- Types
+- Members
+
+The data which was parsed in **sharpDox** like Names, Attributes, Diagrams, Usings etc. are parsed by **ModelProviders**.
+
+**ModelProviders** are one of the *plugin* types of **coreDox**. They add more information to the rough core model.
+These information can be used by **TagProviders**, the second *plugin* type of **coreDox**.
+
+**TagProviders** are able to use the whole model of **coreDox** (core model + **ModelProviders**) by defining template tags.
+Template tags can be used by templates in an **Exporter** - the last *plugin* type of **coreDox**.
+
+**Exporters** are responsible to make the parsed model of **coreDox** to something consumable. Like a HTML site or a PDF document.
 
 Documentation Projects
 ---
