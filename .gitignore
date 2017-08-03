@@ -11,6 +11,8 @@ src/packages/*
 
 !packages/repositories.config
 !src/packages/repositories.config
+!tests/coreDox.Core.Tests/\[TestAssemblies\]/*.*
+!tests/coreDox.Core.Tests/Exporter/*/*.*
 
 # Build results
 
