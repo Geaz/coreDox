@@ -5,16 +5,16 @@ namespace coreDox.Core.Model.Code.Members
 {
     public class DoxProperty : DoxCodeModel
     {
-        public DoxProperty(PropertyInfo property)
+        public DoxProperty(PropertyInfo propertyInfo)
         {
-            Property = property;
-            Name = property.Name;
-            FullName = $"{property.DeclaringType.FullName}.{Name}";
+            PropertyInfo = propertyInfo;
+            Name = propertyInfo.Name;
+            FullName = $"{propertyInfo.DeclaringType.FullName}.{Name}";
         }
 
         /// <summary>
         /// The reflection <see cref="PropertyInfo"/> for this code model property.
         /// </summary>
-        public PropertyInfo Property { get; }
+        public PropertyInfo PropertyInfo { get; }
     }
 }

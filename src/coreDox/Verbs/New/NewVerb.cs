@@ -1,5 +1,4 @@
-﻿using coreDox.Core.Model.Project;
-using NLog;
+﻿using NLog;
 
 namespace coreDox.New
 {
@@ -10,7 +9,7 @@ namespace coreDox.New
         public NewVerb(NewOptions newOptions)
         {
             _logger.Info($"Creating a new project in folder '{newOptions.DocFolder}' ...");
-            DoxProject.New(newOptions.DocFolder);
+            //DoxProject.New(newOptions.DocFolder);
             _logger.Info("Project created successfully!");
         }
     }

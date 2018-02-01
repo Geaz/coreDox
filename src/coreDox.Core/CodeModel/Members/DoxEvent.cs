@@ -5,16 +5,16 @@ namespace coreDox.Core.Model.Code.Members
 {
     public class DoxEvent : DoxCodeModel
     {
-        public DoxEvent(EventInfo @event)
+        public DoxEvent(EventInfo eventInfo)
         {
-            Event = @event;
-            Name = @event.Name;
-            FullName = $"{@event.DeclaringType.FullName}.{Name}";
+            EventInfo = eventInfo;
+            Name = eventInfo.Name;
+            FullName = $"{eventInfo.DeclaringType.FullName}.{Name}";
         }
 
         /// <summary>
         /// The reflection <see cref="EventInfo"/> for this code model event.
         /// </summary>
-        public EventInfo Event { get; }
+        public EventInfo EventInfo { get; }
     }
 }

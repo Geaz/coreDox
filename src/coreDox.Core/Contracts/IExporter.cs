@@ -1,12 +1,10 @@
-using coreDox.Core.Model.Project;
-
 namespace coreDox.Core.Contracts
 {
     public interface IExporter
     {
         void Export(string outputPath);
 
-        DoxProject DoxProject { get; set; }
+        IProject Project { get; set; }
 
         string ExporterName { get; }
     }

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>    
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,15 +20,24 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Exporter\Html\coreDox.Exporter.Html.dll">
+    <None Update="[Exporter]\Html\coreDox.Exporter.Html.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="[TestAssemblies]\SharpDox.Model.dll">
+    <None Update="[TestProject]\doc\config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="[TestAssemblies]\SharpDox.Sdk.dll">
+    <None Update="[TestProject]\SharpDox.Model.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="[TestProject]\SharpDox.Sdk.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="[TestProject]\doc\assets\" />
+    <Folder Include="[TestProject]\doc\layout\" />
+    <Folder Include="[TestProject]\doc\pages\" />
   </ItemGroup>
 
 </Project>

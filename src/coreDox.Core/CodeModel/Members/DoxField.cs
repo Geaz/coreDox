@@ -5,16 +5,16 @@ namespace coreDox.Core.Model.Code.Members
 {
     public class DoxField : DoxCodeModel
     {
-        public DoxField(FieldInfo field)
+        public DoxField(FieldInfo fieldInfo)
         {
-            Field = field;
-            Name = field.Name;
-            FullName = $"{field.DeclaringType.FullName}.{Name}";
+            FieldInfo = fieldInfo;
+            Name = fieldInfo.Name;
+            FullName = $"{fieldInfo.DeclaringType.FullName}.{Name}";
         }
 
         /// <summary>
         /// The reflection <see cref="FieldInfo"/> for this code model field.
         /// </summary>
-        public FieldInfo Field { get; }
+        public FieldInfo FieldInfo { get; }
     }
 }

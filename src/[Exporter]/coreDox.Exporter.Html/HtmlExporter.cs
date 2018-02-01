@@ -1,5 +1,5 @@
-﻿using coreDox.Core.Contracts;
-using coreDox.Core.Model.Project;
+﻿using coreDox.Core;
+using coreDox.Core.Contracts;
 
 namespace coreDox.Exporter.Html
 {
@@ -10,7 +10,7 @@ namespace coreDox.Exporter.Html
             
         }
 
-        public DoxProject DoxProject { get; set; }
+        public IProject Project { get; set; }
 
         public HtmlConfig Config { get; set; }
 

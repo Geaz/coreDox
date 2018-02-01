@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace coreDox.Core.Model.Project
+namespace coreDox.Core.Contracts
 {
-    public class DoxPage
+    public interface IConfigSection
     {
     }
 }

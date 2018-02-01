@@ -1,4 +1,5 @@
 ﻿using coreDox.Core.Model.Code.Base;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace coreDox.Core.Model.Code
@@ -13,9 +14,16 @@ namespace coreDox.Core.Model.Code
             FullName = assembly.GetName().FullName;
         }
 
+        public DoxNamespace GetOrAddNamespace(string namespaceIdentifier)
+        {
+            return DoxNamespaceSet.GetOrAdd(new DoxNamespace(namespaceIdentifier));
+        }
+
         public string TargetFramework { get; }
 
         public Assembly Assembly { get; }
+
+        public HashSet<DoxNamespace> DoxNamespaceSet { get; } = new HashSet<DoxNamespace>();
     }
 }
 

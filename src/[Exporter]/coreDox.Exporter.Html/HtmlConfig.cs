@@ -2,6 +2,6 @@
 {
     public class HtmlConfig
     {
-        public bool ShowCode { get; set; }
+        public bool ShowCode { get; set; } = false;
     }
 }

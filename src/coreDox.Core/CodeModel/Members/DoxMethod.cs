@@ -5,16 +5,16 @@ namespace coreDox.Core.Model.Code.Members
 {
     public class DoxMethod : DoxCodeModel
     {
-        public DoxMethod(MethodInfo method)
+        public DoxMethod(MethodInfo methodInfo)
         {
-            Method = method;
-            Name = method.Name;
-            FullName = $"{method.DeclaringType.FullName}.{Name}";
+            MethodInfo = methodInfo;
+            Name = methodInfo.Name;
+            FullName = $"{methodInfo.DeclaringType.FullName}.{Name}";
         }
 
         /// <summary>
         /// The reflection <see cref="MethodInfo"/> for this code model method.
         /// </summary>
-        public MethodInfo Method { get; }
+        public MethodInfo MethodInfo { get; }
     }
 }
