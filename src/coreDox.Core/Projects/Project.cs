@@ -14,7 +14,7 @@ namespace coreDox.Core
 
         private ProjectLoadResultList _projectLoadResultList;
 
-        private readonly ProjectDirectory _projectDirectory;
+        private readonly ProjectDirectory _rootProjectDirectory;
         private readonly ProjectDirectory _assetDirectory;
         private readonly ProjectDirectory _pagesDirectory;
         private readonly ProjectDirectory _layoutDirectory;
@@ -24,7 +24,7 @@ namespace coreDox.Core
 
         public Project(string projectFolderPath, ProjectConfig projectConfig)
         {
-            _projectDirectory = new ProjectDirectory(projectFolderPath);
+            _rootProjectDirectory = new ProjectDirectory(projectFolderPath);
             _assetDirectory = new ProjectDirectory(Path.Combine(projectFolderPath, AssetFolderName));
             _pagesDirectory = new ProjectDirectory(Path.Combine(projectFolderPath, PagesFolderName));
             _layoutDirectory = new ProjectDirectory(Path.Combine(projectFolderPath, LayoutFolderName));
@@ -34,7 +34,7 @@ namespace coreDox.Core
         public ProjectLoadResultList Load(bool createDefault)
         {
             _projectLoadResultList = new ProjectLoadResultList();
-            _projectLoadResultList.Add(_projectDirectory.FullName, _projectDirectory.Exists, _projectDirectory.Created, _projectDirectory.Created || _projectDirectory.Existed);
+            _projectLoadResultList.Add(_rootProjectDirectory.FullName, _rootProjectDirectory.Exists, _rootProjectDirectory.Created, _rootProjectDirectory.Created || _rootProjectDirectory.Existed);
             _projectLoadResultList.Add(_assetDirectory.FullName, _assetDirectory.Exists, _assetDirectory.Created, _assetDirectory.Created || _assetDirectory.Existed);
             _projectLoadResultList.Add(_pagesDirectory.FullName, _pagesDirectory.Exists, _pagesDirectory.Created, _pagesDirectory.Created || _pagesDirectory.Existed);
             _projectLoadResultList.Add(_layoutDirectory.FullName, _layoutDirectory.Exists, _layoutDirectory.Created, _layoutDirectory.Created || _layoutDirectory.Existed);

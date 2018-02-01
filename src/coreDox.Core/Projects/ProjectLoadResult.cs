@@ -17,9 +17,6 @@ namespace coreDox.Core.Projects
             _loaded = loaded;
         }
 
-        public bool Succeeded()
-        {
-            return _loaded;
-        }
+        public bool Succeeded => _loaded;
     }
 }
