@@ -42,16 +42,5 @@ namespace coreDox.Core
 
             return _projectLoadResultList;
         }
-        
-        private bool EnsureDirectory(DirectoryInfo directory)
-        {
-            var created = false;
-            if (!directory.Exists)
-            {
-                directory.Create();
-                created = true;
-            }
-            return created;
-        }
     }
 }
