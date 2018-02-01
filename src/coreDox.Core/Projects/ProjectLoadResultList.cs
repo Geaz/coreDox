@@ -19,7 +19,7 @@ namespace coreDox.Core.Projects
 
         public bool AllSucceeded()
         {
-            return _projectLoadResultList.All(r => r.Succeeded());
+            return _projectLoadResultList.All(r => r.Succeeded);
         }
     }
 }
