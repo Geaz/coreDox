@@ -1,12 +1,7 @@
 language: csharp
 dist: trusty
-sudo: required
 mono: none
-before_script:
-  - sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ trusty main" > /etc/apt/sources.list.d/dotnetdev.list'
-  - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
-  - sudo apt-get update -qq
-  - sudo apt-get install dotnet-sdk-2.1.4
+dotnet: 2.1.4
 script:
   - dotnet restore src/coreDox/coreDox.csproj
   - dotnet restore src/[Exporter]/coreDox.Exporter.Html/coreDox.Exporter.Html.csproj
