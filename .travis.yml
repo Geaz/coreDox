@@ -6,17 +6,15 @@ before_script:
   - sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ trusty main" > /etc/apt/sources.list.d/dotnetdev.list'
   - sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
   - sudo apt-get update -qq
-  - sudo apt-get install dotnet-dev-1.0.1
+  - sudo apt-get install dotnet-sdk-2.1.4
 script:
   - dotnet restore src/coreDox/coreDox.csproj
   - dotnet restore src/[Exporter]/coreDox.Exporter.Html/coreDox.Exporter.Html.csproj
-  - dotnet restore tests/coreDox.Tests/coreDox.Tests.csproj
   - dotnet restore tests/coreDox.Core.Tests/coreDox.Core.Tests.csproj
   - dotnet build src/coreDox/coreDox.csproj
   - dotnet build src/[Exporter]/coreDox.Exporter.Html/coreDox.Exporter.Html.csproj
-  - dotnet test tests/coreDox.Tests/coreDox.Tests.csproj
-  - mkdir -p tests/coreDox.Core.Tests/bin/Debug/netcoreapp1.1/Exporter/Html
-  - mkdir -p tests/coreDox.Core.Tests/bin/Debug/netcoreapp1.1/[TestAssemblies]
-  - cp tests/coreDox.Core.Tests/\[TestAssemblies\]/* tests/coreDox.Core.Tests/bin/Debug/netcoreapp1.1/\[TestAssemblies\]/
-  - cp tests/coreDox.Core.Tests/Exporter/Html/* tests/coreDox.Core.Tests/bin/Debug/netcoreapp1.1/Exporter/Html/
+  - mkdir -p tests/coreDox.Core.Tests/bin/Debug/netcoreapp2.0/Exporter/Html
+  - mkdir -p tests/coreDox.Core.Tests/bin/Debug/netcoreapp2.0/[TestAssemblies]
+  - cp tests/coreDox.Core.Tests/\[TestAssemblies\]/* tests/coreDox.Core.Tests/bin/Debug/netcoreapp2.0/\[TestAssemblies\]/
+  - cp tests/coreDox.Core.Tests/Exporter/Html/* tests/coreDox.Core.Tests/bin/Debug/netcoreapp2.0/Exporter/Html/
   - dotnet test tests/coreDox.Core.Tests/coreDox.Core.Tests.csproj
