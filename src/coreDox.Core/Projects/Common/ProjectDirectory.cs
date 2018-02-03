@@ -2,7 +2,7 @@
 
 namespace coreDox.Core.Projects
 {
-    public class ProjectDirectory
+    public sealed class ProjectDirectory
     {
         private bool _created;
 

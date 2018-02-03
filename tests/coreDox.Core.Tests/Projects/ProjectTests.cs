@@ -19,10 +19,12 @@ namespace coreDox.Core.Tests.Projects
         public void ShouldCreateNewDefaultProjectOnLoadSuccessfully()
         {
             //Arrange
-            var project = new Project(_tmpPath, new ProjectConfig());
+            var pluginRegistry = new PluginRegistry();
+            var projectConfig = new ProjectConfig(pluginRegistry, Path.Combine(_tmpPath, Project.ConfigFileName));
+            var project = new Project(projectConfig);
 
             //Act
-            var loadResult = project.Load(true);
+            var loadResult = project.Load();
 
             //Assert
             Assert.IsTrue(loadResult.AllSucceeded());
@@ -30,7 +32,7 @@ namespace coreDox.Core.Tests.Projects
             Assert.IsTrue(Directory.Exists(Path.Combine(_tmpPath, Project.AssetFolderName)));
             Assert.IsTrue(Directory.Exists(Path.Combine(_tmpPath, Project.LayoutFolderName)));
             Assert.IsTrue(Directory.Exists(Path.Combine(_tmpPath, Project.PagesFolderName)));
-           // Assert.IsTrue(File.Exists(Path.Combine(_tmpPath, Project.ConfigFileName)));
+            Assert.IsTrue(File.Exists(Path.Combine(_tmpPath, Project.ConfigFileName)));
         }
     }
 }

@@ -20,7 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="[Exporter]\Html\coreDox.Exporter.Html.dll">
+    <None Update="Targets\Html\coreDox.Exporter.Html.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Targets\Html\coreDox.Target.Html.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="[TestProject]\doc\config.json">
