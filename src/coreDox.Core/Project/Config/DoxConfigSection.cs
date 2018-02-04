@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using coreDox.Core.Contracts;
 
-namespace coreDox.Core.Projects.Config
+namespace coreDox.Core.Project.Config
 {
     public sealed class DoxConfigSection : IConfigSection
     {

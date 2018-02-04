@@ -1,20 +1,20 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 
-namespace coreDox.Core.Projects
+namespace coreDox.Core.Project.Common
 {
-    public sealed class ProjectLoadResultList
+    public sealed class DoxProjectLoadResultList
     {
-        private List<ProjectLoadResult> _projectLoadResultList = new List<ProjectLoadResult>();
+        private List<DoxProjectLoadResult> _projectLoadResultList = new List<DoxProjectLoadResult>();
 
-        public void Add(ProjectLoadResult projectLoadResult)
+        public void Add(DoxProjectLoadResult projectLoadResult)
         {
             _projectLoadResultList.Add(projectLoadResult);
         }
 
         public void Add(string path, bool existed, bool created, bool loaded)
         {
-            _projectLoadResultList.Add(new ProjectLoadResult(path, existed, created, loaded));
+            _projectLoadResultList.Add(new DoxProjectLoadResult(path, existed, created, loaded));
         }
 
         public bool AllSucceeded()

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2010
+VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{0598864B-9CE0-45F8-852C-FDB848222F6F}"
 EndProject
@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coreDox.ModelProvider.Synta
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "[Targets]", "[Targets]", "{F297942A-ED72-4379-92AB-A88BF1BBAFD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coreDox.Target.Html", "src\[Targets]\coreDox.Target.Html\coreDox.Target.Html.csproj", "{C2498540-886F-45DB-8C4C-CDA20BCD4510}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "coreDox.Target.Html", "src\[Targets]\coreDox.Target.Html\coreDox.Target.Html.csproj", "{C2498540-886F-45DB-8C4C-CDA20BCD4510}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

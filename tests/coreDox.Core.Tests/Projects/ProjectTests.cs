@@ -1,4 +1,5 @@
-using coreDox.Core.Configuration;
+using coreDox.Core.Project;
+using coreDox.Core.Project.Config;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 
@@ -20,8 +21,8 @@ namespace coreDox.Core.Tests.Projects
         {
             //Arrange
             var pluginRegistry = new PluginRegistry();
-            var projectConfig = new ProjectConfig(pluginRegistry, Path.Combine(_tmpPath, Project.ConfigFileName));
-            var project = new Project(projectConfig);
+            var projectConfig = new DoxProjectConfig(pluginRegistry, Path.Combine(_tmpPath, DoxProject.ConfigFileName));
+            var project = new DoxProject(projectConfig);
 
             //Act
             var loadResult = project.Load();
@@ -29,10 +30,10 @@ namespace coreDox.Core.Tests.Projects
             //Assert
             Assert.IsTrue(loadResult.AllSucceeded());
 
-            Assert.IsTrue(Directory.Exists(Path.Combine(_tmpPath, Project.AssetFolderName)));
-            Assert.IsTrue(Directory.Exists(Path.Combine(_tmpPath, Project.LayoutFolderName)));
-            Assert.IsTrue(Directory.Exists(Path.Combine(_tmpPath, Project.PagesFolderName)));
-            Assert.IsTrue(File.Exists(Path.Combine(_tmpPath, Project.ConfigFileName)));
+            Assert.IsTrue(Directory.Exists(Path.Combine(_tmpPath, DoxProject.AssetFolderName)));
+            Assert.IsTrue(Directory.Exists(Path.Combine(_tmpPath, DoxProject.LayoutFolderName)));
+            Assert.IsTrue(Directory.Exists(Path.Combine(_tmpPath, DoxProject.PagesFolderName)));
+            Assert.IsTrue(File.Exists(Path.Combine(_tmpPath, DoxProject.ConfigFileName)));
         }
     }
 }

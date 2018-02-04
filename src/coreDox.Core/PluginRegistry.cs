@@ -1,5 +1,5 @@
 ﻿using coreDox.Core.Contracts;
-using coreDox.Core.Projects.Config;
+using coreDox.Core.Project.Config;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -38,7 +38,7 @@ namespace coreDox.Core
                     }
                     catch (Exception)
                     {
-                        _logger.Debug($"Couldn't load assemby: {possibleTargetDllFile}");
+                        _logger.Debug($"Couldn't load assembly: {possibleTargetDllFile}");
                     }
                 }
             }

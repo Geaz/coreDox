@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace coreDox.Core.Projects
+namespace coreDox.Core.Project.Common
 {
-    public sealed class ProjectLoadResult
+    public sealed class DoxProjectLoadResult
     {
         private readonly string _path;
         private readonly bool _existed;
@@ -10,10 +10,10 @@ namespace coreDox.Core.Projects
         private readonly bool _loaded;
         private readonly Exception _ex;
 
-        public ProjectLoadResult(string path, bool existed, bool created, bool loaded)
+        public DoxProjectLoadResult(string path, bool existed, bool created, bool loaded)
             : this(path, existed, created, loaded, null) { }
 
-        public ProjectLoadResult(string path, bool existed, bool created, bool loaded, Exception ex)
+        public DoxProjectLoadResult(string path, bool existed, bool created, bool loaded, Exception ex)
         {
             _path = path;
             _existed = existed;

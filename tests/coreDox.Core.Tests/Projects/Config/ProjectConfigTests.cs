@@ -1,5 +1,5 @@
-using coreDox.Core.Configuration;
-using coreDox.Core.Projects.Config;
+using coreDox.Core.Project;
+using coreDox.Core.Project.Config;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 
@@ -21,8 +21,8 @@ namespace coreDox.Core.Tests.Projects
         public void ShouldGetDoxConfigSuccessfully()
         {
             //Arrange
-            var projectConfig = new ProjectConfig(_pluginRegistry, Path.Combine(_tmpPath, Project.ConfigFileName));
-            var project = new Project(projectConfig);
+            var projectConfig = new DoxProjectConfig(_pluginRegistry, Path.Combine(_tmpPath, DoxProject.ConfigFileName));
+            var project = new DoxProject(projectConfig);
             project.Load();
 
             //Act

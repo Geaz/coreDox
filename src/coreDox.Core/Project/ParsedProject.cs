@@ -1,12 +1,12 @@
 ﻿using coreDox.Core.Contracts;
 
-namespace coreDox.Core.Projects
+namespace coreDox.Core.Project
 {
     public sealed class ParsedProject : IProject
     {
-        private Project _project;
+        private DoxProject _project;
 
-        public ParsedProject(Project project)
+        public ParsedProject(DoxProject project)
         {
             _project = project;
         }

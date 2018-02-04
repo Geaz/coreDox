@@ -1,5 +1,8 @@
 ﻿using coreDox.Core.Model.Code.Base;
+using Microsoft.Build.Evaluation;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace coreDox.Core.Model.Code
@@ -12,6 +15,8 @@ namespace coreDox.Core.Model.Code
             TargetFramework = targetFramework;
             Name = assembly.GetName().Name;
             FullName = assembly.GetName().FullName;
+
+            var t = new Microsoft.Build.Evaluation.Project();
         }
 
         public DoxNamespace GetOrAddNamespace(string namespaceIdentifier)
@@ -19,9 +24,11 @@ namespace coreDox.Core.Model.Code
             return DoxNamespaceSet.GetOrAdd(new DoxNamespace(namespaceIdentifier));
         }
 
-        public string TargetFramework { get; }
-
         public Assembly Assembly { get; }
+
+        public FileInfo ProjectFile { get; }
+
+        public string TargetFramework { get; }
 
         public HashSet<DoxNamespace> DoxNamespaceSet { get; } = new HashSet<DoxNamespace>();
     }

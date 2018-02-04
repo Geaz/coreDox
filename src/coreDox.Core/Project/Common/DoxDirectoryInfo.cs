@@ -1,14 +1,14 @@
 ﻿using System.IO;
 
-namespace coreDox.Core.Projects
+namespace coreDox.Core.Project.Common
 {
-    public sealed class ProjectDirectory
+    public sealed class DoxDirectoryInfo
     {
         private bool _created;
 
         private DirectoryInfo _directoryInfo;
 
-        public ProjectDirectory(string directoryPath)
+        public DoxDirectoryInfo(string directoryPath)
         {
             _directoryInfo = new DirectoryInfo(directoryPath);
             EnsureDirectory();

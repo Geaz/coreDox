@@ -1,5 +1,5 @@
 ﻿using coreDox.Core.Exceptions;
-using coreDox.Core.Projects;
+using coreDox.Core.Project.Common;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
@@ -9,9 +9,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace coreDox.Core.Configuration
+namespace coreDox.Core.Project.Config
 {
-    public sealed class ProjectConfig
+    public sealed class DoxProjectConfig
     {
         private bool _created;
         private List<Object> _loadedConfigSections;
@@ -19,15 +19,15 @@ namespace coreDox.Core.Configuration
         private readonly PluginRegistry _pluginRegistry;
         private readonly FileInfo _configFileInfo;
 
-        public ProjectConfig(PluginRegistry pluginRegistry, string configFilePath)
+        public DoxProjectConfig(PluginRegistry pluginRegistry, string configFilePath)
         {
             _pluginRegistry = pluginRegistry;
             _configFileInfo = new FileInfo(configFilePath);
         }
 
-        public ProjectLoadResult Load()
+        public DoxProjectLoadResult Load()
         {
-            ProjectLoadResult result = null;
+            DoxProjectLoadResult result = null;
             try
             {
                 if (!_configFileInfo.Exists) CreateDefaultConfig();
@@ -48,11 +48,11 @@ namespace coreDox.Core.Configuration
                         }
                     }
                 }
-                result = new ProjectLoadResult(_configFileInfo.FullName, !_created, _created, true);
+                result = new DoxProjectLoadResult(_configFileInfo.FullName, !_created, _created, true);
             }
             catch(Exception ex)
             {
-                result = new ProjectLoadResult(_configFileInfo.FullName, !_created, _created, false, ex);
+                result = new DoxProjectLoadResult(_configFileInfo.FullName, !_created, _created, false, ex);
             }
             return result;
         }
