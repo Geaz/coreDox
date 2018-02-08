@@ -1,8 +1,6 @@
 ﻿using coreDox.Core.Model.Code.Base;
-using Microsoft.Build.Evaluation;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 
 namespace coreDox.Core.Model.Code

@@ -1,33 +1,38 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace coreDox.Core.Project.Common
 {
     public sealed class DoxDirectoryInfo
     {
         private bool _created;
-
-        private DirectoryInfo _directoryInfo;
+        private readonly DirectoryInfo _directoryInfo;
 
         public DoxDirectoryInfo(string directoryPath)
         {
             _directoryInfo = new DirectoryInfo(directoryPath);
-            EnsureDirectory();
         }
 
-        private void EnsureDirectory()
+        public bool EnsureDirectory()
         {
+            _directoryInfo.Refresh();
             if (!_directoryInfo.Exists)
             {
                 _directoryInfo.Create();
                 _created = true;
             }
+            return _created;
         }
 
         public string Name => _directoryInfo.Name;
         public string FullName => _directoryInfo.FullName;
 
+        public bool Exists { get { _directoryInfo.Refresh(); return _directoryInfo.Exists; } }
         public bool Created => _created;
-        public bool Existed => !_created;
-        public bool Exists => _directoryInfo.Exists;
+        public bool Existed => !_created && Exists;
+        public DateTime LastWriteTimeUtc { get { _directoryInfo.Refresh(); return _directoryInfo.LastWriteTimeUtc; } }
+
+        private DoxDirectoryInfo _parentDirectory;
+        public DoxDirectoryInfo ParentDirectory => _parentDirectory ?? (_parentDirectory = new DoxDirectoryInfo(_directoryInfo.Parent.FullName));
     }
 }

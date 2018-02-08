@@ -9,7 +9,5 @@ script:
   - dotnet build src/coreDox/coreDox.csproj
   - dotnet build src/[Targets]/coreDox.Target.Html/coreDox.Target.Html.csproj
   - mkdir -p tests/coreDox.Core.Tests/bin/Debug/netcoreapp2.0/Targets/Html
-  - mkdir -p tests/coreDox.Core.Tests/bin/Debug/netcoreapp2.0/[TestAssemblies]
-  - cp tests/coreDox.Core.Tests/\[TestAssemblies\]/* tests/coreDox.Core.Tests/bin/Debug/netcoreapp2.0/\[TestAssemblies\]/
   - cp tests/coreDox.Core.Tests/Targets/Html/* tests/coreDox.Core.Tests/bin/Debug/netcoreapp2.0/Targets/Html/
   - dotnet test tests/coreDox.Core.Tests/coreDox.Core.Tests.csproj

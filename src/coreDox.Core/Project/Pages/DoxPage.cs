@@ -1,39 +1,42 @@
-﻿using coreDox.Core.Contracts;
-using coreDox.Core.Exceptions;
-using System.IO;
+﻿using coreDox.Core.Project.Common;
 
 namespace coreDox.Core.Project.Pages
 {
+    public enum DoxPageType
+    {
+        Placeholder,
+        Page,
+        Code,
+    }
+
     public sealed class DoxPage
     {
         private bool _loaded;
+        private readonly DoxFileInfo _doxPageFileInfo;
 
-        private readonly FileInfo _doxPageFile;
-
-        public DoxPage(string pagePath, string title = "", string project = "")
+        public DoxPage(DoxFileInfo doxPageFileInfo)
         {
-            _doxPageFile = new FileInfo(pagePath);
-            Title = title;
-            Project = project;
+            _doxPageFileInfo = doxPageFileInfo;
         }
 
-        public void Load()
-        {
-            if (!Exists) CreateDefaultPage();
-            //return new DoxPage(_doxPageFile.FullName) { Content = "" };
-        }
+        public bool Exists => _doxPageFileInfo.Exists;
 
-        private void CreateDefaultPage()
+        public void WritePage(string title, string content, string projectPath)
+        {
+
+        }
+        
+        private void LoadPage()
         {
 
         }
 
-        public bool Exists => _doxPageFile.Exists;
+        public string Title { get; }
 
-        public string Title { get; private set; }
+        public string Content { get; }
 
-        public string Project { get; private set; }
+        public DoxPageType PageType { get; }
 
-        public string Content { get; private set; }
+        public DoxFileInfo CodeProjectFileInfo { get; }
     }
 }

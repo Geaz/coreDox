@@ -13,57 +13,29 @@ namespace coreDox.Core.Project.Config
 {
     public sealed class DoxProjectConfig
     {
-        private bool _created;
+        private DateTime _lastLoadTimeUtc;
         private List<Object> _loadedConfigSections;
 
         private readonly PluginRegistry _pluginRegistry;
-        private readonly FileInfo _configFileInfo;
+        private readonly DoxFileInfo _configFileInfo;
 
         public DoxProjectConfig(PluginRegistry pluginRegistry, string configFilePath)
         {
             _pluginRegistry = pluginRegistry;
-            _configFileInfo = new FileInfo(configFilePath);
-        }
-
-        public DoxProjectLoadResult Load()
-        {
-            DoxProjectLoadResult result = null;
-            try
-            {
-                if (!_configFileInfo.Exists) CreateDefaultConfig();
-                if (_loadedConfigSections == null)
-                {
-                    _loadedConfigSections = new List<object>();
-                    var configSectionList = _pluginRegistry.GetAllConfigSections();
-
-                    var converter = new ExpandoObjectConverter();
-                    var jsonConfig = JsonConvert.DeserializeObject<ExpandoObject>(File.ReadAllText(_configFileInfo.FullName), converter);
-                    foreach (var config in jsonConfig)
-                    {
-                        var configSection = configSectionList.SingleOrDefault(c => c.GetType().Name.Equals(config.Key, StringComparison.OrdinalIgnoreCase));
-                        if (configSection != null)
-                        {
-                            var serializedConfigSection = JsonConvert.SerializeObject(config.Value);
-                            _loadedConfigSections.Add(JsonConvert.DeserializeObject(serializedConfigSection, configSection.GetType()));
-                        }
-                    }
-                }
-                result = new DoxProjectLoadResult(_configFileInfo.FullName, !_created, _created, true);
-            }
-            catch(Exception ex)
-            {
-                result = new DoxProjectLoadResult(_configFileInfo.FullName, !_created, _created, false, ex);
-            }
-            return result;
+            _configFileInfo = new DoxFileInfo(configFilePath);
         }
 
         public T GetConfigSection<T>()
         {
-            if (_loadedConfigSections == null) throw new CoreDoxException("No config loaded!");
+            if (!_configFileInfo.Exists) throw new CoreDoxException($"No config file found at '{_configFileInfo.FullName}'!");
+            if (_lastLoadTimeUtc < _configFileInfo.LastWriteTimeUtc)
+            {
+                Load();
+            }            
             return (T)_loadedConfigSections.Single(l => l.GetType() == typeof(T));
         }
 
-        private void CreateDefaultConfig()
+        public void CreateDefaultConfig()
         {
             var stringBuilder = new StringBuilder();
             stringBuilder.AppendLine("{");
@@ -91,10 +63,28 @@ namespace coreDox.Core.Project.Config
             stringBuilder.AppendLine("}");
 
             File.WriteAllText(_configFileInfo.FullName, stringBuilder.ToString());
-            _created = true;
         }
 
-        public DirectoryInfo ParentDirectory => _configFileInfo.Directory;
+        private void Load()
+        {
+            _loadedConfigSections = new List<object>();
+            var configSectionList = _pluginRegistry.GetAllConfigSections();
+
+            var converter = new ExpandoObjectConverter();
+            var jsonConfig = JsonConvert.DeserializeObject<ExpandoObject>(File.ReadAllText(_configFileInfo.FullName), converter);
+            foreach (var config in jsonConfig)
+            {
+                var configSection = configSectionList.SingleOrDefault(c => c.GetType().Name.Equals(config.Key, StringComparison.OrdinalIgnoreCase));
+                if (configSection != null)
+                {
+                    var serializedConfigSection = JsonConvert.SerializeObject(config.Value);
+                    _loadedConfigSections.Add(JsonConvert.DeserializeObject(serializedConfigSection, configSection.GetType()));
+                }
+            }
+            _lastLoadTimeUtc = DateTime.Now;
+        }
+
+        public DoxDirectoryInfo ParentDirectory => _configFileInfo.Directory;
         public bool Exists => _configFileInfo.Exists;
     }
 }

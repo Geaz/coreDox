@@ -2,7 +2,7 @@
 using coreDox.Core.Model.Code;
 using System.IO;
 
-namespace coreDox.Core.CodeModel
+namespace coreDox.Core.Project.Code
 {
     public sealed class DoxCodeProject
     {

@@ -38,14 +38,13 @@ Contains the whole model and all contracts of **coreDox**.
 The project can be referenced to create custom exporters for coreDox.
 
 This project also contains the core functionality of **coreDox**.
-The functionality is structured into different services:
+The functionality is structured into different objects:
 
-- **ConfigService** *Service to manage documentation configs*
-- **ContentService** *Service to load additional pages in the **pages** folder of a documentation project and for parsing the toc file*
-- **ExporterService** *Service to manage registered exporters*
-- **ParserService** *Service to parse the XML documentation and IL Code of a compiled .NET Project*
-- **PluginDiscoveryService** *This service is responsible for the discovery of all **coreDox** plugins*
-- **ServiceLocator** *Used to get an instance of a service*
+- **DoxProject** *Represents the whole documentation project. Its the root for all following objects*
+- **DoxConfig**
+- **DoxPage**
+- **DoxCodeProject**
+- **DoxCodeProjectList**
 
 **coreDox.Exporter.Html**
 

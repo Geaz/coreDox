@@ -26,21 +26,10 @@
     <None Update="Targets\Html\coreDox.Target.Html.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="[TestProject]\doc\config.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="[TestProject]\SharpDox.Model.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="[TestProject]\SharpDox.Sdk.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="[TestProject]\doc\assets\" />
-    <Folder Include="[TestProject]\doc\layout\" />
-    <Folder Include="[TestProject]\doc\pages\" />
+    <Folder Include="Projects\Pages\" />
   </ItemGroup>
 
 </Project>

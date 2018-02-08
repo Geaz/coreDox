@@ -1,9 +1,9 @@
-﻿using System.IO;
+﻿using coreDox.Core.Project.Common;
 
 namespace coreDox.Core.Contracts
 {
     public interface IConfigSection
     {
-        void SetDefaultValues(FileInfo configFileInfo);
+        void SetDefaultValues(DoxFileInfo configFileInfo);
     }
 }

@@ -1,8 +1,10 @@
 ﻿using coreDox.Core.Contracts;
+using coreDox.Core.Project.Code;
 using coreDox.Core.Project.Common;
 using coreDox.Core.Project.Config;
+using coreDox.Core.Project.Pages;
+using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 
 namespace coreDox.Core.Project
 {
@@ -12,8 +14,6 @@ namespace coreDox.Core.Project
         public const string AssetFolderName = "assets";
         public const string PagesFolderName = "pages";
         public const string LayoutFolderName = "layout";
-
-        private DoxProjectLoadResultList _projectLoadResultList;
         
         private readonly DoxDirectoryInfo _rootProjectDirectory;
         private readonly DoxDirectoryInfo _assetDirectory;
@@ -23,33 +23,38 @@ namespace coreDox.Core.Project
         public DoxProject(DoxProjectConfig projectConfig)
         {
             _rootProjectDirectory = new DoxDirectoryInfo(projectConfig.ParentDirectory.FullName);
-            _assetDirectory = new DoxDirectoryInfo(Path.Combine(projectConfig.ParentDirectory.FullName, AssetFolderName));
-            _pagesDirectory = new DoxDirectoryInfo(Path.Combine(projectConfig.ParentDirectory.FullName, PagesFolderName));
-            _layoutDirectory = new DoxDirectoryInfo(Path.Combine(projectConfig.ParentDirectory.FullName, LayoutFolderName));
+            _assetDirectory = new DoxDirectoryInfo(Path.Combine(_rootProjectDirectory.FullName, AssetFolderName));
+            _pagesDirectory = new DoxDirectoryInfo(Path.Combine(_rootProjectDirectory.FullName, PagesFolderName));
+            _layoutDirectory = new DoxDirectoryInfo(Path.Combine(_rootProjectDirectory.FullName, LayoutFolderName));
 
+            Pages = new DoxPageList(_pagesDirectory);
             Config = projectConfig;
+            CodeProjects = new DoxCodeProjectList(_rootProjectDirectory.ParentDirectory);
         }
 
-        public DoxProjectLoadResultList Load()
+        public IReadOnlyList<DoxProjectValidationResult> IsProjectValid()
         {
-            _projectLoadResultList = new DoxProjectLoadResultList();
-            _projectLoadResultList.Add(_rootProjectDirectory.FullName, _rootProjectDirectory.Exists, _rootProjectDirectory.Created, _rootProjectDirectory.Created || _rootProjectDirectory.Existed);
-            _projectLoadResultList.Add(_assetDirectory.FullName, _assetDirectory.Exists, _assetDirectory.Created, _assetDirectory.Created || _assetDirectory.Existed);
-            _projectLoadResultList.Add(_pagesDirectory.FullName, _pagesDirectory.Exists, _pagesDirectory.Created, _pagesDirectory.Created || _pagesDirectory.Existed);
-            _projectLoadResultList.Add(_layoutDirectory.FullName, _layoutDirectory.Exists, _layoutDirectory.Created, _layoutDirectory.Created || _layoutDirectory.Existed);
-            _projectLoadResultList.Add(Config.Load());
-
-            return _projectLoadResultList;
+            var validationResults = new List<DoxProjectValidationResult>();
+            validationResults.Add(new DoxProjectValidationResult(_rootProjectDirectory.FullName, _rootProjectDirectory.Exists, "NOT EXISTING"));
+            validationResults.Add(new DoxProjectValidationResult(_assetDirectory.FullName, _rootProjectDirectory.Exists, "NOT EXISTING"));
+            validationResults.Add(new DoxProjectValidationResult(_pagesDirectory.FullName, _rootProjectDirectory.Exists, "NOT EXISTING"));
+            validationResults.Add(new DoxProjectValidationResult(_layoutDirectory.FullName, _rootProjectDirectory.Exists, "NOT EXISTING"));
+            return validationResults;
         }
 
-        private void CreateDefaultPages()
+        public void CreateMissingElements()
         {
-            var codeProjectFileList = Directory.GetFiles(Config.ParentDirectory.Parent.FullName, "*.csproj").ToList();
-            foreach (var codeProjectFile in codeProjectFileList)
-            {
-            }
+            _rootProjectDirectory.EnsureDirectory();
+            _assetDirectory.EnsureDirectory();
+            _pagesDirectory.EnsureDirectory();
+            _layoutDirectory.EnsureDirectory();
+
+            if(!Config.Exists) Config.CreateDefaultConfig();
+            if(!Pages.Any()) Pages.CreateDefaultCodePages(CodeProjects);
         }
 
-        public DoxProjectConfig Config { get; private set; }
+        public DoxPageList Pages { get; }
+        public DoxProjectConfig Config { get; }
+        public DoxCodeProjectList CodeProjects { get; }
     }
 }
