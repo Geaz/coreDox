@@ -37,7 +37,8 @@ namespace coreDox.Core.Project.Pages
             var relevantFilesList = codeSolutionFileList.Any() ? codeSolutionFileList : codeProjectFileList;
             foreach (var relevantFile in relevantFilesList)
             {
-
+                var newPage = new DoxPage(new DoxFileInfo(Path.Combine(relevantFile.ProjectFileInfo.Directory.FullName, relevantFile.ProjectFileInfo.Name, ".md")));
+                newPage.WritePage(relevantFile.ProjectFileInfo.Name, string.Empty, relevantFile.ProjectFileInfo.FullName);
             }
             return GetPages();
         }

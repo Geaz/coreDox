@@ -43,7 +43,7 @@ namespace coreDox.Core.Project.Code
             return completeFileList.ToList();
         }
 
-        public IReadOnlyList<DoxCodeProject> GetAllReferencedCodeProjects(DoxPageList pageList)
+        public IReadOnlyList<DoxCodeProject> GetAllReferencedCodeProjectsParsed(DoxPageList pageList)
         {
             var allCodeProjects = GetAllCodeProjects();
             return null;

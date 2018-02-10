@@ -1,4 +1,5 @@
 ﻿using coreDox.Core.Project.Common;
+using System;
 
 namespace coreDox.Core.Project.Pages
 {
@@ -11,7 +12,8 @@ namespace coreDox.Core.Project.Pages
 
     public sealed class DoxPage
     {
-        private bool _loaded;
+        private DateTime _lastLoadTimeUtc;
+
         private readonly DoxFileInfo _doxPageFileInfo;
 
         public DoxPage(DoxFileInfo doxPageFileInfo)
@@ -19,24 +21,41 @@ namespace coreDox.Core.Project.Pages
             _doxPageFileInfo = doxPageFileInfo;
         }
 
-        public bool Exists => _doxPageFileInfo.Exists;
-
         public void WritePage(string title, string content, string projectPath)
         {
 
         }
         
-        private void LoadPage()
+        private void CheckLoad()
         {
-
+            if (_lastLoadTimeUtc < _doxPageFileInfo.LastWriteTimeUtc)
+            {
+                _lastLoadTimeUtc = _doxPageFileInfo.LastWriteTimeUtc;
+            }
         }
 
-        public string Title { get; }
+        private DoxPageType _pageType;
+        public DoxPageType PageType
+        {
+            get { CheckLoad(); return _pageType; }
+        }
 
-        public string Content { get; }
+        private string _title;
+        public string Title
+        {
+            get { CheckLoad(); return _title; }
+        }
 
-        public DoxPageType PageType { get; }
+        private string _content;
+        public string Content
+        {
+            get { CheckLoad(); return _content; }
+        }
 
-        public DoxFileInfo CodeProjectFileInfo { get; }
+        private string _codeProjectPath;
+        public string CodeProjectPath
+        {
+            get { CheckLoad(); return _codeProjectPath; }
+        }
     }
 }

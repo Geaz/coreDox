@@ -31,6 +31,7 @@ namespace coreDox.Core.Project.Config
             if (_lastLoadTimeUtc < _configFileInfo.LastWriteTimeUtc)
             {
                 Load();
+                _lastLoadTimeUtc = _configFileInfo.LastWriteTimeUtc;
             }            
             return (T)_loadedConfigSections.Single(l => l.GetType() == typeof(T));
         }
@@ -81,7 +82,6 @@ namespace coreDox.Core.Project.Config
                     _loadedConfigSections.Add(JsonConvert.DeserializeObject(serializedConfigSection, configSection.GetType()));
                 }
             }
-            _lastLoadTimeUtc = DateTime.Now;
         }
 
         public DoxDirectoryInfo ParentDirectory => _configFileInfo.Directory;

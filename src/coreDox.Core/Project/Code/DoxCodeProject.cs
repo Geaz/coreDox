@@ -1,6 +1,6 @@
 ﻿using coreDox.Core.Exceptions;
 using coreDox.Core.Model.Code;
-using System.IO;
+using coreDox.Core.Project.Common;
 
 namespace coreDox.Core.Project.Code
 {
@@ -9,19 +9,17 @@ namespace coreDox.Core.Project.Code
         private Microsoft.Build.Evaluation.Project _project;
         private DoxAssembly _doxAssembly;
 
-        private readonly FileInfo _projectFileInfo;
-
         public DoxCodeProject(string projectFilePath)
         {
-            _projectFileInfo = new FileInfo(projectFilePath);
+            ProjectFileInfo = new DoxFileInfo(projectFilePath);
         }
 
         public void Load()
         {
-            if (!_projectFileInfo.Exists) throw new CoreDoxException($"Project file at path '{_projectFileInfo.FullName}' does not exist.");
+            if (!ProjectFileInfo.Exists) throw new CoreDoxException($"Project file at path '{ProjectFileInfo.FullName}' does not exist.");
             if (_project == null)
             {
-                _project = new Microsoft.Build.Evaluation.Project(_projectFileInfo.FullName);
+                _project = new Microsoft.Build.Evaluation.Project(ProjectFileInfo.FullName);
             }
         }
 
@@ -33,5 +31,8 @@ namespace coreDox.Core.Project.Code
             }
             return _doxAssembly;
         }
+
+
+        public DoxFileInfo ProjectFileInfo { get; }
     }
 }
