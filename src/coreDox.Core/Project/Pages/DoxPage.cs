@@ -1,5 +1,8 @@
-﻿using coreDox.Core.Project.Common;
+﻿using coreDox.Core.Exceptions;
+using coreDox.Core.Project.Common;
 using System;
+using System.IO;
+using System.Text;
 
 namespace coreDox.Core.Project.Pages
 {
@@ -23,13 +26,26 @@ namespace coreDox.Core.Project.Pages
 
         public void WritePage(string title, string content, string projectPath)
         {
+            var pageBuilder = new StringBuilder();
+            pageBuilder.AppendLine($"- title: {title}");
 
+            if(!string.IsNullOrEmpty(projectPath))
+                pageBuilder.AppendLine($"- project: {projectPath}");
+
+            pageBuilder.AppendLine($"---");
+            pageBuilder.AppendLine(content);
+
+            File.WriteAllText(_doxPageFileInfo.FullName, pageBuilder.ToString());
         }
         
         private void CheckLoad()
         {
+            if (!_doxPageFileInfo.Exists) throw new CoreDoxException($"No page file found at '{_doxPageFileInfo.FullName}'!");
             if (_lastLoadTimeUtc < _doxPageFileInfo.LastWriteTimeUtc)
             {
+                var content = File.ReadAllText(_doxPageFileInfo.FullName);
+
+
                 _lastLoadTimeUtc = _doxPageFileInfo.LastWriteTimeUtc;
             }
         }
