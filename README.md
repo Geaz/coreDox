@@ -28,29 +28,28 @@ Project structure
 CLI to use coreDox.  
 The commands are:
 
-- **new --doc [doc-folder]** *creates a new documentation project in the given path*
 - **build --doc [doc-folder]** *builds the documentation located in the given path*
 - **watch --doc [doc-folder]** *watches the documentation located in the given path, starts a web server to view it, and rebuilds the documentation on changes*
 
 **coreDox.Core**
 
 Contains the whole model and all contracts of **coreDox**.
-The project can be referenced to create custom exporters for coreDox.
+The project can be referenced to create custom targets and model providers for coreDox.
 
 This project also contains the core functionality of **coreDox**.
 The functionality is structured into different objects:
 
 - **DoxProject** *Represents the whole documentation project. Its the root for all following objects*
-- **DoxConfig**
-- **DoxPage**
-- **DoxCodeProject**
-- **DoxCodeProjectList**
+- **DoxConfig** *Represents the configuration of a documentation project*
+- **DoxPage** *A single page of the documentation - parsed from the 'pages' folder of a documentation*
+- **DoxCodeProject** *Represents a single code project or solution*
+- **DoxCodeProjectList** *Holds all code projects/solutions of a documentation and exposes some functionality to work with them*
 
-**coreDox.Exporter.Html**
+**coreDox.Targets.Html**
 
-The default exporter for coreDox. Exports the parsed project to a html page.
+The default target for coreDox. Exports the parsed project to a html page.
 
-Modular Models, Templates and Exporters (IDEA!?)
+Modular Models, Templates and Targets
 ---
 In **sharpDox** the whole documentation model was defined in one big model. **coreDox** goes another way in defining the model.
 The core of **coreDox** will just provide a rough structure of the model. Containing the top most entities (including an ID) in a code project.
@@ -58,25 +57,23 @@ These entities are:
 
 - Namespaces
 - Types
-- Members
+- Members (Fields, Properties, Methods etc.)
 
-The data which was parsed in **sharpDox** like Names, Attributes, Diagrams, Usings etc. are parsed by **ModelProviders**.
+The data which was parsed in **sharpDox**, like Names, Attributes, Diagrams, Usings etc., are parsed by **ModelProviders**.
 
 **ModelProviders** are one of the *plugin* types of **coreDox**. They add more information to the rough core model.
 These information can be used by **TagProviders**, the second *plugin* type of **coreDox**.
 
 **TagProviders** are able to use the whole model of **coreDox** (core model + **ModelProviders**) by defining template tags.
-Template tags can be used by templates in an **Exporter** - the last *plugin* type of **coreDox**.
+Template tags can be used by templates in a **Target** - the last *plugin* type of **coreDox**.
 
-**Exporters** are responsible to make the parsed model of **coreDox** to something consumable. Like a HTML site or a PDF document.
+**Targets** are responsible to transform the parsed model of **coreDox** to something consumable. Like a HTML site or a PDF document.
 
 Documentation Projects
 ---
-The **new** command creates a new documentation project into the given folder.
 A documentation folder is structured in the following way:
 
 - layout *contains the themes for the built documentation - contains one folder for each exporter*
-- pages *contains all additional pages integrated in the documentation - referenced in the toc.md*
+- pages *contains all additional pages integrated in the documentation - the folder structures defines also the TOC of the documentation*
 - assets *all additional assets like images of icons - used in pages and layouts*
-- toc.md *the table of contents for the documentation*
 - config.yaml *the config for the build process of the documentation*

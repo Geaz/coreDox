@@ -1,6 +1,7 @@
 ﻿using coreDox.Core.Exceptions;
 using coreDox.Core.Project.Common;
 using System;
+using System.Linq;
 using System.IO;
 using System.Text;
 
@@ -27,6 +28,7 @@ namespace coreDox.Core.Project.Pages
         public void WritePage(string title, string content, string projectPath)
         {
             var pageBuilder = new StringBuilder();
+            pageBuilder.AppendLine($"---");
             pageBuilder.AppendLine($"- title: {title}");
 
             if(!string.IsNullOrEmpty(projectPath))
@@ -45,9 +47,13 @@ namespace coreDox.Core.Project.Pages
             {
                 var content = File.ReadAllText(_doxPageFileInfo.FullName);
 
-
                 _lastLoadTimeUtc = _doxPageFileInfo.LastWriteTimeUtc;
             }
+        }
+
+        private void ParseLine(string line)
+        {
+
         }
 
         private DoxPageType _pageType;
