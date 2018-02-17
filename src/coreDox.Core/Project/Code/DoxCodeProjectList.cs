@@ -1,4 +1,5 @@
-﻿using coreDox.Core.Project.Common;
+﻿using coreDox.Core.Model.Code;
+using coreDox.Core.Project.Common;
 using coreDox.Core.Project.Pages;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +19,7 @@ namespace coreDox.Core.Project.Code
         public IReadOnlyList<DoxCodeProject> GetSolutionList()
         {
             return Directory
-                .GetFiles(_projectSearchDirectory.FullName, "*.sln")
+                .GetFiles(_projectSearchDirectory.FullName, "*.sln", SearchOption.AllDirectories)
                 .Select(p => new DoxCodeProject(p))
                 .ToList();
         }
@@ -26,7 +27,7 @@ namespace coreDox.Core.Project.Code
         public IReadOnlyList<DoxCodeProject> GetProjectList()
         {
             return Directory
-                .GetFiles(_projectSearchDirectory.FullName, "*.csproj")
+                .GetFiles(_projectSearchDirectory.FullName, "*.csproj", SearchOption.AllDirectories)
                 .Select(p => new DoxCodeProject(p))
                 .ToList();
         }
@@ -43,7 +44,7 @@ namespace coreDox.Core.Project.Code
             return completeFileList.ToList();
         }
 
-        public IReadOnlyList<DoxCodeProject> GetAllReferencedCodeProjectsParsed(DoxPageList pageList)
+        public IReadOnlyList<DoxAssembly> GetAllParsedAssemblies(DoxPageList pageList)
         {
             var allCodeProjects = GetAllCodeProjects();
             return null;

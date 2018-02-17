@@ -16,7 +16,7 @@ namespace coreDox.Core
         private List<Type> _registeredConfigSectionTypesList;
 
         private readonly ILogger _logger = LogManager.GetLogger("PluginRegistry");
-        private readonly string _targetsFolderPath = Path.Combine(Path.GetDirectoryName(typeof(PluginRegistry).GetTypeInfo().Assembly.Location), "Targets");
+        private readonly string _targetsFolderPath = Path.Combine(Path.GetDirectoryName(typeof(PluginRegistry).Assembly.Location), "Targets");
         private readonly string[] _possibleTargetDllFileArray;
 
         public PluginRegistry()

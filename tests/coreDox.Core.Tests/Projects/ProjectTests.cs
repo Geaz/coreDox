@@ -9,12 +9,20 @@ namespace coreDox.Core.Tests.Projects
     [TestClass]
     public class ProjectTests
     {
-        private string _tmpPath = Path.Combine(Path.GetTempPath(), "testProject");
+        private string _tmpProjectPath;
+        private string _tmpDocPath;
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
+            _tmpProjectPath = Path.Combine(Path.GetDirectoryName(GetType().Assembly.Location), "[TestProject]");
+            _tmpDocPath = Path.Combine(_tmpProjectPath, "doc");
+        }
 
         [TestCleanup]
         public void TestCleanUp()
         {
-            if(Directory.Exists(_tmpPath)) Directory.Delete(_tmpPath, true);
+            if(Directory.Exists(_tmpDocPath)) Directory.Delete(_tmpDocPath, true);
         }
 
         [TestMethod]
@@ -22,17 +30,18 @@ namespace coreDox.Core.Tests.Projects
         {
             //Arrange
             var pluginRegistry = new PluginRegistry();
-            var projectConfig = new DoxProjectConfig(pluginRegistry, Path.Combine(_tmpPath, DoxProject.ConfigFileName));
+            var projectConfig = new DoxProjectConfig(pluginRegistry, Path.Combine(_tmpDocPath, DoxProject.ConfigFileName));
             var project = new DoxProject(projectConfig);
 
             //Act
             project.CreateMissingElements();
 
             //Assert
-            Assert.IsTrue(Directory.Exists(Path.Combine(_tmpPath, DoxProject.AssetFolderName)));
-            Assert.IsTrue(Directory.Exists(Path.Combine(_tmpPath, DoxProject.LayoutFolderName)));
-            Assert.IsTrue(Directory.Exists(Path.Combine(_tmpPath, DoxProject.PagesFolderName)));
-            Assert.IsTrue(File.Exists(Path.Combine(_tmpPath, DoxProject.ConfigFileName)));
+            Assert.IsTrue(Directory.Exists(Path.Combine(_tmpDocPath, DoxProject.AssetFolderName)));
+            Assert.IsTrue(Directory.Exists(Path.Combine(_tmpDocPath, DoxProject.LayoutFolderName)));
+            Assert.IsTrue(Directory.Exists(Path.Combine(_tmpDocPath, DoxProject.PagesFolderName)));
+            Assert.IsTrue(File.Exists(Path.Combine(_tmpDocPath, DoxProject.ConfigFileName)));
+            Assert.IsTrue(File.Exists(Path.Combine(_tmpDocPath, DoxProject.PagesFolderName, "SharpDox.TestProject.md")));
         }
 
         [TestMethod]
@@ -40,7 +49,7 @@ namespace coreDox.Core.Tests.Projects
         {
             //Arrange
             var pluginRegistry = new PluginRegistry();
-            var projectConfig = new DoxProjectConfig(pluginRegistry, Path.Combine(_tmpPath, DoxProject.ConfigFileName));
+            var projectConfig = new DoxProjectConfig(pluginRegistry, Path.Combine(_tmpDocPath, DoxProject.ConfigFileName));
             var project = new DoxProject(projectConfig);
 
             //Act

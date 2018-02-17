@@ -25,7 +25,15 @@ namespace coreDox.Core.Project.Common
             return _created;
         }
 
+        public string GetRelativePath(DoxDirectoryInfo doxDirectoryInfo)
+        {
+            var uriFrom = new Uri(FullName);
+            var uriTo = new Uri(doxDirectoryInfo.FullName);
+            return uriTo.MakeRelativeUri(uriFrom).ToString();
+        }
+
         public string Name => _fileInfo.Name;
+        public string NameWithOutExtension => Path.GetFileNameWithoutExtension(_fileInfo.FullName);
         public string FullName => _fileInfo.FullName;
 
         public bool Exists { get { _fileInfo.Refresh(); return _fileInfo.Exists; } }

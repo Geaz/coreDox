@@ -5,6 +5,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="[TestProject]\SharpDox.TestProject\InheritDoc.cs" />
+    <Compile Remove="[TestProject]\SharpDox.TestProject\Properties\AssemblyInfo.cs" />
+    <Compile Remove="[TestProject]\SharpDox.TestProject\Regression1.cs" />
+    <Compile Remove="[TestProject]\SharpDox.TestProject\Regression2.cs" />
+    <Compile Remove="[TestProject]\SharpDox.TestProject\Regression3.cs" />
+    <Compile Remove="[TestProject]\SharpDox.TestProject\Regression4.cs" />
+    <Compile Remove="[TestProject]\SharpDox.TestProject\Regression5.cs" />
+    <Compile Remove="[TestProject]\SharpDox.TestProject\Regression6.cs" />
+    <Compile Remove="[TestProject]\SharpDox.TestProject\Regression7.cs" />
+    <Compile Remove="[TestProject]\SharpDox.TestProject\Regression8.cs" />
+    <Compile Remove="[TestProject]\SharpDox.TestProject\SeeAlsoDocType.cs" />
+    <Compile Remove="[TestProject]\SharpDox.TestProject\TypeWithTypeArguments.cs" />
+    <Compile Remove="[TestProject]\SharpDox.TestProject\WebApiDoc.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.5.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="1.2.0" />
     <PackageReference Include="MSTest.TestFramework" Version="1.2.0" />
@@ -29,7 +45,48 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Projects\Pages\" />
+    <None Include="[TestProject]\SharpDox.TestProject\InheritDoc.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="[TestProject]\SharpDox.TestProject\Properties\AssemblyInfo.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="[TestProject]\SharpDox.TestProject\Regression1.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="[TestProject]\SharpDox.TestProject\Regression2.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="[TestProject]\SharpDox.TestProject\Regression3.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="[TestProject]\SharpDox.TestProject\Regression4.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="[TestProject]\SharpDox.TestProject\Regression5.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="[TestProject]\SharpDox.TestProject\Regression6.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="[TestProject]\SharpDox.TestProject\Regression7.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="[TestProject]\SharpDox.TestProject\Regression8.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="[TestProject]\SharpDox.TestProject\SeeAlsoDocType.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="[TestProject]\SharpDox.TestProject\SharpDox.TestProject.csproj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="[TestProject]\SharpDox.TestProject\TypeWithTypeArguments.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="[TestProject]\SharpDox.TestProject\WebApiDoc.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

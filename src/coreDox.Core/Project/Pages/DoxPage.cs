@@ -14,6 +14,12 @@ namespace coreDox.Core.Project.Pages
         Code,
     }
 
+    /// <summary>
+    /// Represents a *.md file in the 'pages' folder of the documentation project.
+    /// </summary>
+    /// <remarks>
+    /// I don't think the code of this class is very 'elegant'. So feel free to submit a pull request!
+    /// </remarks>
     public sealed class DoxPage
     {
         private DateTime _lastLoadTimeUtc;
@@ -46,20 +52,33 @@ namespace coreDox.Core.Project.Pages
             if (_lastLoadTimeUtc < _doxPageFileInfo.LastWriteTimeUtc)
             {
                 var content = File.ReadAllText(_doxPageFileInfo.FullName);
-
+                var splittedContent = content.Split("---", StringSplitOptions.RemoveEmptyEntries);
+                if(splittedContent.Length == 2)
+                {
+                    ParseHeader(splittedContent[0].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries));
+                    _content = splittedContent[1].Trim();
+                }
+                else
+                {
+                    throw new CoreDoxException($"DoxPage '{_doxPageFileInfo.FullName}' is not in the correct format!");
+                }
                 _lastLoadTimeUtc = _doxPageFileInfo.LastWriteTimeUtc;
             }
         }
 
-        private void ParseLine(string line)
+        private void ParseHeader(string[] lines)
         {
+            var line = lines.First();
+            if(line.StartsWith("- project:"))
+            {
+                _codeProjectPath = line.Substring("- project:".Length).Trim();
+            }
+            else if (line.StartsWith("- title:"))
+            {
+                _title = line.Substring("- title:".Length).Trim();
+            }
 
-        }
-
-        private DoxPageType _pageType;
-        public DoxPageType PageType
-        {
-            get { CheckLoad(); return _pageType; }
+            if (lines.Length > 1) ParseHeader(lines.Skip(1).ToArray());
         }
 
         private string _title;
@@ -78,6 +97,16 @@ namespace coreDox.Core.Project.Pages
         public string CodeProjectPath
         {
             get { CheckLoad(); return _codeProjectPath; }
+        }
+
+        public DoxPageType PageType
+        {
+            get
+            {
+                CheckLoad();
+                if (!string.IsNullOrEmpty(CodeProjectPath)) return DoxPageType.Code;
+                else return DoxPageType.Page;
+            }
         }
     }
 }
