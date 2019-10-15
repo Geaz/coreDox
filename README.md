@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/geaz/coreDox.svg?branch=dev)](https://travis-ci.org/geaz/coreDox)
+[![Build status](https://ci.appveyor.com/api/projects/status/qysx4krbhwhmwq9f?svg=true)](https://ci.appveyor.com/project/Geaz/coredox)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/Geaz/coreArgs/master/LICENSE)
 
 Create .NET code documentation with ease

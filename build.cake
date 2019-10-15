@@ -10,7 +10,7 @@ var configuration = Argument("configuration", "Release");
 //////////////////////////////////////////////////////////////////////
 
 var buildDir = Directory("./src/coreDox/bin") + Directory(configuration);
-var distDir = Directory("./dist");
+//var distDir = Directory("./dist");
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
@@ -19,7 +19,7 @@ var distDir = Directory("./dist");
 Task("Clean")
 	.Does(() => {
 		CleanDirectory(buildDir);
-		CleanDirectory(distDir);
+		//CleanDirectory(distDir);
 	});
 
 Task("Restore-NuGet-Packages")

@@ -68,7 +68,9 @@ namespace coreDox.Core.Project.Pages
             var line = lines.First();
             if(line.StartsWith("- assembly:"))
             {
-                _assemblyFileInfo = new DoxFileInfo(line.Substring("- assembly:".Length).Trim());
+                var assemblyPath = Path.Combine(_doxPageFileInfo.Directory.FullName, line.Substring("- assembly:".Length).Trim());
+                _assemblyFileInfo = new DoxFileInfo(assemblyPath);
+
                 if(!_assemblyFileInfo.Exists)
                 {
                     throw new CoreDoxException($"Assembly '{_assemblyFileInfo.FullName}' does not exist!");

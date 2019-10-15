@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="mkdir &quot;$(TargetDir)\doxProject&quot;&#xD;&#xA;&#xD;&#xA;xcopy &quot;$(ProjectDir)\..\doxProject&quot; &quot;$(TargetDir)\doxProject&quot;  /E /Y" />
+    <Exec Command="mkdir &quot;$(TargetDir)doxProject&quot;&#xD;&#xA;&#xD;&#xA;xcopy &quot;$(ProjectDir)..\doxProject&quot; &quot;$(TargetDir)\doxProject&quot;  /E /Y" />
   </Target>
 
 </Project>
