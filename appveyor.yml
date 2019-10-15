@@ -1,0 +1,16 @@
+-
+  branches:
+    only:
+      - master
+  image: Visual Studio 2019
+  skip_tags: true
+  build_script:
+    - ps: .\build.ps1 -configuration Release
+-
+  branches:
+    only:
+      - dev
+  image: Visual Studio 2019
+  skip_tags: true
+  build_script:
+    - ps: .\build.ps1 -configuration Debug

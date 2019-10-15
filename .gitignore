@@ -9,6 +9,7 @@ packages/*
 **/node_modules/*
 **/dist/*
 src/packages/*
+tools
 
 !packages/repositories.config
 !src/packages/repositories.config
