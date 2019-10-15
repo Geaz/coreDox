@@ -1,4 +1,5 @@
 ﻿using coreDox.Core.Contracts;
+using coreDox.Core.Project;
 
 namespace coreDox.Target.Html
 {
@@ -9,7 +10,7 @@ namespace coreDox.Target.Html
             throw new System.NotImplementedException();
         }
 
-        public IProject Project { get; set; }
+        public DoxProject Project { get; set; }
 
         public HtmlConfig Config { get; set; }
 

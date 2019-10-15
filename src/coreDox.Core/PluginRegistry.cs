@@ -17,11 +17,17 @@ namespace coreDox.Core
 
         private readonly ILogger _logger = LogManager.GetLogger("PluginRegistry");
         private readonly string _targetsFolderPath = Path.Combine(Path.GetDirectoryName(typeof(PluginRegistry).Assembly.Location), "Targets");
-        private readonly string[] _possibleTargetDllFileArray;
+        private readonly List<string> _possibleTargetDllFileArray = new List<string>();
 
         public PluginRegistry()
         {
-            _possibleTargetDllFileArray = Directory.GetFiles(_targetsFolderPath, "*.dll", SearchOption.AllDirectories);
+            if(Directory.Exists(_targetsFolderPath))
+            {
+                _possibleTargetDllFileArray = 
+                    Directory
+                        .GetFiles(_targetsFolderPath, "*.dll", SearchOption.AllDirectories)
+                        .ToList();
+            }
         }
         
         public List<ITarget> GetAllTargetPlugins()

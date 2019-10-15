@@ -24,7 +24,7 @@ namespace coreDox.Core.Tests.Projects
         {
             //Arrange
             Directory.CreateDirectory(_tmpPath);
-            var projectConfig = new DoxProjectConfig(_pluginRegistry, Path.Combine(_tmpPath, DoxProject.ConfigFileName));
+            var projectConfig = new DoxProjectConfig(_pluginRegistry, _tmpPath);
 
             //Act
             projectConfig.CreateDefaultConfig();
@@ -38,7 +38,7 @@ namespace coreDox.Core.Tests.Projects
         {
             //Arrange
             Directory.CreateDirectory(_tmpPath);
-            var projectConfig = new DoxProjectConfig(_pluginRegistry, Path.Combine(_tmpPath, DoxProject.ConfigFileName));
+            var projectConfig = new DoxProjectConfig(_pluginRegistry, _tmpPath);
             projectConfig.CreateDefaultConfig();
 
             //Act
@@ -53,7 +53,7 @@ namespace coreDox.Core.Tests.Projects
         public void ShouldThrowIfConfigFileNotPresentSuccessfully()
         {
             //Arrange
-            var projectConfig = new DoxProjectConfig(_pluginRegistry, Path.Combine(_tmpPath, DoxProject.ConfigFileName));
+            var projectConfig = new DoxProjectConfig(_pluginRegistry, _tmpPath);
 
             //Act
             var doxConfig = projectConfig.GetConfigSection<DoxConfigSection>();

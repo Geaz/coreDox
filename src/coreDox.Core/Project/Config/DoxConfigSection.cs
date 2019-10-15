@@ -1,5 +1,4 @@
-﻿using System.IO;
-using coreDox.Core.Contracts;
+﻿using coreDox.Core.Contracts;
 using coreDox.Core.Project.Common;
 
 namespace coreDox.Core.Project.Config
@@ -9,7 +8,7 @@ namespace coreDox.Core.Project.Config
         public void SetDefaultValues(DoxFileInfo configFileInfo)
         {
             ProjectName = configFileInfo.Directory.ParentDirectory.Name;
-            OutputFolder = Path.Combine(configFileInfo.Directory.FullName, "build");
+            OutputFolder = "build";
         }
 
         public string ProjectName { get; set; }

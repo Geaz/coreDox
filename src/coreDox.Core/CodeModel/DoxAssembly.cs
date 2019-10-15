@@ -1,4 +1,5 @@
 ﻿using coreDox.Core.Model.Code.Base;
+using Mono.Cecil;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -7,14 +8,13 @@ namespace coreDox.Core.Model.Code
 {
     public class DoxAssembly : DoxCodeModel
     {
-        public DoxAssembly(string targetFramework, Assembly assembly)
+        public DoxAssembly(string assemblyPath)
         {
-            Assembly = assembly;
-            TargetFramework = targetFramework;
-            Name = assembly.GetName().Name;
-            FullName = assembly.GetName().FullName;
-
-            var t = new Microsoft.Build.Evaluation.Project();
+            AssemblyPath = assemblyPath;
+            AssemblyDefinition = ModuleDefinition.ReadModule(assemblyPath);
+            Name = AssemblyDefinition.Name;
+            FullName = AssemblyDefinition.FileName;
+            TargetFramework = AssemblyDefinition.RuntimeVersion;
         }
 
         public DoxNamespace GetOrAddNamespace(string namespaceIdentifier)
@@ -22,27 +22,12 @@ namespace coreDox.Core.Model.Code
             return DoxNamespaceSet.GetOrAdd(new DoxNamespace(namespaceIdentifier));
         }
 
-        public Assembly Assembly { get; }
-
-        public FileInfo ProjectFile { get; }
+        public string AssemblyPath { get; }
 
         public string TargetFramework { get; }
+
+        public ModuleDefinition AssemblyDefinition { get; }
 
         public HashSet<DoxNamespace> DoxNamespaceSet { get; } = new HashSet<DoxNamespace>();
     }
 }
-
-/*
- * if (!File.Exists(assemblyLocation))
-            {
-                throw new CoreDoxException($"No assembly found at '{assemblyLocation}'! Please check your configuration file.");
-            }
-
-            var assemblyName = AssemblyLoadContext.GetAssemblyName(assemblyLocation);
-            Assembly = Assembly.Load(assemblyName);
-
-            Target = target;
-            Location = assemblyLocation;
-            Name = assemblyName.Name;
-            FullName = assemblyName.FullName;
-*/

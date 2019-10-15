@@ -1,5 +1,4 @@
 ﻿using coreDox.Core.Contracts;
-using coreDox.Core.Project.Code;
 using coreDox.Core.Project.Common;
 using coreDox.Core.Project.Config;
 using coreDox.Core.Project.Pages;
@@ -8,7 +7,7 @@ using System.IO;
 
 namespace coreDox.Core.Project
 {
-    public sealed class DoxProject : IProject
+    public sealed class DoxProject
     {
         public const string ConfigFileName  = "config.json";
         public const string AssetFolderName = "assets";
@@ -29,7 +28,6 @@ namespace coreDox.Core.Project
 
             Pages = new DoxPageList(_pagesDirectory);
             Config = projectConfig;
-            CodeProjects = new DoxCodeProjectList(_rootProjectDirectory.ParentDirectory);
         }
 
         public IReadOnlyList<DoxProjectValidationResult> IsProjectValid()
@@ -50,11 +48,9 @@ namespace coreDox.Core.Project
             _layoutDirectory.EnsureDirectory();
 
             if(!Config.Exists) Config.CreateDefaultConfig();
-            if(!Pages.Any()) Pages.CreateDefaultCodePages(CodeProjects);
         }
 
         public DoxPageList Pages { get; }
         public DoxProjectConfig Config { get; }
-        public DoxCodeProjectList CodeProjects { get; }
     }
 }

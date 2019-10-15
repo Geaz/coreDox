@@ -19,10 +19,10 @@ namespace coreDox.Core.Project.Config
         private readonly PluginRegistry _pluginRegistry;
         private readonly DoxFileInfo _configFileInfo;
 
-        public DoxProjectConfig(PluginRegistry pluginRegistry, string configFilePath)
+        public DoxProjectConfig(PluginRegistry pluginRegistry, string docFolder)
         {
             _pluginRegistry = pluginRegistry;
-            _configFileInfo = new DoxFileInfo(configFilePath);
+            _configFileInfo = new DoxFileInfo(Path.Combine(docFolder, DoxProject.ConfigFileName));
         }
 
         public T GetConfigSection<T>()

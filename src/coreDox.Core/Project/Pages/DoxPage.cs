@@ -11,7 +11,7 @@ namespace coreDox.Core.Project.Pages
     {
         Placeholder,
         Page,
-        Code,
+        Assembly,
     }
 
     /// <summary>
@@ -31,14 +31,14 @@ namespace coreDox.Core.Project.Pages
             _doxPageFileInfo = doxPageFileInfo;
         }
 
-        public void WritePage(string title, string content, string projectPath)
+        public void WritePage(string title, string content, string assemblyPath = null)
         {
             var pageBuilder = new StringBuilder();
             pageBuilder.AppendLine($"---");
             pageBuilder.AppendLine($"- title: {title}");
 
-            if(!string.IsNullOrEmpty(projectPath))
-                pageBuilder.AppendLine($"- project: {projectPath}");
+            if(!string.IsNullOrEmpty(assemblyPath))
+                pageBuilder.AppendLine($"- assembly: {assemblyPath}");
 
             pageBuilder.AppendLine($"---");
             pageBuilder.AppendLine(content);
@@ -53,14 +53,11 @@ namespace coreDox.Core.Project.Pages
             {
                 var content = File.ReadAllText(_doxPageFileInfo.FullName);
                 var splittedContent = content.Split("---", StringSplitOptions.RemoveEmptyEntries);
-                if(splittedContent.Length == 2)
-                {
-                    ParseHeader(splittedContent[0].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries));
+
+                ParseHeader(splittedContent[0].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries));
+                if (splittedContent.Length == 2)
+                {                    
                     _content = splittedContent[1].Trim();
-                }
-                else
-                {
-                    throw new CoreDoxException($"DoxPage '{_doxPageFileInfo.FullName}' is not in the correct format!");
                 }
                 _lastLoadTimeUtc = _doxPageFileInfo.LastWriteTimeUtc;
             }
@@ -69,9 +66,13 @@ namespace coreDox.Core.Project.Pages
         private void ParseHeader(string[] lines)
         {
             var line = lines.First();
-            if(line.StartsWith("- project:"))
+            if(line.StartsWith("- assembly:"))
             {
-                _codeProjectPath = line.Substring("- project:".Length).Trim();
+                _assemblyFileInfo = new DoxFileInfo(line.Substring("- assembly:".Length).Trim());
+                if(!_assemblyFileInfo.Exists)
+                {
+                    throw new CoreDoxException($"Assembly '{_assemblyFileInfo.FullName}' does not exist!");
+                }                    
             }
             else if (line.StartsWith("- title:"))
             {
@@ -93,10 +94,10 @@ namespace coreDox.Core.Project.Pages
             get { CheckLoad(); return _content; }
         }
 
-        private string _codeProjectPath;
-        public string CodeProjectPath
+        private DoxFileInfo _assemblyFileInfo;
+        public DoxFileInfo AssemblyFileInfo
         {
-            get { CheckLoad(); return _codeProjectPath; }
+            get { CheckLoad(); return _assemblyFileInfo; }
         }
 
         public DoxPageType PageType
@@ -104,7 +105,7 @@ namespace coreDox.Core.Project.Pages
             get
             {
                 CheckLoad();
-                if (!string.IsNullOrEmpty(CodeProjectPath)) return DoxPageType.Code;
+                if (AssemblyFileInfo != null) return DoxPageType.Assembly;
                 else return DoxPageType.Page;
             }
         }

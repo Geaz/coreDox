@@ -30,7 +30,7 @@ namespace coreDox.Core.Tests.Projects
         {
             //Arrange
             var pluginRegistry = new PluginRegistry();
-            var projectConfig = new DoxProjectConfig(pluginRegistry, Path.Combine(_tmpDocPath, DoxProject.ConfigFileName));
+            var projectConfig = new DoxProjectConfig(pluginRegistry, _tmpDocPath);
             var project = new DoxProject(projectConfig);
 
             //Act
@@ -41,7 +41,6 @@ namespace coreDox.Core.Tests.Projects
             Assert.IsTrue(Directory.Exists(Path.Combine(_tmpDocPath, DoxProject.LayoutFolderName)));
             Assert.IsTrue(Directory.Exists(Path.Combine(_tmpDocPath, DoxProject.PagesFolderName)));
             Assert.IsTrue(File.Exists(Path.Combine(_tmpDocPath, DoxProject.ConfigFileName)));
-            Assert.IsTrue(File.Exists(Path.Combine(_tmpDocPath, DoxProject.PagesFolderName, "SharpDox.TestProject.md")));
         }
 
         [TestMethod]
@@ -49,7 +48,7 @@ namespace coreDox.Core.Tests.Projects
         {
             //Arrange
             var pluginRegistry = new PluginRegistry();
-            var projectConfig = new DoxProjectConfig(pluginRegistry, Path.Combine(_tmpDocPath, DoxProject.ConfigFileName));
+            var projectConfig = new DoxProjectConfig(pluginRegistry, _tmpDocPath);
             var project = new DoxProject(projectConfig);
 
             //Act

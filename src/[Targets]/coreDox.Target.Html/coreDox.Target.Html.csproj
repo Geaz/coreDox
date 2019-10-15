@@ -1,11 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\coreDox.Core\coreDox.Core.csproj" />
   </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="mkdir &quot;$(SolutionDir)tests\coreDox.Core.Tests\$(OutDir)Targets&quot;&#xD;&#xA;mkdir &quot;$(SolutionDir)tests\coreDox.Core.Tests\$(OutDir)Targets\Html&quot;&#xD;&#xA;&#xD;&#xA;xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)tests\coreDox.Core.Tests\$(OutDir)\Targets\Html&quot; /Y /I" />
+  </Target>
 
 </Project>

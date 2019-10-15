@@ -1,10 +1,12 @@
+using coreDox.Core.Project;
+
 namespace coreDox.Core.Contracts
 {
     public interface ITarget
     {
         void Write(string outputPath);
 
-        IProject Project { get; set; }
+        DoxProject Project { get; set; }
 
         string Name { get; }
     }
