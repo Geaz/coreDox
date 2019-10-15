@@ -7,6 +7,7 @@
 *.sln.docstates
 packages/*
 **/node_modules/*
+**/dist/*
 src/packages/*
 
 !packages/repositories.config

@@ -1,5 +1,5 @@
 <template>
-  .container Hello {{bundler}}
+  <p>Test {{bundler}}</p>
 </template>
 
 <script lang="ts">
