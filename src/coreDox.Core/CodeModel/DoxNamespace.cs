@@ -1,21 +1,22 @@
 ﻿using coreDox.Core.Model.Code.Base;
+using Mono.Cecil;
 using System.Collections.Generic;
-using System.Reflection;
 
 namespace coreDox.Core.Model.Code
 {
     public class DoxNamespace : DoxCodeModel
     {
-        public DoxNamespace(string fullname)
+        public DoxNamespace(string fullname, List<TypeDefinition> typeList)
         {
             Name = FullName = fullname;
+            ParseNamespace(typeList);
         }
 
-        public DoxType GetOrAddType(TypeInfo typeInfo)
+        private void ParseNamespace(List<TypeDefinition> typeList)
         {
-            return DoxTypeSet.GetOrAdd(new DoxType(typeInfo));
+            typeList.ForEach(t => DoxTypeSet.Add(new DoxType(t)));
         }
 
-        public HashSet<DoxType> DoxTypeSet { get; } = new HashSet<DoxType>();
+        public List<DoxType> DoxTypeSet { get; } = new List<DoxType>();
     }
 }

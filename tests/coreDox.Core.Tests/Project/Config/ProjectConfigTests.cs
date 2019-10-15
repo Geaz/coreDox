@@ -1,5 +1,4 @@
 using coreDox.Core.Exceptions;
-using coreDox.Core.Project;
 using coreDox.Core.Project.Config;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;

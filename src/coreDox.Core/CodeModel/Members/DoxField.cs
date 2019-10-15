@@ -1,20 +1,17 @@
-﻿using System.Reflection;
-using coreDox.Core.Model.Code.Base;
+﻿using coreDox.Core.Model.Code.Base;
+using Mono.Cecil;
 
 namespace coreDox.Core.Model.Code.Members
 {
     public class DoxField : DoxCodeModel
     {
-        public DoxField(FieldInfo fieldInfo)
+        public DoxField(FieldDefinition fieldDefinition)
         {
-            FieldInfo = fieldInfo;
-            Name = fieldInfo.Name;
-            FullName = $"{fieldInfo.DeclaringType.FullName}.{Name}";
+            Name = fieldDefinition.Name;
+            FullName = $"{fieldDefinition.DeclaringType.FullName}.{Name}";
+            FieldDefinition = fieldDefinition;
         }
-
-        /// <summary>
-        /// The reflection <see cref="FieldInfo"/> for this code model field.
-        /// </summary>
-        public FieldInfo FieldInfo { get; }
+        
+        public FieldDefinition FieldDefinition { get; }
     }
 }

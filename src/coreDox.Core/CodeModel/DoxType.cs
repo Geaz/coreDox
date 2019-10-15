@@ -1,27 +1,34 @@
 ﻿using coreDox.Core.Model.Code.Base;
-using System.Reflection;
+using coreDox.Core.Model.Code.Members;
+using Mono.Cecil;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace coreDox.Core.Model.Code
 {
     public class DoxType : DoxCodeModel
     {
-        public DoxType(TypeInfo typeInfo)
+        public DoxType(TypeDefinition typeDefinition)
         {
-            TypeInfo = typeInfo;
-            Name = typeInfo.Name;
-            FullName = typeInfo.FullName;
+            Name = typeDefinition.Name;
+            FullName = typeDefinition.FullName;
+            TypeDefinition = typeDefinition;
+
+            ParseType();
         }
 
-        private void ParseMembers()
+        private void ParseType()
         {
-            foreach(var member in TypeInfo.DeclaredConstructors)
-            {
-            }
+            TypeDefinition.Events.ToList().ForEach(e => DoxEventSet.Add(new DoxEvent(e)));
+            TypeDefinition.Fields.ToList().ForEach(f => DoxFieldSet.Add(new DoxField(f)));
+            TypeDefinition.Methods.ToList().ForEach(m => DoxMethodSet.Add(new DoxMethod(m)));
+            TypeDefinition.Properties.ToList().ForEach(p => DoxPropertySet.Add(new DoxProperty(p)));
         }
 
-        /// <summary>
-        /// The reflection type for this code model type.
-        /// </summary>
-        public TypeInfo TypeInfo { get; }
+        public TypeDefinition TypeDefinition { get; }
+        public List<DoxEvent> DoxEventSet { get; } = new List<DoxEvent>();
+        public List<DoxField> DoxFieldSet { get; } = new List<DoxField>();
+        public List<DoxMethod> DoxMethodSet { get; } = new List<DoxMethod>();
+        public List<DoxProperty> DoxPropertySet { get; } = new List<DoxProperty>();
     }
 }

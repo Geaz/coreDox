@@ -1,9 +1,10 @@
 using CommandLine;
-
 using coreDox.Build;
+using coreDox.Core.Model;
 using coreDox.New;
 using coreDox.Watch;
-using coreDox.Core.Model;
+using NLog;
+using System;
 
 namespace coreDox
 {
@@ -12,15 +13,21 @@ namespace coreDox
         static int Main(string[] args)
         {
             var exitCode = ExitCode.Success;
-            
-            Parser.Default.ParseArguments<NewOptions, BuildOptions, WatchOptions>(args)
-                .WithParsed<NewOptions>(opts => new NewVerb(opts))
-                .WithParsed<BuildOptions>(opts => new BuildVerb(opts))
-                .WithParsed<WatchOptions>(opts => new WatchVerb(opts))
-                .WithNotParsed(errs => {
-                    exitCode = ExitCode.InvalidArgs;                    
-                });
-
+            try
+            {
+                Parser.Default.ParseArguments<NewOptions, BuildOptions, WatchOptions>(args)
+                    .WithParsed<NewOptions>(opts => new NewVerb(opts))
+                    .WithParsed<BuildOptions>(opts => new BuildVerb(opts))
+                    .WithParsed<WatchOptions>(opts => new WatchVerb(opts))
+                    .WithNotParsed(errs => {
+                        exitCode = ExitCode.InvalidArgs;
+                    });
+            }
+            catch(Exception ex)
+            {
+                LogManager.GetLogger("coreDox CLI").Error(ex, ex.Message);
+                exitCode = ExitCode.UnknownError;
+            }
             return (int)exitCode;
         }
     }

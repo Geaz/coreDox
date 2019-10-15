@@ -1,5 +1,4 @@
-﻿using coreDox.Core.Contracts;
-using coreDox.Core.Project.Common;
+﻿using coreDox.Core.Project.Common;
 using coreDox.Core.Project.Config;
 using coreDox.Core.Project.Pages;
 using System.Collections.Generic;

@@ -1,8 +1,7 @@
 ﻿using coreDox.Core.Model.Code.Base;
 using Mono.Cecil;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
+using System.Linq;
 
 namespace coreDox.Core.Model.Code
 {
@@ -11,23 +10,27 @@ namespace coreDox.Core.Model.Code
         public DoxAssembly(string assemblyPath)
         {
             AssemblyPath = assemblyPath;
-            AssemblyDefinition = ModuleDefinition.ReadModule(assemblyPath);
+            AssemblyDefinition = ModuleDefinition.ReadModule(assemblyPath, new ReaderParameters { ReadSymbols = true });
+
             Name = AssemblyDefinition.Name;
             FullName = AssemblyDefinition.FileName;
             TargetFramework = AssemblyDefinition.RuntimeVersion;
+
+            ParseAssembly();
         }
 
-        public DoxNamespace GetOrAddNamespace(string namespaceIdentifier)
+        private void ParseAssembly()
         {
-            return DoxNamespaceSet.GetOrAdd(new DoxNamespace(namespaceIdentifier));
+            var namespacesWithPublicTypesList = AssemblyDefinition.Types.Where(t => t.IsPublic).GroupBy(t => t.Namespace);
+            foreach (var namespaceWithPublicTypes in namespacesWithPublicTypesList)
+            {
+                DoxNamespaceSet.Add(new DoxNamespace(namespaceWithPublicTypes.Key, namespaceWithPublicTypes.ToList()));
+            }
         }
 
         public string AssemblyPath { get; }
-
         public string TargetFramework { get; }
-
         public ModuleDefinition AssemblyDefinition { get; }
-
-        public HashSet<DoxNamespace> DoxNamespaceSet { get; } = new HashSet<DoxNamespace>();
+        public List<DoxNamespace> DoxNamespaceSet { get; } = new List<DoxNamespace>();
     }
 }

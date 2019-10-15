@@ -14,7 +14,7 @@ namespace coreDox.Core.Project.Config
     public sealed class DoxProjectConfig
     {
         private DateTime _lastLoadTimeUtc;
-        private List<Object> _loadedConfigSections;
+        private List<object> _loadedConfigSections;
 
         private readonly PluginRegistry _pluginRegistry;
         private readonly DoxFileInfo _configFileInfo;

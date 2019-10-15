@@ -1,7 +1,7 @@
 ﻿// Class without namespace
-internal static class Regression6
+public static class Regression6
 {
-    internal static class Test
+    public static class Test
     {
         // do something
     }

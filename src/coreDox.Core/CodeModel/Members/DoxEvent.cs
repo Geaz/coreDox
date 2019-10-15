@@ -1,20 +1,17 @@
-﻿using System.Reflection;
-using coreDox.Core.Model.Code.Base;
+﻿using coreDox.Core.Model.Code.Base;
+using Mono.Cecil;
 
 namespace coreDox.Core.Model.Code.Members
 {
     public class DoxEvent : DoxCodeModel
     {
-        public DoxEvent(EventInfo eventInfo)
+        public DoxEvent(EventDefinition eventDefinition)
         {
-            EventInfo = eventInfo;
-            Name = eventInfo.Name;
-            FullName = $"{eventInfo.DeclaringType.FullName}.{Name}";
+            Name = eventDefinition.Name;
+            FullName = $"{eventDefinition.DeclaringType.FullName}.{Name}";
+            EventDefinition = eventDefinition;
         }
-
-        /// <summary>
-        /// The reflection <see cref="EventInfo"/> for this code model event.
-        /// </summary>
-        public EventInfo EventInfo { get; }
+        
+        public EventDefinition EventDefinition { get; }
     }
 }
