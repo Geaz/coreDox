@@ -1,4 +1,0 @@
----
-- title: API
-- assembly: ../../../../../../SharpDox.TestProject/bin/Debug/SharpDox.TestProject.dll
----
