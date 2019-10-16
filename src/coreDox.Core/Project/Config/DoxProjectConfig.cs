@@ -61,7 +61,7 @@ namespace coreDox.Core.Project.Config
                 completeJObject.Merge(jObjectWithName);
             }
 
-            var serializedObject = JsonConvert.SerializeObject(completeJObject);
+            var serializedObject = JsonConvert.SerializeObject(completeJObject, Formatting.Indented);
             File.WriteAllText(configPath, serializedObject);
         }
     }

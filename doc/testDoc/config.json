@@ -1,0 +1,12 @@
+{
+  "DoxConfigSection": {
+    "ProjectName": "Test Doc Project",
+    "OutputFolder": "build",
+    "Targets": [
+      "HtmlTarget"
+    ]
+  },
+  "HtmlConfigSection": {
+    "ShowCode": false
+  }
+}
