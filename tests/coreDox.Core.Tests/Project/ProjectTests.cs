@@ -31,5 +31,21 @@ namespace coreDox.Core.Tests.Projects
             Assert.IsTrue(Directory.Exists(Path.Combine(_tmpPath, DoxProject.PagesFolderName)));
             Assert.IsTrue(File.Exists(Path.Combine(_tmpPath, DoxProjectConfig.ConfigFileName)));
         }
+
+        [TestMethod]
+        public void ShouldLoadProjectSuccessfully()
+        {
+            //Arrange
+            var project = new DoxProject();
+            var projectPath = Path.Combine(
+                Path.GetDirectoryName(typeof(ProjectTests).Assembly.Location),
+                "..", "..", "..", "..", "..", "doc", "testDoc");
+
+            //Act
+            project.Load(projectPath);
+
+            //Assert
+            Assert.IsTrue(project.RootProjectDirectory.Exists);
+        }
     }
 }
