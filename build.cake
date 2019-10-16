@@ -1,3 +1,5 @@
+#addin nuget:?package=Cake.Coverlet
+
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
@@ -41,20 +43,26 @@ Task("Build")
 Task("Run-Unit-Tests")
     .IsDependentOn("Build")
     .Does(() => {
+        var coverletSettings = new CoverletSettings {
+            CollectCoverage = true,
+            CoverletOutputFormat = CoverletOutputFormat.opencover,
+            Exclude = new List<string> { "[coreDox]*", "[coreDox.TestDataProject]*" },
+        };
+        
         DotNetCoreTest(
             "./tests/coreDox.Core.Tests/coreDox.Core.Tests.csproj",
             new DotNetCoreTestSettings()
             {
                 Configuration = configuration,
                 NoBuild = true,
-            });
+            }, coverletSettings);
 	});
 
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
-Task("Default").IsDependentOn("Build");
+Task("Default").IsDependentOn("Run-Unit-Tests");
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION

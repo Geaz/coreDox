@@ -1,55 +1,63 @@
-﻿using coreDox.Core.Project.Common;
+﻿using coreDox.Core.Exceptions;
 using coreDox.Core.Project.Config;
 using coreDox.Core.Project.Pages;
-using System.Collections.Generic;
 using System.IO;
 
 namespace coreDox.Core.Project
 {
     public sealed class DoxProject
     {
-        public const string ConfigFileName  = "config.json";
         public const string AssetFolderName = "assets";
         public const string PagesFolderName = "pages";
         public const string LayoutFolderName = "layout";
-        
-        private readonly DoxDirectoryInfo _rootProjectDirectory;
-        private readonly DoxDirectoryInfo _assetDirectory;
-        private readonly DoxDirectoryInfo _pagesDirectory;
-        private readonly DoxDirectoryInfo _layoutDirectory;
 
-        public DoxProject(DoxProjectConfig projectConfig)
+        public void Load(string docFolder)
         {
-            _rootProjectDirectory = new DoxDirectoryInfo(projectConfig.ParentDirectory.FullName);
-            _assetDirectory = new DoxDirectoryInfo(Path.Combine(_rootProjectDirectory.FullName, AssetFolderName));
-            _pagesDirectory = new DoxDirectoryInfo(Path.Combine(_rootProjectDirectory.FullName, PagesFolderName));
-            _layoutDirectory = new DoxDirectoryInfo(Path.Combine(_rootProjectDirectory.FullName, LayoutFolderName));
+            if(!Directory.Exists(docFolder)) throw new CoreDoxException($"No folder found at '{docFolder}'!");
+            
+            SetDirectoryInfos(docFolder);
 
-            Pages = new DoxPageList(_pagesDirectory);
-            Config = projectConfig;
+            PageList = new DoxPageList(PagesDirectory);
+
+            Config = new DoxProjectConfig();
+            Config.Load(docFolder);
         }
 
-        public IReadOnlyList<DoxProjectValidationResult> IsProjectValid()
+        public void Create(string docFolder)
         {
-            var validationResults = new List<DoxProjectValidationResult>();
-            validationResults.Add(new DoxProjectValidationResult(_rootProjectDirectory.FullName, _rootProjectDirectory.Exists, "NOT EXISTING"));
-            validationResults.Add(new DoxProjectValidationResult(_assetDirectory.FullName, _rootProjectDirectory.Exists, "NOT EXISTING"));
-            validationResults.Add(new DoxProjectValidationResult(_pagesDirectory.FullName, _rootProjectDirectory.Exists, "NOT EXISTING"));
-            validationResults.Add(new DoxProjectValidationResult(_layoutDirectory.FullName, _rootProjectDirectory.Exists, "NOT EXISTING"));
-            return validationResults;
+            SetDirectoryInfos(docFolder);
+            EnsureDirectory(RootProjectDirectory);
+            EnsureDirectory(AssetDirectory);
+            EnsureDirectory(PagesDirectory);
+            EnsureDirectory(LayoutDirectory);
+            
+            Config = new DoxProjectConfig();
+            Config.Save(docFolder);
         }
 
-        public void CreateMissingElements()
+        private void SetDirectoryInfos(string docFolder)
         {
-            _rootProjectDirectory.EnsureDirectory();
-            _assetDirectory.EnsureDirectory();
-            _pagesDirectory.EnsureDirectory();
-            _layoutDirectory.EnsureDirectory();
-
-            if(!Config.Exists) Config.CreateDefaultConfig();
+            RootProjectDirectory = new DirectoryInfo(docFolder);
+            AssetDirectory = new DirectoryInfo(Path.Combine(RootProjectDirectory.FullName, AssetFolderName));
+            PagesDirectory = new DirectoryInfo(Path.Combine(RootProjectDirectory.FullName, PagesFolderName));
+            LayoutDirectory = new DirectoryInfo(Path.Combine(RootProjectDirectory.FullName, LayoutFolderName));
         }
 
-        public DoxPageList Pages { get; }
-        public DoxProjectConfig Config { get; }
+        private void EnsureDirectory(DirectoryInfo directoryInfo)
+        {
+            directoryInfo.Refresh();
+            if (!directoryInfo.Exists)
+            {
+                directoryInfo.Create();
+            }
+        }
+
+        public DoxPageList PageList { get; private set; } 
+        public DoxProjectConfig Config { get; private set; }
+
+        public DirectoryInfo RootProjectDirectory { get; private set; }
+        public DirectoryInfo AssetDirectory { get; private set; }
+        public DirectoryInfo PagesDirectory { get; private set; }
+        public DirectoryInfo LayoutDirectory { get; private set; }
     }
 }

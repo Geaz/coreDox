@@ -4,15 +4,7 @@ namespace coreDox.Core.Contracts
 {
     public interface ITarget
     {
-        void Write(string outputPath);
-
-        DoxProject Project { get; set; }
-
-        string Name { get; }
+        void Export(DoxProject project, string outputPath);
     }
-
-    public interface ITarget<TConfig> : ITarget where TConfig : IConfigSection
-    {
-        TConfig Config { get; set; }
-    }
+    public interface ITarget<TConfig> : ITarget where TConfig : IConfigSection { }
 }

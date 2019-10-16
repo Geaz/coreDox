@@ -1,15 +1,12 @@
 ﻿using coreDox.Core.Exceptions;
-using coreDox.Core.Project.Common;
 using System;
-using System.Linq;
 using System.IO;
-using System.Text;
+using System.Linq;
 
 namespace coreDox.Core.Project.Pages
 {
     public enum DoxPageType
     {
-        Placeholder,
         Page,
         Assembly,
     }
@@ -22,44 +19,37 @@ namespace coreDox.Core.Project.Pages
     /// </remarks>
     public sealed class DoxPage
     {
-        private DateTime _lastLoadTimeUtc;
+        private readonly FileInfo _doxPageFileInfo;
 
-        private readonly DoxFileInfo _doxPageFileInfo;
-
-        public DoxPage(DoxFileInfo doxPageFileInfo)
+        public DoxPage(FileInfo doxPageFileInfo)
         {
             _doxPageFileInfo = doxPageFileInfo;
+            Parse();
         }
 
-        public void WritePage(string title, string content, string assemblyPath = null)
+        public DoxPage(DirectoryInfo doxPageDirectoryInfo)
         {
-            var pageBuilder = new StringBuilder();
-            pageBuilder.AppendLine($"---");
-            pageBuilder.AppendLine($"- title: {title}");
-
-            if(!string.IsNullOrEmpty(assemblyPath))
-                pageBuilder.AppendLine($"- assembly: {assemblyPath}");
-
-            pageBuilder.AppendLine($"---");
-            pageBuilder.AppendLine(content);
-
-            File.WriteAllText(_doxPageFileInfo.FullName, pageBuilder.ToString());
+            Title = doxPageDirectoryInfo.Name;
+            SubPages = new DoxPageList(doxPageDirectoryInfo);
         }
-        
-        private void CheckLoad()
+
+        private void Parse()
         {
             if (!_doxPageFileInfo.Exists) throw new CoreDoxException($"No page file found at '{_doxPageFileInfo.FullName}'!");
-            if (_lastLoadTimeUtc < _doxPageFileInfo.LastWriteTimeUtc)
-            {
-                var content = File.ReadAllText(_doxPageFileInfo.FullName);
-                var splittedContent = content.Split("---", StringSplitOptions.RemoveEmptyEntries);
+            var content = File.ReadAllText(_doxPageFileInfo.FullName);
+            var splittedContent = content.Split("---", StringSplitOptions.RemoveEmptyEntries);
 
-                ParseHeader(splittedContent[0].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries));
-                if (splittedContent.Length == 2)
-                {                    
-                    _content = splittedContent[1].Trim();
-                }
-                _lastLoadTimeUtc = _doxPageFileInfo.LastWriteTimeUtc;
+            ParseHeader(splittedContent[0].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries));
+            if (splittedContent.Length == 2)
+            {
+                Content = splittedContent[1].Trim();
+            }
+
+            // If the file is a index file and no title was given,
+            // set the title of the page to the parent directory name
+            if(string.IsNullOrEmpty(Title) && _doxPageFileInfo.Name == "index.md")
+            {
+                Title = _doxPageFileInfo.Directory.Name;
             }
         }
 
@@ -69,47 +59,33 @@ namespace coreDox.Core.Project.Pages
             if(line.StartsWith("- assembly:"))
             {
                 var assemblyPath = Path.Combine(_doxPageFileInfo.Directory.FullName, line.Substring("- assembly:".Length).Trim());
-                _assemblyFileInfo = new DoxFileInfo(assemblyPath);
+                AssemblyFileInfo = new FileInfo(assemblyPath);
 
-                if(!_assemblyFileInfo.Exists)
+                if(!AssemblyFileInfo.Exists)
                 {
-                    throw new CoreDoxException($"Assembly '{_assemblyFileInfo.FullName}' does not exist!");
+                    throw new CoreDoxException($"Assembly '{AssemblyFileInfo.FullName}', defined in '{_doxPageFileInfo.Name}',  does not exist!");
                 }                    
             }
             else if (line.StartsWith("- title:"))
             {
-                _title = line.Substring("- title:".Length).Trim();
+                Title = line.Substring("- title:".Length).Trim();
             }
 
             if (lines.Length > 1) ParseHeader(lines.Skip(1).ToArray());
         }
 
-        private string _title;
-        public string Title
-        {
-            get { CheckLoad(); return _title; }
-        }
-
-        private string _content;
-        public string Content
-        {
-            get { CheckLoad(); return _content; }
-        }
-
-        private DoxFileInfo _assemblyFileInfo;
-        public DoxFileInfo AssemblyFileInfo
-        {
-            get { CheckLoad(); return _assemblyFileInfo; }
-        }
-
+        public string Title { get; private set; }
+        public string Content { get; private set; }
+        public FileInfo AssemblyFileInfo { get; private set; }
         public DoxPageType PageType
         {
             get
             {
-                CheckLoad();
                 if (AssemblyFileInfo != null) return DoxPageType.Assembly;
                 else return DoxPageType.Page;
             }
         }
+
+        public DoxPageList SubPages { get; }
     }
 }

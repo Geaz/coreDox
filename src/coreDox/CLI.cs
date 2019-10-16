@@ -1,6 +1,6 @@
 using CommandLine;
 using coreDox.Build;
-using coreDox.Core.Model;
+using coreDox.Core.Exceptions;
 using coreDox.New;
 using coreDox.Watch;
 using NLog;
@@ -22,6 +22,11 @@ namespace coreDox
                     .WithNotParsed(errs => {
                         exitCode = ExitCode.InvalidArgs;
                     });
+            }
+            catch(CoreDoxException ex)
+            {
+                LogManager.GetLogger("coreDox CLI").Error(ex.Message);
+                exitCode = ExitCode.CoreException;
             }
             catch(Exception ex)
             {

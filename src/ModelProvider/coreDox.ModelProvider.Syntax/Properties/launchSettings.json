@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "coreDox": {
+    "coreDox.ModelProvider.Syntax": {
       "commandName": "Project",
       "commandLineArgs": "build C:/Temp/doxProject"
     }

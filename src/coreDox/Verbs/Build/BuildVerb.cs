@@ -13,9 +13,9 @@ namespace coreDox.Build
         {
             _logger.Info($"Building project in folder '{buildOptions.DocFolder}' ...");
 
-            var pluginRegistry = new PluginRegistry();
-            var projectConfig = new DoxProjectConfig(pluginRegistry, buildOptions.DocFolder);
-            var project = new DoxProject(projectConfig);
+            //var project = new DoxProject(buildOptions.DocFolder);
+
+
         }
     }
 }

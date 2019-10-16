@@ -1,27 +1,31 @@
 ﻿using coreDox.Core.Model.Code;
-using coreDox.Core.Project;
-using coreDox.Core.Project.Config;
 using coreDox.Core.Project.Pages;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
-using System.Linq;
 
 namespace coreDox.Core.Tests.CodeModel
 {
     [TestClass]
     public class DoxAssemblyTests
     {
-        // This folder gets copied into the assembly location by the post build event of the test project
-        private string _testDoxProjectFolder = Path.Combine(Path.GetDirectoryName(typeof(PluginRegistry).Assembly.Location), "doxProject");
+        private readonly string _tmpFile = Path.GetTempFileName();
+        private readonly string _testDllPath =
+            Path.Combine(Path.GetDirectoryName(
+                typeof(DoxAssemblyTests).Assembly.Location),
+                "coreDox.TestDataProject.dll");
+
+        [TestCleanup]
+        public void TestCleanUp()
+        {
+            if (File.Exists(_tmpFile)) File.Delete(_tmpFile);
+        }
 
         [TestMethod]
         public void ShouldOpenAssemblySuccessfully()
         {
             //Arrange
-            var pluginRegistry = new PluginRegistry();
-            var projectConfig = new DoxProjectConfig(pluginRegistry, _testDoxProjectFolder);
-            var project = new DoxProject(projectConfig);
-            var assemblyPage = project.Pages.GetPages().First(p => p.PageType == DoxPageType.Assembly);
+            PageHelper.WritePage(_tmpFile, "API", string.Empty, _testDllPath);
+            var assemblyPage = new DoxPage(new FileInfo(_tmpFile));
 
             //Act
             var doxAssembly = new DoxAssembly(assemblyPage.AssemblyFileInfo.FullName);

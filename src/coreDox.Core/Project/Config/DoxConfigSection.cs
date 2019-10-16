@@ -1,18 +1,14 @@
 ﻿using coreDox.Core.Contracts;
-using coreDox.Core.Project.Common;
+using System.Collections.Generic;
 
 namespace coreDox.Core.Project.Config
 {
     public sealed class DoxConfigSection : IConfigSection
     {
-        public void SetDefaultValues(DoxFileInfo configFileInfo)
-        {
-            ProjectName = configFileInfo.Directory.ParentDirectory.Name;
-            OutputFolder = "build";
-        }
+        public string ProjectName { get; set; } = "Doc Project";
 
-        public string ProjectName { get; set; }
+        public string OutputFolder { get; set; } = "build";
 
-        public string OutputFolder { get; set; }
+        public List<string> Targets { get; set; } = new List<string> { "HtmlTarget" };
     }
 }

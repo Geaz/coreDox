@@ -1,32 +1,39 @@
-﻿using coreDox.Core.Project.Common;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace coreDox.Core.Project.Pages
 {
-    public sealed class DoxPageList
+    public sealed class DoxPageList : List<DoxPage>
     {
-        private readonly DoxDirectoryInfo _pagesDirectory;
+        private readonly DirectoryInfo _pagesDirectory;
 
-        public DoxPageList(DoxDirectoryInfo pagesDirectory)
+        public DoxPageList(DirectoryInfo pagesDirectory)
         {
             _pagesDirectory = pagesDirectory;
+            LoadPages();
         }
 
-        public bool Any()
+        private void LoadPages()
         {
-            return Directory
-                .GetFiles(_pagesDirectory.FullName, "*.md")
-                .Any();
-        }
+            AddRange(_pagesDirectory
+                .GetFiles("*.md")
+                .Select(p => new DoxPage(p))
+                .ToList());
 
-        public IReadOnlyList<DoxPage> GetPages()
-        {
-            return Directory
-                .GetFiles(_pagesDirectory.FullName, "*.md")
-                .Select(p => new DoxPage(new DoxFileInfo(p)))
-                .ToList();
+            var subDirectoryInfoList = Directory.GetDirectories(_pagesDirectory.FullName).Select(p => new DirectoryInfo(p));
+            foreach (var directory in subDirectoryInfoList)
+            {
+                var indexFile = directory.GetFiles("index.md").FirstOrDefault();
+                if (indexFile != null)
+                {
+                    Add(new DoxPage(indexFile));
+                }
+                else
+                {
+                    Add(new DoxPage(directory));
+                }
+            }
         }
     }
 }

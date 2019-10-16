@@ -3,17 +3,12 @@ using coreDox.Core.Project;
 
 namespace coreDox.Target.Html
 {
-    public sealed class HtmlTarget : ITarget<HtmlConfig>
+    public sealed class HtmlTarget : ITarget<HtmlConfigSection>
     {
-        public void Write(string outputPath)
+        public void Export(DoxProject project, string outputPath)
         {
-            throw new System.NotImplementedException();
+            var htmlConfig = project.Config.GetConfigSection<HtmlConfigSection>();
+
         }
-
-        public DoxProject Project { get; set; }
-
-        public HtmlConfig Config { get; set; }
-
-        public string Name => "Html";
     }
 }

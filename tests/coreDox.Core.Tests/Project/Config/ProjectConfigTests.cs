@@ -9,13 +9,11 @@ namespace coreDox.Core.Tests.Projects
     public class ProjectConfigTests
     {
         private string _tmpPath = Path.Combine(Path.GetTempPath(), "testProject");
-        private PluginRegistry _pluginRegistry = new PluginRegistry();
 
         [TestCleanup]
         public void TestCleanUp()
         {
-            if(Directory.Exists(_tmpPath))
-                Directory.Delete(_tmpPath, true);
+            if(Directory.Exists(_tmpPath)) Directory.Delete(_tmpPath, true);
         }
 
         [TestMethod]
@@ -23,13 +21,13 @@ namespace coreDox.Core.Tests.Projects
         {
             //Arrange
             Directory.CreateDirectory(_tmpPath);
-            var projectConfig = new DoxProjectConfig(_pluginRegistry, _tmpPath);
+            var projectConfig = new DoxProjectConfig();
 
             //Act
-            projectConfig.CreateDefaultConfig();
+            projectConfig.Save(_tmpPath);
 
             //Assert
-            Assert.IsTrue(projectConfig.Exists);
+            Assert.IsTrue(File.Exists(Path.Combine(_tmpPath, DoxProjectConfig.ConfigFileName)));
         }
 
         [TestMethod]
@@ -37,8 +35,7 @@ namespace coreDox.Core.Tests.Projects
         {
             //Arrange
             Directory.CreateDirectory(_tmpPath);
-            var projectConfig = new DoxProjectConfig(_pluginRegistry, _tmpPath);
-            projectConfig.CreateDefaultConfig();
+            var projectConfig = new DoxProjectConfig();
 
             //Act
             var doxConfig = projectConfig.GetConfigSection<DoxConfigSection>();
@@ -48,14 +45,29 @@ namespace coreDox.Core.Tests.Projects
         }
 
         [TestMethod]
-        [ExpectedException(typeof(CoreDoxException))]
-        public void ShouldThrowIfConfigFileNotPresentSuccessfully()
+        public void ShouldSetDefaultConfigValuesSuccessfully()
         {
             //Arrange
-            var projectConfig = new DoxProjectConfig(_pluginRegistry, _tmpPath);
+            Directory.CreateDirectory(_tmpPath);
+            var projectConfig = new DoxProjectConfig();
 
             //Act
             var doxConfig = projectConfig.GetConfigSection<DoxConfigSection>();
+
+            //Assert
+            Assert.AreEqual("build", doxConfig.OutputFolder);
+            Assert.AreEqual("Doc Project", doxConfig.ProjectName);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(CoreDoxException))]
+        public void ShouldThrowIfConfigFileNotPresent()
+        {
+            //Arrange
+            var projectConfig = new DoxProjectConfig();
+
+            //Act
+            projectConfig.Load(_tmpPath);
 
             //Assert - Expects Exception
         }

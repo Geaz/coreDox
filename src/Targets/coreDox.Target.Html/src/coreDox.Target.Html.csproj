@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="mkdir &quot;$(SolutionDir)..\tests\coreDox.Core.Tests\$(OutDir)Targets&quot;&#xD;&#xA;mkdir &quot;$(SolutionDir)..\tests\coreDox.Core.Tests\$(OutDir)Targets\Html&quot;&#xD;&#xA;&#xD;&#xA;xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)..\tests\coreDox.Core.Tests\$(OutDir)\Targets\Html&quot; /Y /I" />
+    <Exec Command="mkdir &quot;$(SolutionDir)..\tests\coreDox.Core.Tests\$(OutDir)Targets&quot;&#xD;&#xA;mkdir &quot;$(SolutionDir)..\tests\coreDox.Core.Tests\$(OutDir)Targets\Html&quot;&#xD;&#xA;&#xD;&#xA;mkdir &quot;$(SolutionDir)\coreDox\$(OutDir)Targets&quot;&#xD;&#xA;mkdir &quot;$(SolutionDir)\coreDox\$(OutDir)Targets\Html&quot;&#xD;&#xA;&#xD;&#xA;xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)..\tests\coreDox.Core.Tests\$(OutDir)\Targets\Html&quot; /Y /I&#xD;&#xA;xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)\coreDox\$(OutDir)\Targets\Html&quot; /Y /I" />
   </Target>
 
 </Project>
