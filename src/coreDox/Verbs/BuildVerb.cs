@@ -1,9 +1,6 @@
-﻿using coreDox.Core;
-using coreDox.Core.Project;
-using coreDox.Core.Project.Config;
-using NLog;
+﻿using NLog;
 
-namespace coreDox.Build
+namespace coreDox.Verbs
 {
     internal class BuildVerb
     {

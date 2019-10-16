@@ -1,7 +1,7 @@
 ﻿using coreDox.Core.Project;
 using NLog;
 
-namespace coreDox.New
+namespace coreDox.Verbs
 {
     internal class NewVerb
     {

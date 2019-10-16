@@ -1,8 +1,6 @@
 using CommandLine;
-using coreDox.Build;
 using coreDox.Core.Exceptions;
-using coreDox.New;
-using coreDox.Watch;
+using coreDox.Verbs;
 using NLog;
 using System;
 

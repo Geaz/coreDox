@@ -1,6 +1,5 @@
 ﻿using coreDox.Core.Contracts;
 using coreDox.Core.Project.Config;
-using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,19 +14,16 @@ namespace coreDox.Core
         private List<Type> _registeredTargetTypesList;
         private List<Type> _registeredConfigSectionTypesList;
 
-        private readonly ILogger _logger = LogManager.GetLogger("PluginRegistry");
         private readonly List<string> _possibleTargetDllFileArray = new List<string>();
-        private readonly string _targetsFolderPath = 
-            Path.Combine(Path.GetDirectoryName(typeof(PluginRegistry).Assembly.Location), "Targets");
+        private readonly string _targetsFolderPath = Path.Combine(Path.GetDirectoryName(typeof(PluginRegistry).Assembly.Location), "Targets");
 
         public PluginRegistry()
         {
             if(Directory.Exists(_targetsFolderPath))
             {
-                _possibleTargetDllFileArray = 
-                    Directory
-                        .GetFiles(_targetsFolderPath, "*.dll", SearchOption.AllDirectories)
-                        .ToList();
+                _possibleTargetDllFileArray = Directory
+                    .GetFiles(_targetsFolderPath, "*.dll", SearchOption.AllDirectories)
+                    .ToList();
             }
         }
         
@@ -38,15 +34,8 @@ namespace coreDox.Core
                 _registeredTargetTypesList = new List<Type>();
                 foreach (var possibleTargetDllFile in _possibleTargetDllFileArray)
                 {
-                    try
-                    {
-                        var possibleTargetAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(possibleTargetDllFile);
-                        _registeredTargetTypesList.AddRange(GetTypesWithInterface<ITarget>(possibleTargetAssembly));
-                    }
-                    catch (Exception)
-                    {
-                        _logger.Debug($"Couldn't load assembly: {possibleTargetDllFile}");
-                    }
+                    var possibleTargetAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(possibleTargetDllFile);
+                    _registeredTargetTypesList.AddRange(GetTypesWithInterface<ITarget>(possibleTargetAssembly));
                 }
             }
             return _registeredTargetTypesList.Select(r => (ITarget) Activator.CreateInstance(r)).ToList();

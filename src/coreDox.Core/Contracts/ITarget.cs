@@ -6,5 +6,6 @@ namespace coreDox.Core.Contracts
     {
         void Export(DoxProject project, string outputPath);
     }
+
     public interface ITarget<TConfig> : ITarget where TConfig : IConfigSection { }
 }

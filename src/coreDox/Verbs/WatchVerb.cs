@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace coreDox.Watch
+namespace coreDox.Verbs
 {
     internal class WatchVerb
     {
