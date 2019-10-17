@@ -26,14 +26,7 @@ namespace coreDox.Core.Project.Pages
                 {
                     Content = splittedContent[1].Trim();
                 }
-            }            
-
-            // If the file is a index file and no title was given,
-            // set the title of the page to the parent directory name
-            if(string.IsNullOrEmpty(Title) && doxPageFileInfo.Name == "index.md")
-            {
-                Title = doxPageFileInfo.Directory.Name;
-            }
+            }      
         }
 
         private void ParseHeader(string[] lines, FileInfo doxPageFileInfo)
