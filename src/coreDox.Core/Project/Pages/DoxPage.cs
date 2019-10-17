@@ -17,6 +17,7 @@ namespace coreDox.Core.Project.Pages
             if (!doxPageFileInfo.Exists) throw new CoreDoxException($"No page file found at '{doxPageFileInfo.FullName}'!");
 
             Content = File.ReadAllText(doxPageFileInfo.FullName);
+            throw new Exception(Content);
             if(Content.StartsWith("---"))
             {
                 var splittedContent = Content.Split("---", StringSplitOptions.RemoveEmptyEntries);
