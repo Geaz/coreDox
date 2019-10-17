@@ -16,12 +16,12 @@ namespace coreDox.Core.Project.Pages
         {
             if (!doxPageFileInfo.Exists) throw new CoreDoxException($"No page file found at '{doxPageFileInfo.FullName}'!");
 
-            Content = File.ReadAllText(doxPageFileInfo.FullName);
+            Content = File.ReadAllText(doxPageFileInfo.FullName).Replace("\r\n", "\n");
             if (Content.StartsWith("---"))
             {
                 var splittedContent = Content.Split("---", StringSplitOptions.RemoveEmptyEntries);
 
-                ParseHeader(splittedContent[0].Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries), doxPageFileInfo);
+                ParseHeader(splittedContent[0].Split("\n", StringSplitOptions.RemoveEmptyEntries), doxPageFileInfo);
                 if (splittedContent.Length == 2)
                 {
                     Content = splittedContent[1].Trim();
