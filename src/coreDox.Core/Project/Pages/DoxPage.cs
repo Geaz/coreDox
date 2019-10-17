@@ -32,7 +32,9 @@ namespace coreDox.Core.Project.Pages
         private void ParseHeader(string[] lines, FileInfo doxPageFileInfo)
         {
             var line = lines.First();
-            if(line.StartsWith("- assembly:"))
+
+            throw new Exception(line + " ### " + line.StartsWith("- title:"));
+            if (line.StartsWith("- assembly:"))
             {
                 var assemblyPath = Path.Combine(doxPageFileInfo.Directory.FullName, line.Substring("- assembly:".Length).Trim());
                 AssemblyFileInfo = new FileInfo(assemblyPath);
@@ -45,7 +47,6 @@ namespace coreDox.Core.Project.Pages
             else if (line.StartsWith("- title:"))
             {
                 Title = line.Substring("- title:".Length).Trim();
-                throw new Exception(line + " ### " + Title);
             }
 
             if (lines.Length > 1) ParseHeader(lines.Skip(1).ToArray(), doxPageFileInfo);
