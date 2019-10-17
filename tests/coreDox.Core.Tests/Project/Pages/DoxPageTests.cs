@@ -1,7 +1,9 @@
 ﻿using coreDox.Core.Exceptions;
+using coreDox.Core.Project;
 using coreDox.Core.Project.Pages;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using System.Linq;
 
 namespace coreDox.Core.Tests.Projects.Pages
 {
@@ -10,10 +12,10 @@ namespace coreDox.Core.Tests.Projects.Pages
     {
         private string _tmpFile = Path.GetTempFileName();
         private string _tmpPath = Path.Combine(Path.GetTempPath(), "testProject");
-        private string _testDllPath = 
-            Path.Combine(Path.GetDirectoryName(
-                typeof(DoxPageTests).Assembly.Location), 
-                "coreDox.TestDataProject.dll");
+        private readonly string _testProjectPath =
+           Path.Combine(Path.GetDirectoryName(
+               typeof(DoxPageTests).Assembly.Location),
+               "..", "..", "..", "..", "..", "doc", "testDoc");
 
         [TestCleanup]
         public void TestCleanUp()
@@ -23,18 +25,19 @@ namespace coreDox.Core.Tests.Projects.Pages
         }
 
         [TestMethod]
-        public void ShouldParsePageSuccessfully()
+        public void ShouldParsePagesSuccessfully()
         {
             //Arrange
-            PageHelper.WritePage(_tmpFile, "API", string.Empty, _testDllPath);
-            var assemblyPage = new DoxPage(new FileInfo(_tmpFile));
+            var project = new DoxProject();
 
-            //Act - Is Done During Assert
+            //Act
+            project.Load(_testProjectPath);
 
             //Assert
-            Assert.AreEqual("API", assemblyPage.Title);
-            Assert.AreEqual(_testDllPath, assemblyPage.AssemblyFileInfo.FullName);
-            Assert.AreEqual(string.Empty, assemblyPage.Content);
+            Assert.AreEqual("Test Documentation", project.PageRoot.Title);
+            Assert.AreEqual(1, project.PageRoot.PageList.Count);
+            Assert.AreEqual(2, project.PageRoot.FolderList.Count);
+            Assert.IsNotNull(project.PageRoot.PageList.First().AssemblyFileInfo);
         }
 
         [TestMethod]
