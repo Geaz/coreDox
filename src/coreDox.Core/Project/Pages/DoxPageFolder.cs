@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -17,6 +18,8 @@ namespace coreDox.Core.Project.Pages
                 var doxPage = new DoxPage(indexFile);
                 Title = !string.IsNullOrEmpty(doxPage.Title) ? doxPage.Title : Title;
                 Description = doxPage.Content;
+
+                throw new Exception(Title + " " + doxPage.Title);
             }
 
             LoadFolders(directoryInfo);
