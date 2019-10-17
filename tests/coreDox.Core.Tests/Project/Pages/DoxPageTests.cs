@@ -34,9 +34,9 @@ namespace coreDox.Core.Tests.Projects.Pages
             project.Load(_testProjectPath);
 
             //Assert
-            Assert.AreEqual("Test Documentation", project.PageRoot.Title);
             Assert.AreEqual(1, project.PageRoot.PageList.Count);
             Assert.AreEqual(2, project.PageRoot.FolderList.Count);
+            Assert.AreEqual("Test Documentation", project.PageRoot.Title);
             Assert.IsNotNull(project.PageRoot.PageList.First().AssemblyFileInfo);
         }
 
