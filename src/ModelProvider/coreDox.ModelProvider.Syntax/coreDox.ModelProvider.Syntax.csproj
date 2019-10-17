@@ -8,4 +8,8 @@
     <ProjectReference Include="..\..\coreDox.Core\coreDox.Core.csproj" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="mkdir &quot;$(SolutionDir)..\tests\coreDox.Core.Tests\$(OutDir)ModelProviders&quot;&#xD;&#xA;&#xD;&#xA;mkdir &quot;$(SolutionDir)\coreDox\$(OutDir)ModelProviders&quot;&#xD;&#xA;&#xD;&#xA;xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)..\tests\coreDox.Core.Tests\$(OutDir)\ModelProviders&quot; /Y /I&#xD;&#xA;xcopy &quot;$(TargetPath)&quot; &quot;$(SolutionDir)\coreDox\$(OutDir)\ModelProviders&quot; /Y /I" />
+  </Target>
+
 </Project>

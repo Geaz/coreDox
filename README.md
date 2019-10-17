@@ -60,8 +60,7 @@ The aim was to get the core library as 'slim' as possible. Thats why the remaini
 Modular Models, Templates and Targets
 ---
 In **sharpDox** the whole documentation model was defined in one big model. **coreDox** goes another way in defining the model.
-The core of **coreDox** will just provide a rough structure of the model. Containing the top most entities.
-These entities are:
+The core of **coreDox** will just provide a rough structure of the model. Containing the top most entities. It is essential just a wrapper around the Mono.Cecil definitions.
 
 - Namespaces
 - Types

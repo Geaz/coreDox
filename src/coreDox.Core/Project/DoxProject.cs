@@ -1,7 +1,12 @@
 ﻿using coreDox.Core.Exceptions;
+using coreDox.Core.Model.Code;
+using coreDox.Core.Model.Code.Base;
 using coreDox.Core.Project.Config;
 using coreDox.Core.Project.Pages;
+using NLog;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace coreDox.Core.Project
 {
@@ -10,6 +15,9 @@ namespace coreDox.Core.Project
         public const string AssetFolderName = "assets";
         public const string PagesFolderName = "pages";
         public const string LayoutFolderName = "layout";
+
+        private readonly ILogger _logger = LogManager.GetLogger("DoxProject");
+        private readonly PluginRegistry _pluginRegistry = new PluginRegistry();
 
         public void Load(string docFolder)
         {
@@ -35,6 +43,32 @@ namespace coreDox.Core.Project
             Config.Save(docFolder);
         }
 
+        public void ParseAssemblies()
+        {
+            ParsedAssemblyList = PageRoot
+                    .GetAllAssemblyPages()
+                    .Select(ap => new DoxAssembly(ap.AssemblyFileInfo.FullName))
+                    .ToList();
+            
+            var namespaceModelList = ParsedAssemblyList.SelectMany(a => a.DoxNamespaceSet);
+            var typeModelList = namespaceModelList.SelectMany(n => n.DoxTypeSet);
+
+            var doxModelList = new List<DoxCodeModel>(ParsedAssemblyList);
+            doxModelList.AddRange(namespaceModelList);
+            doxModelList.AddRange(typeModelList);
+            doxModelList.AddRange(typeModelList.SelectMany(t => t.DoxEventSet));
+            doxModelList.AddRange(typeModelList.SelectMany(t => t.DoxFieldSet));
+            doxModelList.AddRange(typeModelList.SelectMany(t => t.DoxMethodSet));
+            doxModelList.AddRange(typeModelList.SelectMany(t => t.DoxPropertySet));
+
+            _logger.Info($"Amending {doxModelList.Count} models ...");
+            foreach (var modelProvider in _pluginRegistry.GetAllModelProviders())
+            {
+                _logger.Info($"Running Model Provider: {modelProvider.GetType().Name} ...");
+                doxModelList.ForEach(m => { var model = modelProvider.AmendModel(m); if (model != null) m.Models.Add(model); });
+            }
+        }
+
         private void SetDirectoryInfos(string docFolder)
         {
             RootProjectDirectory = new DirectoryInfo(docFolder);
@@ -52,6 +86,7 @@ namespace coreDox.Core.Project
             }
         }
 
+        public List<DoxAssembly> ParsedAssemblyList { get; private set; }
         public DoxPageFolder PageRoot { get; private set; } 
         public DoxProjectConfig Config { get; private set; }
 

@@ -11,11 +11,14 @@ namespace coreDox.Core
 {
     public sealed class PluginRegistry
     {
-        private List<Type> _registeredTargetTypesList;
-        private List<Type> _registeredConfigSectionTypesList;
+        private List<Type> _registeredModelProviderTypeList;
+        private List<Type> _registeredTargetTypeList;
+        private List<Type> _registeredConfigSectionTypeList;
 
         private readonly List<string> _possibleTargetDllFileArray = new List<string>();
+        private readonly List<string> _possibleModelProviderDllFileArray = new List<string>();
         private readonly string _targetsFolderPath = Path.Combine(Path.GetDirectoryName(typeof(PluginRegistry).Assembly.Location), "Targets");
+        private readonly string _modelProvidersFolderPath = Path.Combine(Path.GetDirectoryName(typeof(PluginRegistry).Assembly.Location), "ModelProviders");
 
         public PluginRegistry()
         {
@@ -24,32 +27,49 @@ namespace coreDox.Core
                 _possibleTargetDllFileArray = Directory
                     .GetFiles(_targetsFolderPath, "*.dll", SearchOption.AllDirectories)
                     .ToList();
+                _possibleModelProviderDllFileArray = Directory
+                    .GetFiles(_modelProvidersFolderPath, "*.dll", SearchOption.AllDirectories)
+                    .ToList();
             }
         }
-        
+
+        public List<IModelProvider> GetAllModelProviders()
+        {
+            if(_registeredModelProviderTypeList == null)
+            {
+                _registeredModelProviderTypeList = new List<Type>();
+                foreach(var possibleModelProviderDllFile in _possibleModelProviderDllFileArray)
+                {
+                    var possibleModelProviderAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(possibleModelProviderDllFile);
+                    _registeredModelProviderTypeList.AddRange(GetTypesWithInterface<IModelProvider>(possibleModelProviderAssembly));
+                }
+            }
+            return _registeredModelProviderTypeList.Select(r => (IModelProvider)Activator.CreateInstance(r)).ToList();
+        }
+
         public List<ITarget> GetAllTargetPlugins()
         {
-            if(_registeredTargetTypesList == null)
+            if(_registeredTargetTypeList == null)
             {
-                _registeredTargetTypesList = new List<Type>();
+                _registeredTargetTypeList = new List<Type>();
                 foreach (var possibleTargetDllFile in _possibleTargetDllFileArray)
                 {
                     var possibleTargetAssembly = AssemblyLoadContext.Default.LoadFromAssemblyPath(possibleTargetDllFile);
-                    _registeredTargetTypesList.AddRange(GetTypesWithInterface<ITarget>(possibleTargetAssembly));
+                    _registeredTargetTypeList.AddRange(GetTypesWithInterface<ITarget>(possibleTargetAssembly));
                 }
             }
-            return _registeredTargetTypesList.Select(r => (ITarget) Activator.CreateInstance(r)).ToList();
+            return _registeredTargetTypeList.Select(r => (ITarget) Activator.CreateInstance(r)).ToList();
         }
 
         public List<IConfigSection> GetAllConfigSections()
         {
-            if(_registeredConfigSectionTypesList == null)
+            if(_registeredConfigSectionTypeList == null)
             {
-                if (_registeredTargetTypesList == null) GetAllTargetPlugins();
+                if (_registeredTargetTypeList == null) GetAllTargetPlugins();
 
-                _registeredConfigSectionTypesList = new List<Type>();
-                _registeredConfigSectionTypesList.Add(typeof(DoxConfigSection));
-                foreach (var targetType in _registeredTargetTypesList)
+                _registeredConfigSectionTypeList = new List<Type>();
+                _registeredConfigSectionTypeList.Add(typeof(DoxConfigSection));
+                foreach (var targetType in _registeredTargetTypeList)
                 {
                     var targetInterface = targetType
                         .GetInterfaces()
@@ -57,11 +77,11 @@ namespace coreDox.Core
                     if (targetInterface != null)
                     {
                         var configType = targetInterface.GenericTypeArguments.FirstOrDefault();
-                        if (configType != null) _registeredConfigSectionTypesList.Add(configType);
+                        if (configType != null) _registeredConfigSectionTypeList.Add(configType);
                     }
                 }
             }
-            return _registeredConfigSectionTypesList.Select(r => (IConfigSection)Activator.CreateInstance(r)).ToList();
+            return _registeredConfigSectionTypeList.Select(r => (IConfigSection)Activator.CreateInstance(r)).ToList();
         }
 
         private List<Type> GetTypesWithInterface<T>(Assembly assembly)

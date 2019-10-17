@@ -19,6 +19,19 @@ namespace coreDox.Core.Tests.Projects
         }
 
         [TestMethod]
+        public void ShouldFindAllModelProviderPluginsSuccessfully()
+        {
+            //Arrange
+            var pluginRegistry = new PluginRegistry();
+
+            //Act
+            var registeredModelProviders = pluginRegistry.GetAllModelProviders();
+
+            //Assert
+            Assert.IsTrue(registeredModelProviders.Count > 0);
+        }
+
+        [TestMethod]
         public void ShouldFindAllConfigSectionsSuccessfully()
         {
             //Arrange
