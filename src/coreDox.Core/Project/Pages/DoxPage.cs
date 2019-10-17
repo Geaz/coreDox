@@ -31,7 +31,7 @@ namespace coreDox.Core.Project.Pages
 
         private void ParseHeader(string[] lines, FileInfo doxPageFileInfo)
         {
-            var line = lines.First();
+            var line = lines.First().Trim();
 
             throw new Exception(line + " ### " + line.StartsWith("- title:"));
             if (line.StartsWith("- assembly:"))
