@@ -17,7 +17,10 @@ namespace coreDox.Core.Project.Pages
             if (!doxPageFileInfo.Exists) throw new CoreDoxException($"No page file found at '{doxPageFileInfo.FullName}'!");
 
             Content = File.ReadAllText(doxPageFileInfo.FullName);
-            if(Content.StartsWith("---"))
+
+            throw new Exception(Content.StartsWith("---") + " " + string.Join(" - ", Content.Split("---", StringSplitOptions.RemoveEmptyEntries)));
+
+            if (Content.StartsWith("---"))
             {
                 var splittedContent = Content.Split("---", StringSplitOptions.RemoveEmptyEntries);
 
@@ -30,7 +33,7 @@ namespace coreDox.Core.Project.Pages
         }
 
         private void ParseHeader(string[] lines, FileInfo doxPageFileInfo)
-        {
+        {            
             var line = lines.First();
             if(line.StartsWith("- assembly:"))
             {
