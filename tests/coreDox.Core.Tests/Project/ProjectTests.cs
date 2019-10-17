@@ -45,7 +45,7 @@ namespace coreDox.Core.Tests.Projects
             project.Load(projectPath);
 
             //Assert
-            Assert.IsTrue(project.RootProjectDirectory.Exists);
+            Assert.IsTrue(project.PagesDirectory.Exists);
         }
     }
 }
