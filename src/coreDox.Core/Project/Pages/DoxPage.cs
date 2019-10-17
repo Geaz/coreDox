@@ -32,10 +32,6 @@ namespace coreDox.Core.Project.Pages
         private void ParseHeader(string[] lines, FileInfo doxPageFileInfo)
         {
             var line = lines.First().Trim();
-            if(line.Contains("assembly"))
-            {
-                throw new Exception(line + " ### " + line.StartsWith("- assembly:"));
-            }
             if (line.StartsWith("- assembly:"))
             {
                 var assemblyPath = Path.Combine(doxPageFileInfo.Directory.FullName, line.Substring("- assembly:".Length).Trim());
