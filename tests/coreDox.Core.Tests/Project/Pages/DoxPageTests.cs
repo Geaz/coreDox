@@ -32,7 +32,6 @@ namespace coreDox.Core.Tests.Projects.Pages
             //Act - Is Done During Assert
 
             //Assert
-            Assert.AreEqual(DoxPageType.Assembly, assemblyPage.PageType);
             Assert.AreEqual("API", assemblyPage.Title);
             Assert.AreEqual(_testDllPath, assemblyPage.AssemblyFileInfo.FullName);
             Assert.AreEqual(string.Empty, assemblyPage.Content);

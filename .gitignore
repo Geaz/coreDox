@@ -10,6 +10,8 @@ packages/*
 **/dist/*
 src/packages/*
 tools
+coverage.opencover.xml
+coverreport/*
 
 !packages/repositories.config
 !src/packages/repositories.config

@@ -1,7 +1,8 @@
 ﻿using coreDox.Core.Model.Code;
-using coreDox.Core.Project.Pages;
+using coreDox.Core.Project;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
+using System.Linq;
 
 namespace coreDox.Core.Tests.CodeModel
 {
@@ -9,10 +10,10 @@ namespace coreDox.Core.Tests.CodeModel
     public class DoxAssemblyTests
     {
         private readonly string _tmpFile = Path.GetTempFileName();
-        private readonly string _testDllPath =
+        private readonly string _testProjectPath =
             Path.Combine(Path.GetDirectoryName(
                 typeof(DoxAssemblyTests).Assembly.Location),
-                "coreDox.TestDataProject.dll");
+                "..", "..", "..", "..", "..", "doc", "testDoc");
 
         [TestCleanup]
         public void TestCleanUp()
@@ -24,8 +25,10 @@ namespace coreDox.Core.Tests.CodeModel
         public void ShouldOpenAssemblySuccessfully()
         {
             //Arrange
-            PageHelper.WritePage(_tmpFile, "API", string.Empty, _testDllPath);
-            var assemblyPage = new DoxPage(new FileInfo(_tmpFile));
+            var project = new DoxProject();
+            project.Load(_testProjectPath);
+
+            var assemblyPage = project.PageRoot.GetAllAssemblyPages().First();
 
             //Act
             var doxAssembly = new DoxAssembly(assemblyPage.AssemblyFileInfo.FullName);

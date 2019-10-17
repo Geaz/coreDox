@@ -1,0 +1,4 @@
+---
+- title: API
+- assembly: ../../../tests/coreDox.TestDataProject/bin/Debug/netcoreapp3.0/coreDox.TestDataProject.dll
+---

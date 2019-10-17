@@ -17,7 +17,7 @@ namespace coreDox.Core.Project
             
             SetDirectoryInfos(docFolder);
 
-            PageList = new DoxPageList(PagesDirectory);
+            PageRoot = new DoxPageFolder(PagesDirectory);
 
             Config = new DoxProjectConfig();
             Config.Load(docFolder);
@@ -52,7 +52,7 @@ namespace coreDox.Core.Project
             }
         }
 
-        public DoxPageList PageList { get; private set; } 
+        public DoxPageFolder PageRoot { get; private set; } 
         public DoxProjectConfig Config { get; private set; }
 
         public DirectoryInfo RootProjectDirectory { get; private set; }
