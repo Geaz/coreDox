@@ -37,6 +37,7 @@ namespace coreDox.Core.Tests.Projects.Pages
             Assert.AreEqual(1, project.PageRoot.PageList.Count);
             Assert.AreEqual(2, project.PageRoot.FolderList.Count);
             Assert.AreEqual("Test Documentation", project.PageRoot.Title);
+            Assert.AreEqual("API", project.PageRoot.PageList.First().Title);
             Assert.IsNotNull(project.PageRoot.PageList.First().AssemblyFileInfo);
         }
 
