@@ -1,5 +1,4 @@
-﻿using coreDox.Core.Model.Code;
-using coreDox.Core.Project;
+﻿using coreDox.Core.Project;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Linq;
@@ -22,10 +21,25 @@ namespace coreDox.Core.Tests.CodeModel
             project.Load(_testProjectPath);
 
             //Act
-            project.ParseAssemblies();
+            project.AssemblyList.AmendModels();
 
             //Assert
-            Assert.IsTrue(project.ParsedAssemblyList.First().DoxNamespaceSet.Count > 0);
+            Assert.IsTrue(project.AssemblyList.First().DoxNamespaceSet.Count > 0);
+        }
+
+        [TestMethod]
+        public void ShouldGetTypeSuccessfully()
+        {
+            //Arrange
+            var project = new DoxProject();
+            project.Load(_testProjectPath);
+            project.AssemblyList.AmendModels();
+
+            //Act
+            var doxType = project.AssemblyList.GetParsedType("coreDox.TestProject.SeeAlsoDocType`1");
+
+            //Assert
+            Assert.IsNotNull(doxType);
         }
     }
 }

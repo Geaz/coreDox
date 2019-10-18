@@ -1,9 +1,9 @@
-﻿using coreDox.Core.Model.Code.Base;
+﻿using coreDox.Core.CodeModel.Base;
 using Mono.Cecil;
 
-namespace coreDox.Core.Model.Code.Members
+namespace coreDox.Core.CodeModel.Members
 {
-    public class DoxProperty : DoxCodeModel
+    public sealed class DoxProperty : DoxCodeModel
     {
         public DoxProperty(PropertyDefinition propertyDefinition)
         {

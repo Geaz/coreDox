@@ -1,10 +1,10 @@
-﻿using coreDox.Core.Model.Code.Base;
+﻿using coreDox.Core.CodeModel.Base;
 using Mono.Cecil;
 using System.Collections.Generic;
 
-namespace coreDox.Core.Model.Code
+namespace coreDox.Core.CodeModel
 {
-    public class DoxNamespace : DoxCodeModel
+    public sealed class DoxNamespace : DoxCodeModel
     {
         public DoxNamespace(string fullname, List<TypeDefinition> typeList)
         {

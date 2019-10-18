@@ -1,9 +1,9 @@
-﻿using coreDox.Core.Model.Code.Base;
+﻿using coreDox.Core.CodeModel.Base;
 using Mono.Cecil;
 
-namespace coreDox.Core.Model.Code.Members
+namespace coreDox.Core.CodeModel.Members
 {
-    public class DoxMethod : DoxCodeModel
+    public sealed class DoxMethod : DoxCodeModel
     {
         public DoxMethod(MethodDefinition methodDefinition)
         {

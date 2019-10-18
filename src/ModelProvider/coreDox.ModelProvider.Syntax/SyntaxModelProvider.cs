@@ -1,6 +1,7 @@
-﻿using coreDox.Core.Model.Code.Base;
+﻿using coreDox.Core.CodeModel;
+using coreDox.Core.CodeModel.Base;
+using coreDox.Core.CodeModel.Members;
 using coreDox.Core.Contracts;
-using coreDox.Core.Model.Code;
 
 namespace coreDox.ModelProvider.Syntax
 {
@@ -8,12 +9,42 @@ namespace coreDox.ModelProvider.Syntax
     {
         public object AmendModel(DoxCodeModel doxModel)
         {
-            SyntaxModel model = null;
-            if(doxModel is DoxType doxType)
+            var model = doxModel switch
             {
-                model = new SyntaxModel { Syntax = "**test**" };
-            }
+                DoxType doxType => GetTypeSyntax(doxType),
+                DoxMethod doxMethod => GetMethodSyntax(doxMethod),
+                DoxEvent doxEvent => GetEventSyntax(doxEvent),
+                DoxField doxField => GetFieldSyntax(doxField),
+                DoxProperty doxProperty => GetPropertySyntax(doxProperty),
+                _ => null
+            };
             return model;
+        }
+
+        private SyntaxModel GetTypeSyntax(DoxType doxType)
+        {
+            return new SyntaxModel { Syntax = "**test**" };
+        }
+
+        private SyntaxModel GetMethodSyntax(DoxMethod doxMethod)
+        {
+            var returnType = new DoxTypeRef(doxMethod.MethodDefinition.ReturnType);
+            return new SyntaxModel();
+        }
+
+        private SyntaxModel GetEventSyntax(DoxEvent doxEvent)
+        {
+            return new SyntaxModel();
+        }
+
+        private SyntaxModel GetFieldSyntax(DoxField doxField)
+        {
+            return new SyntaxModel();
+        }
+
+        private SyntaxModel GetPropertySyntax(DoxProperty doxProperty)
+        {
+            return new SyntaxModel();
         }
     }
 }

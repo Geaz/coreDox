@@ -1,11 +1,11 @@
-﻿using coreDox.Core.Model.Code.Base;
+﻿using coreDox.Core.CodeModel.Base;
 using Mono.Cecil;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace coreDox.Core.Model.Code
+namespace coreDox.Core.CodeModel
 {
-    public class DoxAssembly : DoxCodeModel
+    public sealed class DoxAssembly : DoxCodeModel
     {
         public DoxAssembly(string assemblyPath)
         {

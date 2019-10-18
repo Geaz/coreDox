@@ -19,12 +19,12 @@ namespace coreDox.Core.Tests
             //Arrange
             var project = new DoxProject();
             project.Load(_testProjectPath);
-            project.ParseAssemblies();
+            project.AssemblyList.AmendModels();
 
             var templateBuilder = new DoxTemplateBuilder();
 
             //Act
-            var doxType = project.ParsedAssemblyList.First().DoxNamespaceSet.First().DoxTypeSet.First();
+            var doxType = project.AssemblyList.First().DoxNamespaceSet.First().DoxTypeSet.First();
             var renderedText = templateBuilder.Render("{{data.Models.SyntaxModel.Syntax }}", doxType);
 
             //Assert
@@ -37,12 +37,12 @@ namespace coreDox.Core.Tests
             //Arrange
             var project = new DoxProject();
             project.Load(_testProjectPath);
-            project.ParseAssemblies();
+            project.AssemblyList.AmendModels();
 
             var templateBuilder = new DoxTemplateBuilder();
 
             //Act
-            var renderedText = templateBuilder.Render("{{data.Models.SyntaxModel.Syntax}}", project.ParsedAssemblyList.First());
+            var renderedText = templateBuilder.Render("{{data.Models.SyntaxModel.Syntax}}", project.AssemblyList.First());
 
             //Assert
             Assert.AreEqual(string.Empty, renderedText);

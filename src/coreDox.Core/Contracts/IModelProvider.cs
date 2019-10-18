@@ -1,4 +1,4 @@
-﻿using coreDox.Core.Model.Code.Base;
+﻿using coreDox.Core.CodeModel.Base;
 
 namespace coreDox.Core.Contracts
 {

@@ -1,7 +1,7 @@
 ﻿using coreDox.Core.Contracts;
 using System.Collections.Generic;
 
-namespace coreDox.Core.Model.Code.Base
+namespace coreDox.Core.CodeModel.Base
 {
     public abstract class DoxCodeModel
     {

@@ -1,12 +1,12 @@
-﻿using coreDox.Core.Model.Code.Base;
-using coreDox.Core.Model.Code.Members;
+﻿using coreDox.Core.CodeModel.Base;
+using coreDox.Core.CodeModel.Members;
 using Mono.Cecil;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace coreDox.Core.Model.Code
+namespace coreDox.Core.CodeModel
 {
-    public class DoxType : DoxCodeModel
+    public sealed class DoxType : DoxCodeModel
     {
         public DoxType(TypeDefinition typeDefinition)
         {

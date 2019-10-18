@@ -1,6 +1,6 @@
 ﻿using CommonMark;
-using coreDox.Core.Model.Code;
-using coreDox.Core.Model.Code.Members;
+using coreDox.Core.CodeModel;
+using coreDox.Core.CodeModel.Members;
 using DotLiquid;
 using System.Linq;
 
