@@ -1,8 +1,7 @@
 {
   "profiles": {
     "coreDox": {
-      "commandName": "Project",
-      "commandLineArgs": "build C:/Temp/doxProject"
+      "commandName": "Project"
     }
   }
 }

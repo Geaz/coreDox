@@ -1,15 +1,7 @@
-﻿using coreDox.Core.Contracts;
-using System.IO;
-
-namespace coreDox.Target.Html
+﻿namespace coreDox.Target.Html
 {
-    public class HtmlConfigSection : IConfigSection
+    public class HtmlConfigSection
     {
-        public void SetDefaultValues(FileInfo configFileInfo)
-        {
-            ShowCode = false;
-        }
-
-        public bool ShowCode { get; set; }
+        public bool ShowCode { get; set; } = false;
     }
 }

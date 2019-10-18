@@ -17,7 +17,7 @@ namespace coreDox.Core.Project
         public const string LayoutFolderName = "layout";
 
         private readonly ILogger _logger = LogManager.GetLogger("DoxProject");
-        private readonly PluginRegistry _pluginRegistry = new PluginRegistry();
+        private readonly PluginRegistry _pluginRegistry = PluginRegistry.Instance();
 
         public void Load(string docFolder)
         {
@@ -65,7 +65,10 @@ namespace coreDox.Core.Project
             foreach (var modelProvider in _pluginRegistry.GetAllModelProviders())
             {
                 _logger.Info($"Running Model Provider: {modelProvider.GetType().Name} ...");
-                doxModelList.ForEach(m => { var model = modelProvider.AmendModel(m); if (model != null) m.Models.Add(model); });
+                doxModelList.ForEach(m => { 
+                    var model = modelProvider.AmendModel(m); 
+                    if (model != null) m.Models.Add(model.GetType().Name, model); 
+                });
             }
         }
 

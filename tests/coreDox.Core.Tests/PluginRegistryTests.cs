@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace coreDox.Core.Tests.Projects
+namespace coreDox.Core.Tests
 {
     [TestClass]
     public class PluginRegistryTests
@@ -9,7 +9,7 @@ namespace coreDox.Core.Tests.Projects
         public void ShouldFindAllTargetPluginsSuccessfully()
         {
             //Arrange
-            var pluginRegistry = new PluginRegistry();
+            var pluginRegistry = PluginRegistry.Instance();
 
             //Act
             var registeredTargets = pluginRegistry.GetAllTargetPlugins();
@@ -22,7 +22,7 @@ namespace coreDox.Core.Tests.Projects
         public void ShouldFindAllModelProviderPluginsSuccessfully()
         {
             //Arrange
-            var pluginRegistry = new PluginRegistry();
+            var pluginRegistry = PluginRegistry.Instance();
 
             //Act
             var registeredModelProviders = pluginRegistry.GetAllModelProviders();
@@ -32,10 +32,23 @@ namespace coreDox.Core.Tests.Projects
         }
 
         [TestMethod]
+        public void ShouldFindAllModelsSuccessfully()
+        {
+            //Arrange
+            var pluginRegistry = PluginRegistry.Instance();
+
+            //Act
+            var registeredModels = pluginRegistry.GetAllModelTypes();
+
+            //Assert
+            Assert.AreEqual(1, registeredModels.Count);
+        }
+
+        [TestMethod]
         public void ShouldFindAllConfigSectionsSuccessfully()
         {
             //Arrange
-            var pluginRegistry = new PluginRegistry();
+            var pluginRegistry = PluginRegistry.Instance();
 
             //Act
             var registeredConfigSectionList = pluginRegistry.GetAllConfigSections();

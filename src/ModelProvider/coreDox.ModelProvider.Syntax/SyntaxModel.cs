@@ -1,8 +1,6 @@
-﻿using coreDox.Core.Contracts;
-
-namespace coreDox.ModelProvider.Syntax
+﻿namespace coreDox.ModelProvider.Syntax
 {
-    public class SyntaxModel : IModel
+    public class SyntaxModel
     {
         public string Syntax { get; set; }
     }

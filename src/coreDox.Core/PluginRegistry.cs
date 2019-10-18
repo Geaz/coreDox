@@ -11,7 +11,9 @@ namespace coreDox.Core
 {
     public sealed class PluginRegistry
     {
+        private static PluginRegistry _instance;
         private List<Type> _registeredModelProviderTypeList;
+        private List<Type> _registeredModelsTypeList;
         private List<Type> _registeredTargetTypeList;
         private List<Type> _registeredConfigSectionTypeList;
 
@@ -20,7 +22,7 @@ namespace coreDox.Core
         private readonly string _targetsFolderPath = Path.Combine(Path.GetDirectoryName(typeof(PluginRegistry).Assembly.Location), "Targets");
         private readonly string _modelProvidersFolderPath = Path.Combine(Path.GetDirectoryName(typeof(PluginRegistry).Assembly.Location), "ModelProviders");
 
-        public PluginRegistry()
+        private PluginRegistry()
         {
             if(Directory.Exists(_targetsFolderPath))
             {
@@ -31,6 +33,12 @@ namespace coreDox.Core
                     .GetFiles(_modelProvidersFolderPath, "*.dll", SearchOption.AllDirectories)
                     .ToList();
             }
+        }
+
+        public static PluginRegistry Instance()
+        {
+            if (_instance == null) _instance = new PluginRegistry();
+            return _instance;
         }
 
         public List<IModelProvider> GetAllModelProviders()
@@ -47,6 +55,28 @@ namespace coreDox.Core
             return _registeredModelProviderTypeList.Select(r => (IModelProvider)Activator.CreateInstance(r)).ToList();
         }
 
+        public List<Type> GetAllModelTypes()
+        {
+            if (_registeredModelsTypeList == null)
+            {
+                if (_registeredModelProviderTypeList == null) GetAllModelProviders();
+
+                _registeredModelsTypeList = new List<Type>();
+                foreach (var targetType in _registeredModelProviderTypeList)
+                {
+                    var modelProviderInterface = targetType
+                        .GetInterfaces()
+                        .SingleOrDefault(i => i.Name.StartsWith(typeof(IModelProvider).Name) && i.GenericTypeArguments.Length > 0);
+                    if (modelProviderInterface != null)
+                    {
+                        var modelType = modelProviderInterface.GenericTypeArguments.FirstOrDefault();
+                        if (modelType != null) _registeredModelsTypeList.Add(modelType);
+                    }
+                }
+            }
+            return _registeredModelsTypeList;
+        }
+
         public List<ITarget> GetAllTargetPlugins()
         {
             if(_registeredTargetTypeList == null)
@@ -61,7 +91,7 @@ namespace coreDox.Core
             return _registeredTargetTypeList.Select(r => (ITarget) Activator.CreateInstance(r)).ToList();
         }
 
-        public List<IConfigSection> GetAllConfigSections()
+        public List<object> GetAllConfigSections()
         {
             if(_registeredConfigSectionTypeList == null)
             {
@@ -81,7 +111,7 @@ namespace coreDox.Core
                     }
                 }
             }
-            return _registeredConfigSectionTypeList.Select(r => (IConfigSection)Activator.CreateInstance(r)).ToList();
+            return _registeredConfigSectionTypeList.Select(r => Activator.CreateInstance(r)).ToList();
         }
 
         private List<Type> GetTypesWithInterface<T>(Assembly assembly)

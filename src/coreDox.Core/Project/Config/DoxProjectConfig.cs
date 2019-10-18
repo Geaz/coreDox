@@ -1,5 +1,4 @@
-﻿using coreDox.Core.Contracts;
-using coreDox.Core.Exceptions;
+﻿using coreDox.Core.Exceptions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
@@ -15,8 +14,8 @@ namespace coreDox.Core.Project.Config
     {
         public const string ConfigFileName = "config.json";
 
-        private readonly List<IConfigSection> _loadedConfigSections;
-        private readonly PluginRegistry _pluginRegistry = new PluginRegistry();
+        private readonly List<object> _loadedConfigSections;
+        private readonly PluginRegistry _pluginRegistry = PluginRegistry.Instance();
 
         public DoxProjectConfig()
         {
@@ -41,7 +40,7 @@ namespace coreDox.Core.Project.Config
                 if (configSection != null)
                 {
                     var serializedConfigSection = JsonConvert.SerializeObject(config.Value);
-                    configSection = (IConfigSection) JsonConvert.DeserializeObject(serializedConfigSection, configSection.GetType());
+                    configSection = JsonConvert.DeserializeObject(serializedConfigSection, configSection.GetType());
                 }
             }
         }

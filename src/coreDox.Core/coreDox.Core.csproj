@@ -6,6 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommonMark.NET" Version="0.15.1" />
+    <PackageReference Include="DotLiquid" Version="2.0.314" />
     <PackageReference Include="Microsoft.Build" Version="16.3.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.0" />

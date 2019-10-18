@@ -4,6 +4,8 @@ namespace coreDox.Core.Contracts
 {
     public interface IModelProvider
     {
-        IModel AmendModel(DoxCodeModel doxModel);
+        object AmendModel(DoxCodeModel doxModel);
     }
+
+    public interface IModelProvider<TModel> : IModelProvider where TModel : new() { }
 }

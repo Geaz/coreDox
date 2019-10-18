@@ -4,6 +4,7 @@ using coreDox.Core.Project.Pages;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace coreDox.Core.Tests.Projects.Pages
 {
@@ -46,7 +47,13 @@ namespace coreDox.Core.Tests.Projects.Pages
         public void ShouldThrowIfAssemblyFileNotPresent()
         {
             //Arrange
-            PageHelper.WritePage(_tmpFile, "API", string.Empty, "notpresent.dll");
+            var pageBuilder = new StringBuilder();
+            pageBuilder.AppendLine($"---");
+            pageBuilder.AppendLine($"- title: API");
+            pageBuilder.AppendLine($"- assembly: notpresent.dll");
+            pageBuilder.AppendLine($"---");
+
+            File.WriteAllText(_tmpFile, pageBuilder.ToString());
 
             //Act
             var assemblyPage = new DoxPage(new FileInfo(_tmpFile));

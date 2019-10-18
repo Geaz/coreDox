@@ -1,13 +1,19 @@
 ﻿using coreDox.Core.Model.Code.Base;
 using coreDox.Core.Contracts;
+using coreDox.Core.Model.Code;
 
 namespace coreDox.ModelProvider.Syntax
 {
-    public class SyntaxModelProvider : IModelProvider
+    public class SyntaxModelProvider : IModelProvider<SyntaxModel>
     {
-        public IModel AmendModel(DoxCodeModel doxModel)
+        public object AmendModel(DoxCodeModel doxModel)
         {
-            return new SyntaxModel();
+            SyntaxModel model = null;
+            if(doxModel is DoxType doxType)
+            {
+                model = new SyntaxModel { Syntax = "**test**" };
+            }
+            return model;
         }
     }
 }
