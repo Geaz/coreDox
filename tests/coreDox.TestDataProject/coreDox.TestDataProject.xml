@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>coreDox.TestDataProject</name>
+    </assembly>
+    <members>
+        <member name="T:coreDox.TestProject.CodeIds`2">
+            <summary>
+            Class with to generics
+            </summary>
+            <typeparam name="T">Test T</typeparam>
+            <typeparam name="V">Test V</typeparam>
+        </member>
+        <member name="T:coreDox.TestProject.CodeIds">
+            <summary>
+            Enter description here for class CodeIds. 
+            ID string generated is "T:coreDox.TestDataProject.CodeIds". 
+            </summary>
+        </member>
+        <member name="M:coreDox.TestProject.CodeIds.#ctor">
+            <summary>
+            Enter description here for the first constructor.
+            ID string generated is "M:coreDox.TestDataProject.CodeIds.#ctor".
+            </summary>
+        </member>
+        <member name="M:coreDox.TestProject.CodeIds.#ctor(System.Int32)">
+            <summary>
+            Enter description here for the second constructor.
+            ID string generated is "M:coreDox.TestDataProject.CodeIds.#ctor(System.Int32)".
+            </summary>
+            <param name="i">Describe parameter.</param>
+        </member>
+        <member name="F:coreDox.TestProject.CodeIds.q">
+            <summary>
+            Enter description here for field q.
+            ID string generated is "F:coreDox.TestDataProject.CodeIds.q".
+            </summary>
+        </member>
+        <member name="F:coreDox.TestProject.CodeIds.PI">
+            <summary>
+            Enter description for constant PI.
+            ID string generated is "F:coreDox.TestDataProject.CodeIds.PI".
+            </summary>
+        </member>
+        <member name="M:coreDox.TestProject.CodeIds.f">
+            <summary>
+            Enter description for method f.
+            ID string generated is "M:coreDox.TestDataProject.CodeIds.f".
+            </summary>
+            <returns>Describe return value.</returns>
+        </member>
+        <member name="M:coreDox.TestProject.CodeIds.bb(System.String,System.Int32@,System.Void*)">
+            <summary>
+            Enter description for method bb.
+            ID string generated is "M:coreDox.TestDataProject.CodeIds.bb(System.String,System.Int32@,System.Void*)".
+            </summary>
+            <param name="s">Describe parameter.</param>
+            <param name="y">Describe parameter.</param>
+            <param name="z">Describe parameter.</param>
+            <returns>Describe return value.</returns>
+        </member>
+        <member name="M:coreDox.TestProject.CodeIds.gg(System.Int16[],System.Int32[0:,0:])">
+            <summary>
+            Enter description for method gg.
+            ID string generated is "M:coreDox.TestDataProject.CodeIds.gg(System.Int16[],System.Int32[0:,0:])". 
+            </summary>
+            <param name="array1">Describe parameter.</param>
+            <param name="array">Describe parameter.</param>
+            <returns>Describe return value.</returns>
+        </member>
+        <member name="M:coreDox.TestProject.CodeIds.op_Addition(coreDox.TestProject.CodeIds,coreDox.TestProject.CodeIds)">
+            <summary>
+            Enter description for operator.
+            ID string generated is "M:coreDox.TestDataProject.CodeIds.op_Addition(coreDox.TestDataProject.CodeIds,coreDox.TestDataProject.CodeIds)". 
+            </summary>
+            <param name="CodeIds">Describe parameter.</param>
+            <param name="CodeIdsCodeIds">Describe parameter.</param>
+            <returns>Describe return value.</returns>
+        </member>
+        <member name="P:coreDox.TestProject.CodeIds.prop">
+            <summary>
+            Enter description for property.
+            ID string generated is "P:coreDox.TestDataProject.CodeIds.prop".
+            </summary>
+        </member>
+        <member name="E:coreDox.TestProject.CodeIds.d">
+            <summary>
+            Enter description for event.
+            ID string generated is "E:coreDox.TestDataProject.CodeIds.d".
+            </summary>
+        </member>
+        <member name="P:coreDox.TestProject.CodeIds.Item(System.String)">
+            <summary>
+            Enter description for property.
+            ID string generated is "P:coreDox.TestDataProject.CodeIds.Item(System.String)".
+            </summary>
+            <param name="s">Describe parameter.</param>
+            <returns></returns>
+        </member>
+        <member name="T:coreDox.TestProject.CodeIds.Nested">
+            <summary>
+            Enter description for class Nested.
+            ID string generated is "T:coreDox.TestDataProject.CodeIds.Nested".
+            </summary>
+        </member>
+        <member name="T:coreDox.TestProject.CodeIds.D">
+            <summary>
+            Enter description for delegate.
+            ID string generated is "T:coreDox.TestDataProject.CodeIds.D". 
+            </summary>
+            <param name="i">Describe parameter.</param>
+        </member>
+        <member name="M:coreDox.TestProject.CodeIds.op_Explicit(coreDox.TestProject.CodeIds)~System.Int32">
+            <summary>
+            Enter description for operator.
+            ID string generated is "M:coreDox.TestDataProject.CodeIds.op_ECodeIdsplicit(coreDox.TestDataProject.CodeIds)~System.Int32".
+            </summary>
+            <param name="CodeIds">Describe parameter.</param>
+            <returns>Describe return value.</returns>
+        </member>
+        <member name="T:coreDox.TestProject.IInheritDoc">
+            <summary>
+            Description of IInheritDoc.
+            </summary>
+        </member>
+        <member name="M:coreDox.TestProject.IInheritDoc.Method1">
+            <summary>
+            Description of Method1
+            </summary>
+        </member>
+        <member name="M:coreDox.TestProject.InheritDoc.Method1">
+            <inheritdoc />
+        </member>
+        <member name="M:coreDox.TestProject.Regression4.MethodWithExceptionDoc">
+            <summary>
+            Lorem ipsum
+            </summary>
+            <exception cref="T:System.ArgumentNullException">Lorem ipsum</exception>
+            <exception cref="T:System.Net.Sockets.SocketException">Lorem ipsum</exception>
+        </member>
+        <member name="T:coreDox.TestProject.SeeAlsoDocType`1">
+            <summary>
+            Test
+            </summary>
+            <seealso cref="T:coreDox.TestProject.Regression8"/>
+            <seealso cref="!:"/>
+        </member>
+        <member name="M:coreDox.TestProject.SeeAlsoDocType`1.TestMethod">
+            <summary>
+            Test <see cref="T:coreDox.TestProject.Regression1"/>
+            </summary>
+        </member>
+        <member name="M:coreDox.TestProject.SeeAlsoDocType`1.TestMethod2">
+            <summary>
+            Test 
+            <see cref="!:"></see> 
+            <see cref="!:NotExist"></see> 
+            <see cref="T:coreDox.TestProject.SeeAlsoDocType`1"/>
+            <see cref="M:coreDox.TestProject.SeeAlsoDocType`1.TestMethod"/>
+            <see cref="P:coreDox.TestProject.SeeAlsoDocType`1.TestProp"/>
+            <see cref="E:coreDox.TestProject.SeeAlsoDocType`1.TestEvent"/>
+            <see cref="F:coreDox.TestProject.SeeAlsoDocType`1.TestField"/>
+            <see cref="M:coreDox.TestProject.SeeAlsoDocType`1.TestMethod3``1(``0)"/>
+            <see cref="M:coreDox.TestProject.SeeAlsoDocType`1.TestMethod3``2(``0,``1)"/>
+            </summary>
+        </member>
+    </members>
+</doc>

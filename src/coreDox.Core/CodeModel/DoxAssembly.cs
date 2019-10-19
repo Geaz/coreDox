@@ -12,7 +12,7 @@ namespace coreDox.Core.CodeModel
             AssemblyPath = assemblyPath;
             AssemblyDefinition = ModuleDefinition.ReadModule(assemblyPath, new ReaderParameters { ReadSymbols = true });
 
-            Id = AssemblyDefinition.FileName;
+            Id = AssemblyDefinition.Assembly.Name.Name;
             Name = AssemblyDefinition.Name;
 
             ParseAssembly();

@@ -11,10 +11,6 @@ namespace coreDox.TestProject
         /// Description of Method1
         /// </summary>
         void Method1();
-
-        // 
-        // var test = DocCommentId.GetDocCommentId(doxAssembly.AssemblyDefinition.Types.F
-        // var test = MethodDefinition.Body?.Instructions.Select(i => i.Operand).OfType<MethodReference>();
     }
 
     public class InheritDoc : IInheritDoc

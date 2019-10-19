@@ -1,5 +1,6 @@
 ﻿using coreDox.Core.CodeModel.Base;
 using coreDox.Core.Project.Pages;
+using Mono.Cecil;
 using NLog;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,9 +44,9 @@ namespace coreDox.Core.CodeModel
             }
         }
 
-        public DoxType GetParsedType(DoxTypeRef doxTypeRef)
+        public DoxType GetParsedType(TypeReference typeReference)
         {
-            return GetParsedType(doxTypeRef.TypeId);
+            return GetParsedType(DoxCodeId.GetCodeId(typeReference));
         }
 
         public DoxType GetParsedType(string typeId)

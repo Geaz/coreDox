@@ -28,7 +28,6 @@ namespace coreDox.ModelProvider.Syntax
 
         private SyntaxModel GetMethodSyntax(DoxMethod doxMethod)
         {
-            var returnType = new DoxTypeRef(doxMethod.MethodDefinition.ReturnType);
             return new SyntaxModel();
         }
 

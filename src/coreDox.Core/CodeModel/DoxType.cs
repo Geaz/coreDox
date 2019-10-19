@@ -1,7 +1,6 @@
 ﻿using coreDox.Core.CodeModel.Base;
 using coreDox.Core.CodeModel.Members;
 using Mono.Cecil;
-using Mono.Cecil.Rocks;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -11,7 +10,7 @@ namespace coreDox.Core.CodeModel
     {
         public DoxType(TypeDefinition typeDefinition)
         {
-            Id = DocCommentId.GetDocCommentId(typeDefinition);
+            Id = DoxCodeId.GetCodeId(typeDefinition);
             Name = typeDefinition.Name;
             TypeDefinition = typeDefinition;
 

@@ -36,7 +36,7 @@ namespace coreDox.Core.Tests.CodeModel
             project.AssemblyList.AmendModels();
 
             //Act
-            var doxType = project.AssemblyList.GetParsedType("type::coreDox.TestProject.SeeAlsoDocType`1");
+            var doxType = project.AssemblyList.GetParsedType("T:coreDox.TestProject.SeeAlsoDocType`1");
 
             //Assert
             Assert.IsNotNull(doxType);
