@@ -14,20 +14,20 @@ namespace coreDox.TestProject
 
     /// <summary>
     /// Enter description here for class CodeIds. 
-    /// ID string generated is "T:coreDox.TestDataProject.CodeIds". 
+    /// ID string generated is "T:coreDox.TestProject.CodeIds". 
     /// </summary>
     public unsafe class CodeIds
     {
         /// <summary>
         /// Enter description here for the first constructor.
-        /// ID string generated is "M:coreDox.TestDataProject.CodeIds.#ctor".
+        /// ID string generated is "M:coreDox.TestProject.CodeIds.#ctor".
         /// </summary>
         public CodeIds() { }
 
 
         /// <summary>
         /// Enter description here for the second constructor.
-        /// ID string generated is "M:coreDox.TestDataProject.CodeIds.#ctor(System.Int32)".
+        /// ID string generated is "M:coreDox.TestProject.CodeIds.#ctor(System.Int32)".
         /// </summary>
         /// <param name="i">Describe parameter.</param>
         public CodeIds(int i) { }
@@ -35,21 +35,21 @@ namespace coreDox.TestProject
 
         /// <summary>
         /// Enter description here for field q.
-        /// ID string generated is "F:coreDox.TestDataProject.CodeIds.q".
+        /// ID string generated is "F:coreDox.TestProject.CodeIds.q".
         /// </summary>
         public string q;
 
 
         /// <summary>
         /// Enter description for constant PI.
-        /// ID string generated is "F:coreDox.TestDataProject.CodeIds.PI".
+        /// ID string generated is "F:coreDox.TestProject.CodeIds.PI".
         /// </summary>
         public const double PI = 3.14;
 
 
         /// <summary>
         /// Enter description for method f.
-        /// ID string generated is "M:coreDox.TestDataProject.CodeIds.f".
+        /// ID string generated is "M:coreDox.TestProject.CodeIds.f".
         /// </summary>
         /// <returns>Describe return value.</returns>
         public int f() { return 1; }
@@ -57,7 +57,7 @@ namespace coreDox.TestProject
 
         /// <summary>
         /// Enter description for method bb.
-        /// ID string generated is "M:coreDox.TestDataProject.CodeIds.bb(System.String,System.Int32@,System.Void*)".
+        /// ID string generated is "M:coreDox.TestProject.CodeIds.bb(System.String,System.Int32@,System.Void*)".
         /// </summary>
         /// <param name="s">Describe parameter.</param>
         /// <param name="y">Describe parameter.</param>
@@ -68,7 +68,7 @@ namespace coreDox.TestProject
 
         /// <summary>
         /// Enter description for method gg.
-        /// ID string generated is "M:coreDox.TestDataProject.CodeIds.gg(System.Int16[],System.Int32[0:,0:])". 
+        /// ID string generated is "M:coreDox.TestProject.CodeIds.gg(System.Int16[],System.Int32[0:,0:])". 
         /// </summary>
         /// <param name="array1">Describe parameter.</param>
         /// <param name="array">Describe parameter.</param>
@@ -78,7 +78,7 @@ namespace coreDox.TestProject
 
         /// <summary>
         /// Enter description for operator.
-        /// ID string generated is "M:coreDox.TestDataProject.CodeIds.op_Addition(coreDox.TestDataProject.CodeIds,coreDox.TestDataProject.CodeIds)". 
+        /// ID string generated is "M:coreDox.TestProject.CodeIds.op_Addition(coreDox.TestProject.CodeIds,coreDox.TestProject.CodeIds)". 
         /// </summary>
         /// <param name="CodeIds">Describe parameter.</param>
         /// <param name="CodeIdsCodeIds">Describe parameter.</param>
@@ -88,21 +88,21 @@ namespace coreDox.TestProject
 
         /// <summary>
         /// Enter description for property.
-        /// ID string generated is "P:coreDox.TestDataProject.CodeIds.prop".
+        /// ID string generated is "P:coreDox.TestProject.CodeIds.prop".
         /// </summary>
         public int prop { get { return 1; } set { } }
 
 
         /// <summary>
         /// Enter description for event.
-        /// ID string generated is "E:coreDox.TestDataProject.CodeIds.d".
+        /// ID string generated is "E:coreDox.TestProject.CodeIds.d".
         /// </summary>
         public event D d;
 
 
         /// <summary>
         /// Enter description for property.
-        /// ID string generated is "P:coreDox.TestDataProject.CodeIds.Item(System.String)".
+        /// ID string generated is "P:coreDox.TestProject.CodeIds.Item(System.String)".
         /// </summary>
         /// <param name="s">Describe parameter.</param>
         /// <returns></returns>
@@ -111,14 +111,14 @@ namespace coreDox.TestProject
 
         /// <summary>
         /// Enter description for class Nested.
-        /// ID string generated is "T:coreDox.TestDataProject.CodeIds.Nested".
+        /// ID string generated is "T:coreDox.TestProject.CodeIds.Nested".
         /// </summary>
         public class Nested { }
 
 
         /// <summary>
         /// Enter description for delegate.
-        /// ID string generated is "T:coreDox.TestDataProject.CodeIds.D". 
+        /// ID string generated is "T:coreDox.TestProject.CodeIds.D". 
         /// </summary>
         /// <param name="i">Describe parameter.</param>
         public delegate void D(int i);
@@ -126,7 +126,7 @@ namespace coreDox.TestProject
 
         /// <summary>
         /// Enter description for operator.
-        /// ID string generated is "M:coreDox.TestDataProject.CodeIds.op_ECodeIdsplicit(coreDox.TestDataProject.CodeIds)~System.Int32".
+        /// ID string generated is "M:coreDox.TestProject.CodeIds.op_ECodeIdsplicit(coreDox.TestProject.CodeIds)~System.Int32".
         /// </summary>
         /// <param name="CodeIds">Describe parameter.</param>
         /// <returns>Describe return value.</returns>
