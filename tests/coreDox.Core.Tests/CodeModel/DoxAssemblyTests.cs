@@ -24,7 +24,7 @@ namespace coreDox.Core.Tests.CodeModel
             project.AssemblyList.AmendModels();
 
             //Assert
-            Assert.IsTrue(project.AssemblyList.First().DoxNamespaceSet.Count > 0);
+            Assert.IsTrue(project.AssemblyList.First().NamespaceList.Count > 0);
         }
 
         [TestMethod]
@@ -36,7 +36,7 @@ namespace coreDox.Core.Tests.CodeModel
             project.AssemblyList.AmendModels();
 
             //Act
-            var doxType = project.AssemblyList.GetParsedType("coreDox.TestProject.SeeAlsoDocType`1");
+            var doxType = project.AssemblyList.GetParsedType("type::coreDox.TestProject.SeeAlsoDocType`1");
 
             //Assert
             Assert.IsNotNull(doxType);

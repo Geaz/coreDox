@@ -6,7 +6,7 @@ namespace coreDox.Core.CodeModel
     {
         public DoxTypeRef(TypeReference typeReference)
         {
-            TypeFullname = typeReference.FullName;
+            TypeReference = typeReference;
             if(typeReference is ArrayType arrayType)
             {
                 IsArrayType = true;
@@ -16,9 +16,6 @@ namespace coreDox.Core.CodeModel
                 while (elementType is ArrayType)
                 {
                     elementType = ((ArrayType)elementType).ElementType;
-
-                    // We want to set the fullname to the base type of the array type
-                    TypeFullname = elementType.FullName;
                     ArrayDimension++;
                 }
             }
@@ -28,9 +25,10 @@ namespace coreDox.Core.CodeModel
             }
         }
 
-        public string TypeFullname { get; set; }
         public bool IsPointerType { get; set; }
         public bool IsArrayType { get; set; }
         public int ArrayDimension { get; set; }
+
+        public TypeReference TypeReference { get; set; }
     }
 }

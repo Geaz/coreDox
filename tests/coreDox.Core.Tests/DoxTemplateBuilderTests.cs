@@ -24,7 +24,7 @@ namespace coreDox.Core.Tests
             var templateBuilder = new DoxTemplateBuilder();
 
             //Act
-            var doxType = project.AssemblyList.First().DoxNamespaceSet.First().DoxTypeSet.First();
+            var doxType = project.AssemblyList.First().NamespaceList.First().TypeList.First();
             var renderedText = templateBuilder.Render("{{data.Models.SyntaxModel.Syntax }}", doxType);
 
             //Assert

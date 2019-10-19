@@ -1,5 +1,6 @@
 ﻿using coreDox.Core.CodeModel.Base;
 using Mono.Cecil;
+using Mono.Cecil.Rocks;
 
 namespace coreDox.Core.CodeModel.Members
 {
@@ -7,8 +8,8 @@ namespace coreDox.Core.CodeModel.Members
     {
         public DoxEvent(EventDefinition eventDefinition)
         {
+            Id = DocCommentId.GetDocCommentId(eventDefinition);
             Name = eventDefinition.Name;
-            FullName = $"{eventDefinition.DeclaringType.FullName}.{Name}";
             EventDefinition = eventDefinition;
         }
         

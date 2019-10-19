@@ -54,9 +54,9 @@ namespace coreDox.Core.Project
             }
         }
 
-        public DoxAssemblyList AssemblyList { get; private set; }
-        public DoxPageFolder PageRoot { get; private set; } 
+        public DoxPageFolder PageRoot { get; private set; }
         public DoxProjectConfig Config { get; private set; }
+        public DoxAssemblyList AssemblyList { get; private set; }
 
         public DirectoryInfo RootProjectDirectory { get; private set; }
         public DirectoryInfo AssetDirectory { get; private set; }

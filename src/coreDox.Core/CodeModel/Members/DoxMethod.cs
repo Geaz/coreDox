@@ -1,5 +1,6 @@
 ﻿using coreDox.Core.CodeModel.Base;
 using Mono.Cecil;
+using Mono.Cecil.Rocks;
 
 namespace coreDox.Core.CodeModel.Members
 {
@@ -7,11 +8,11 @@ namespace coreDox.Core.CodeModel.Members
     {
         public DoxMethod(MethodDefinition methodDefinition)
         {
+            Id = DocCommentId.GetDocCommentId(methodDefinition);
             Name = methodDefinition.Name;
-            FullName = $"{methodDefinition.DeclaringType.FullName}.{Name}";
             MethodDefinition = methodDefinition;
         }
-        
+
         public MethodDefinition MethodDefinition { get; }
     }
 }

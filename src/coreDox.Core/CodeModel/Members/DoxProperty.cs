@@ -1,5 +1,6 @@
 ﻿using coreDox.Core.CodeModel.Base;
 using Mono.Cecil;
+using Mono.Cecil.Rocks;
 
 namespace coreDox.Core.CodeModel.Members
 {
@@ -7,8 +8,8 @@ namespace coreDox.Core.CodeModel.Members
     {
         public DoxProperty(PropertyDefinition propertyDefinition)
         {
+            Id = DocCommentId.GetDocCommentId(propertyDefinition);
             Name = propertyDefinition.Name;
-            FullName = $"{propertyDefinition.DeclaringType.FullName}.{Name}";
             PropertyDefinition = propertyDefinition;
         }
 

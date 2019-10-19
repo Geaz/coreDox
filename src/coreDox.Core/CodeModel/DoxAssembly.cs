@@ -12,9 +12,8 @@ namespace coreDox.Core.CodeModel
             AssemblyPath = assemblyPath;
             AssemblyDefinition = ModuleDefinition.ReadModule(assemblyPath, new ReaderParameters { ReadSymbols = true });
 
+            Id = AssemblyDefinition.FileName;
             Name = AssemblyDefinition.Name;
-            FullName = AssemblyDefinition.FileName;
-            TargetFramework = AssemblyDefinition.RuntimeVersion;
 
             ParseAssembly();
         }
@@ -24,13 +23,12 @@ namespace coreDox.Core.CodeModel
             var namespacesWithPublicTypesList = AssemblyDefinition.Types.Where(t => t.IsPublic).GroupBy(t => t.Namespace);
             foreach (var namespaceWithPublicTypes in namespacesWithPublicTypesList)
             {
-                DoxNamespaceSet.Add(new DoxNamespace(namespaceWithPublicTypes.Key, namespaceWithPublicTypes.ToList()));
+                NamespaceList.Add(new DoxNamespace(namespaceWithPublicTypes.Key, namespaceWithPublicTypes.ToList()));
             }
         }
 
         public string AssemblyPath { get; }
-        public string TargetFramework { get; }
         public ModuleDefinition AssemblyDefinition { get; }
-        public List<DoxNamespace> DoxNamespaceSet { get; } = new List<DoxNamespace>();
+        public List<DoxNamespace> NamespaceList { get; } = new List<DoxNamespace>();
     }
 }

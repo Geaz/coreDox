@@ -21,16 +21,16 @@ namespace coreDox.Core.CodeModel
 
         public void AmendModels()
         {
-            var namespaceModelList = this.SelectMany(a => a.DoxNamespaceSet);
-            var typeModelList = namespaceModelList.SelectMany(n => n.DoxTypeSet);
+            var namespaceModelList = this.SelectMany(a => a.NamespaceList);
+            var typeModelList = namespaceModelList.SelectMany(n => n.TypeList);
 
             var doxModelList = new List<DoxCodeModel>(this);
             doxModelList.AddRange(namespaceModelList);
             doxModelList.AddRange(typeModelList);
-            doxModelList.AddRange(typeModelList.SelectMany(t => t.DoxEventSet));
-            doxModelList.AddRange(typeModelList.SelectMany(t => t.DoxFieldSet));
-            doxModelList.AddRange(typeModelList.SelectMany(t => t.DoxMethodSet));
-            doxModelList.AddRange(typeModelList.SelectMany(t => t.DoxPropertySet));
+            doxModelList.AddRange(typeModelList.SelectMany(t => t.EventList));
+            doxModelList.AddRange(typeModelList.SelectMany(t => t.FieldList));
+            doxModelList.AddRange(typeModelList.SelectMany(t => t.MethodList));
+            doxModelList.AddRange(typeModelList.SelectMany(t => t.PropertyList));
 
             _logger.Info($"Amending {doxModelList.Count} models ...");
             foreach (var modelProvider in _pluginRegistry.GetAllModelProviders())
@@ -45,15 +45,15 @@ namespace coreDox.Core.CodeModel
 
         public DoxType GetParsedType(DoxTypeRef doxTypeRef)
         {
-            return GetParsedType(doxTypeRef.TypeFullname);
+            return GetParsedType(doxTypeRef.TypeId);
         }
 
-        public DoxType GetParsedType(string fullname)
+        public DoxType GetParsedType(string typeId)
         {
             return this
-                .SelectMany(a => a.DoxNamespaceSet)
-                .SelectMany(n => n.DoxTypeSet)
-                .SingleOrDefault(t => t.FullName == fullname);
+                .SelectMany(a => a.NamespaceList)
+                .SelectMany(n => n.TypeList)
+                .SingleOrDefault(t => t.Id == typeId);
         }
     }
 }
