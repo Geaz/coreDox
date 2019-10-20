@@ -1,6 +1,5 @@
 ﻿using coreDox.Core.CodeModel.Base;
 using coreDox.Core.Project.Pages;
-using Mono.Cecil;
 using NLog;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,17 +43,26 @@ namespace coreDox.Core.CodeModel
             }
         }
 
-        public DoxType GetParsedType(TypeReference typeReference)
+        public T GetById<T>(string id) where T : DoxCodeModel
         {
-            return GetParsedType(DoxCodeId.GetCodeId(typeReference));
-        }
-
-        public DoxType GetParsedType(string typeId)
-        {
-            return this
-                .SelectMany(a => a.NamespaceList)
-                .SelectMany(n => n.TypeList)
-                .SingleOrDefault(t => t.Id == typeId);
+            return id.Substring(0, 2) switch
+            {
+                "A:" => this.SingleOrDefault(a => a.Id == id) as T,
+                "N:" => this
+                    .SelectMany(a => a.NamespaceList)
+                    .SingleOrDefault(n => n.Id == id) as T,
+                "T:" => this
+                    .SelectMany(a => a.NamespaceList)
+                    .Select(n => n.GetTypeById(id))
+                    .Where(t => t != null)
+                    .SingleOrDefault() as T,
+                _ => this
+                    .SelectMany(a => a.NamespaceList)
+                    .SelectMany(n => n.TypeList)
+                    .Select(t => t.GetMemberById(id))
+                    .Where(m => m != null)
+                    .SingleOrDefault() as T
+            };
         }
     }
 }

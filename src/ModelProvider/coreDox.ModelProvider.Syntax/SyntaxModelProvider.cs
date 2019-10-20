@@ -11,24 +11,14 @@ namespace coreDox.ModelProvider.Syntax
         {
             var model = doxModel switch
             {
-                DoxType doxType => GetTypeSyntax(doxType),
-                DoxMethod doxMethod => GetMethodSyntax(doxMethod),
                 DoxEvent doxEvent => GetEventSyntax(doxEvent),
                 DoxField doxField => GetFieldSyntax(doxField),
                 DoxProperty doxProperty => GetPropertySyntax(doxProperty),
+                DoxMethod doxMethod => GetMethodSyntax(doxMethod),
+                DoxType doxType => GetTypeSyntax(doxType),
                 _ => null
             };
             return model;
-        }
-
-        private SyntaxModel GetTypeSyntax(DoxType doxType)
-        {
-            return new SyntaxModel { Syntax = "**test**" };
-        }
-
-        private SyntaxModel GetMethodSyntax(DoxMethod doxMethod)
-        {
-            return new SyntaxModel();
         }
 
         private SyntaxModel GetEventSyntax(DoxEvent doxEvent)
@@ -44,6 +34,16 @@ namespace coreDox.ModelProvider.Syntax
         private SyntaxModel GetPropertySyntax(DoxProperty doxProperty)
         {
             return new SyntaxModel();
+        }
+
+        private SyntaxModel GetMethodSyntax(DoxMethod doxMethod)
+        {
+            return new SyntaxModel();
+        }
+
+        private SyntaxModel GetTypeSyntax(DoxType doxType)
+        {
+            return new SyntaxModel { Syntax = "**test**" };
         }
     }
 }

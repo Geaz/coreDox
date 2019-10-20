@@ -2,10 +2,12 @@
 using coreDox.Core.CodeModel.Members;
 using Mono.Cecil;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace coreDox.Core.CodeModel
 {
+    [DebuggerDisplay("{Id}")]
     public sealed class DoxType : DoxCodeModel
     {
         public DoxType(TypeDefinition typeDefinition)
@@ -15,6 +17,18 @@ namespace coreDox.Core.CodeModel
             TypeDefinition = typeDefinition;
 
             ParseType();
+        }
+
+        public DoxCodeModel GetMemberById(string id)
+        {
+            return id.Substring(0, 2) switch
+            {
+                "E:" => EventList.SingleOrDefault(e => e.Id == id),
+                "F:" => FieldList.SingleOrDefault(e => e.Id == id),
+                "M:" => MethodList.SingleOrDefault(e => e.Id == id),
+                "P:" => PropertyList.SingleOrDefault(e => e.Id == id),
+                _ => null
+            };
         }
 
         private void ParseType()
@@ -32,11 +46,6 @@ namespace coreDox.Core.CodeModel
                 .Where(m => m.IsPublic && !m.IsSetter && !m.IsGetter && !m.IsAddOn && !m.IsRemoveOn)
                 .ToList()
                 .ForEach(m => MethodList.Add(new DoxMethod(m)));
-
-            TypeDefinition.NestedTypes
-                .Where(n => n.IsPublic)
-                .ToList()
-                .ForEach(t => NestedTypeList.Add(new DoxType(t)));
         }
 
         public TypeDefinition TypeDefinition { get; }
@@ -45,6 +54,5 @@ namespace coreDox.Core.CodeModel
         public List<DoxField> FieldList { get; } = new List<DoxField>();
         public List<DoxMethod> MethodList { get; } = new List<DoxMethod>();
         public List<DoxProperty> PropertyList { get; } = new List<DoxProperty>();
-        public List<DoxType> NestedTypeList { get; } = new List<DoxType>();
     }
 }

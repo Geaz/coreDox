@@ -1,7 +1,8 @@
-﻿using coreDox.Core.Project;
+﻿using coreDox.Core.CodeModel;
+using coreDox.Core.CodeModel.Members;
+using coreDox.Core.Project;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
-using System.Linq;
 
 namespace coreDox.Core.Tests.CodeModel
 {
@@ -28,7 +29,7 @@ namespace coreDox.Core.Tests.CodeModel
             //Arrange - Done during TestInitialize
 
             //Act
-            var doxType = _project.AssemblyList.GetParsedType("T:coreDox.TestProject.CodeIds");
+            var doxType = _project.AssemblyList.GetById<DoxType>("T:coreDox.TestProject.CodeIds");
 
             //Assert
             Assert.IsNotNull(doxType);
@@ -40,7 +41,7 @@ namespace coreDox.Core.Tests.CodeModel
             //Arrange - Done during TestInitialize
 
             //Act
-            var doxType = _project.AssemblyList.GetParsedType("T:coreDox.TestProject.CodeIds`2");
+            var doxType = _project.AssemblyList.GetById<DoxType>("T:coreDox.TestProject.CodeIds`2");
 
             //Assert
             Assert.IsNotNull(doxType);
@@ -49,64 +50,58 @@ namespace coreDox.Core.Tests.CodeModel
         [TestMethod]
         public void ShouldCreateFieldIdSuccessfully()
         {
-            //Arrange
-            var doxType = _project.AssemblyList.GetParsedType("T:coreDox.TestProject.CodeIds");
+            //Arrange - Done during TestInitialize
 
             //Act
-            var doxField = doxType.FieldList.First();
+            var doxField = _project.AssemblyList.GetById<DoxField>("F:coreDox.TestProject.CodeIds.q");
 
             //Assert
-            Assert.AreEqual("F:coreDox.TestProject.CodeIds.q", doxField.Id);
+            Assert.IsNotNull(doxField);
         }
 
         [TestMethod]
         public void ShouldCreateEventIdSuccessfully()
         {
-            //Arrange
-            var doxType = _project.AssemblyList.GetParsedType("T:coreDox.TestProject.CodeIds");
+            //Arrange - Done during TestInitialize
 
             //Act
-            var doxEvent = doxType.EventList.First();
+            var doxEvent = _project.AssemblyList.GetById<DoxEvent>("E:coreDox.TestProject.CodeIds.d");
 
             //Assert
-            Assert.AreEqual("E:coreDox.TestProject.CodeIds.d", doxEvent.Id);
+            Assert.IsNotNull(doxEvent);
         }
 
         [TestMethod]
         public void ShouldCreatePropertyIdSuccessfully()
         {
-            //Arrange
-            var doxType = _project.AssemblyList.GetParsedType("T:coreDox.TestProject.CodeIds");
+            //Arrange - Done during TestInitialize
 
             //Act
-            var doxProperty = doxType.PropertyList.First();
+            var doxProperty = _project.AssemblyList.GetById<DoxProperty>("P:coreDox.TestProject.CodeIds.prop");
 
             //Assert
-            Assert.AreEqual("P:coreDox.TestProject.CodeIds.prop", doxProperty.Id);
+            Assert.IsNotNull(doxProperty);
         }
 
         [TestMethod]
         public void ShouldCreatePropertyIdWithParametersSuccessfully()
         {
-            //Arrange
-            var doxType = _project.AssemblyList.GetParsedType("T:coreDox.TestProject.CodeIds");
+            //Arrange - Done during TestInitialize
 
             //Act
-            var doxProperty = doxType.PropertyList.Skip(1).First();
+            var doxProperty = _project.AssemblyList.GetById<DoxProperty>("P:coreDox.TestProject.CodeIds.Item(System.String)");
 
             //Assert
-            Assert.AreEqual("P:coreDox.TestProject.CodeIds.Item(System.String)", doxProperty.Id);
+            Assert.IsNotNull(doxProperty);
         }
 
         [TestMethod]
         public void ShouldCreateConstructorIdSuccessfully()
         {
-            //Arrange
-            var doxType = _project.AssemblyList.GetParsedType("T:coreDox.TestProject.CodeIds");
+            //Arrange - Done during TestInitialize
 
             //Act
-            var doxmethod = doxType.MethodList
-                .SingleOrDefault(m => m.Id == "M:coreDox.TestProject.CodeIds.#ctor");
+            var doxmethod = _project.AssemblyList.GetById<DoxMethod>("M:coreDox.TestProject.CodeIds.#ctor");
 
             //Assert
             Assert.IsNotNull(doxmethod);
@@ -115,12 +110,10 @@ namespace coreDox.Core.Tests.CodeModel
         [TestMethod]
         public void ShouldCreateMethodIdWithRefAndPointerSuccessfully()
         {
-            //Arrange
-            var doxType = _project.AssemblyList.GetParsedType("T:coreDox.TestProject.CodeIds");
+            //Arrange - Done during TestInitialize
 
             //Act
-            var doxmethod = doxType.MethodList
-                .SingleOrDefault(m => m.Id == "M:coreDox.TestProject.CodeIds.bb(System.String,System.Int32@,System.Void*)");
+            var doxmethod = _project.AssemblyList.GetById<DoxMethod>("M:coreDox.TestProject.CodeIds.bb(System.String,System.Int32@,System.Void*)");
 
             //Assert
             Assert.IsNotNull(doxmethod);
@@ -129,12 +122,10 @@ namespace coreDox.Core.Tests.CodeModel
         [TestMethod]
         public void ShouldCreateMethodIdArraysSuccessfully()
         {
-            //Arrange
-            var doxType = _project.AssemblyList.GetParsedType("T:coreDox.TestProject.CodeIds");
+            //Arrange - Done during TestInitialize
 
             //Act
-            var doxmethod = doxType.MethodList
-                .SingleOrDefault(m => m.Id == "M:coreDox.TestProject.CodeIds.gg(System.Int16[],System.Int32[0:,0:])");
+            var doxmethod = _project.AssemblyList.GetById<DoxMethod>("M:coreDox.TestProject.CodeIds.gg(System.Int16[],System.Int32[0:,0:])");
 
             //Assert
             Assert.IsNotNull(doxmethod);

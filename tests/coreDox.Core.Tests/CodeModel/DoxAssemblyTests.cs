@@ -1,4 +1,5 @@
-﻿using coreDox.Core.Project;
+﻿using coreDox.Core.CodeModel;
+using coreDox.Core.Project;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace coreDox.Core.Tests.CodeModel
             project.AssemblyList.AmendModels();
 
             //Act
-            var doxType = project.AssemblyList.GetParsedType("T:coreDox.TestProject.SeeAlsoDocType`1");
+            var doxType = project.AssemblyList.GetById<DoxType>("T:coreDox.TestProject.SeeAlsoDocType`1");
 
             //Assert
             Assert.IsNotNull(doxType);
