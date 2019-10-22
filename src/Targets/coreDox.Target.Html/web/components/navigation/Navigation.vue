@@ -1,6 +1,6 @@
 <template>
     <div id="navigation">
-        <navigation-item :nav-item-data="navData" :depth="depth"></navigation-item>       
+        <navigation-item :nav-item-data="navData" :is-root="true"></navigation-item>       
     </div>
 </template>
 
@@ -13,7 +13,6 @@
         },
         data() {
             return {
-                depth: 0,
                 navData: { }
             }
         },
@@ -27,7 +26,7 @@
 <style scoped>
     #navigation {
         margin-left:40px;
-        margin-top: 70px;
+        margin-top: 50px;
         width: 100%;
     }
 </style>

@@ -10,7 +10,13 @@
         {
             "title": "API",
             "icon": "folder-close",
-            "children": []
+            "children": [
+                {
+                    "title": "coreDox.Model",
+                    "icon": "folder-close",
+                    "children": []
+                }
+            ]
         }
     ]    
 }

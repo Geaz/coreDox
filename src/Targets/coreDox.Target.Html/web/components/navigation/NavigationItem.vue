@@ -1,10 +1,10 @@
 <template>
-    <div :style="{ marginLeft: (depth * 20) + 'px' }">
-        <a href="#" class="nav-item">
+    <div :style="{ marginLeft: !isRoot ? '20px' : '0' }">
+        <a href="#" class="nav-item" @click="toogleChildren">
             <i class="nav-icon" :class="[ iconClass ]" aria-hidden="true"></i>{{ navItemData.title }}
         </a>
-        <template v-for="navItem in navItemData.children">            
-            <navigation-item :nav-item-data="navItem" :depth="childrenDepth"></navigation-item>   
+        <template v-if="isRoot || showChildren" v-for="navItem in navItemData.children">            
+            <navigation-item :nav-item-data="navItem" :is-root="false"></navigation-item>   
         </template>
     </div>
 </template>
@@ -12,13 +12,20 @@
 <script>
     export default {
         name: 'navigation-item',
-        props: { navItemData: Object, depth: Number },
+        props: { navItemData: Object, isRoot: Boolean },
+        data() {
+            return {
+                showChildren: false
+            }
+        },
         computed: {
-            childrenDepth() {
-                return this.depth + 1;
-            },
             iconClass() {
                 return 'icon-' + this.navItemData.icon;
+            }
+        },
+        methods: {
+            toogleChildren() {
+                this.showChildren = !this.showChildren;
             }
         }
     }
