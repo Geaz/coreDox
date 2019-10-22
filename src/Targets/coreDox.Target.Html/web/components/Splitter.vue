@@ -39,8 +39,7 @@
         position: fixed;
         cursor: e-resize;
         
-        border-left: 4px solid #F5F4F0;
-        border-right: 4px solid rgb(250, 250, 250);
+        border-right: 8px solid rgb(250, 250, 250);
         background: #3F72DB;
     }
 

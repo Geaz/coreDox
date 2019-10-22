@@ -2,12 +2,18 @@
     <div id="sidebar" :style="{ width: sidebarWidth + 'px' }">
         <div class="content">
             <img src="../assets/logo.svg" id="logo" title="coreDox Logo" />
+            <navigation></navigation>
         </div>
     </div>
 </template>
 
 <script>
+    import Navigation from './navigation/Navigation.vue';
+
     export default {
+        components: {
+            'navigation': Navigation
+        },
         computed: {
             sidebarWidth() { return this.$store.state.sidebarWidth }
         }
@@ -33,7 +39,6 @@
     }
 
     .content {
-        padding: 25px;
-        padding-top: 40px;
+        padding: 50px 0;
     }
 </style>
