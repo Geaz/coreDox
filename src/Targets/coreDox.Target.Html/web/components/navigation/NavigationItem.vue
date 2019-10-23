@@ -1,10 +1,22 @@
 <template>
     <div :style="{ marginLeft: !isRoot ? '20px' : '0' }">
-        <a href="#" class="nav-item" @click="toogleChildren">
+        <a class="nav-item" 
+            v-if="this.navItemData.href" 
+            :href="'#' + this.navItemData.href" 
+            @click="showChildren = !showChildren">
             <i class="nav-icon" :class="[ iconClass ]" aria-hidden="true"></i>{{ navItemData.title }}
         </a>
-        <template v-if="isRoot || showChildren" v-for="navItem in navItemData.children">            
-            <navigation-item :nav-item-data="navItem" :is-root="false"></navigation-item>   
+        <div class="nav-item" 
+            v-else
+            @click="showChildren = !showChildren">
+            <i class="nav-icon" :class="[ iconClass ]" aria-hidden="true"></i>{{ navItemData.title }}
+        </div>
+        <template v-if="isRoot || showChildren">            
+            <navigation-item 
+                v-for="navItem in navItemData.children"
+                :key="navItem.title"
+                :nav-item-data="navItem" 
+                :is-root="false"></navigation-item>   
         </template>
     </div>
 </template>
@@ -22,11 +34,6 @@
             iconClass() {
                 return 'icon-' + this.navItemData.icon;
             }
-        },
-        methods: {
-            toogleChildren() {
-                this.showChildren = !this.showChildren;
-            }
         }
     }
 </script>
@@ -36,6 +43,7 @@
         width: 100%;
         color: black;
         display: block;
+        cursor: pointer;
     }
 
     .nav-item:hover {

@@ -32,4 +32,8 @@
         text-align: center;
         margin-bottom: 75px;
     }
+
+    #content {
+        text-align: justify;
+    }
 </style>

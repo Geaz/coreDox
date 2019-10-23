@@ -1,10 +1,12 @@
 {
     "title": "Introduction",
     "icon": "home",
+    "href": "/",
     "children": [
         {
             "title": "Test",
             "icon": "file-text",
+            "href": "/article/test",
             "children": []
         },
         {
